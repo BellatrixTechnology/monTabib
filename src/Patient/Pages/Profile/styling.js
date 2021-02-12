@@ -1,4 +1,4 @@
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { hp, wp } from '../../../Global/Styles/Scalling';
 import { StyleSheet } from 'react-native';
 import { fontSize } from '../../../Constant/Constant';
 

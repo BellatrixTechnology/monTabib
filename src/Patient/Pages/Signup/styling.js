@@ -1,6 +1,5 @@
-
 import { fontSize } from '../../../Constant/Constant';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { hp, wp } from '../../../Global/Styles/Scalling';
 import { StyleSheet } from 'react-native';
 const styling = StyleSheet.create({
     safeContainer: {

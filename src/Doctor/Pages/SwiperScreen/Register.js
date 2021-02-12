@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TouchableWithoutFeedback, Keyboard, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { View, StatusBar, TouchableWithoutFeedback, Keyboard, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { Input } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GlobalStyle } from '../StyleSheet/GlobalStyle';
+
+import { styling } from './styling';
 
 const Register = () => {
     const [Name, setName] = useState('');
@@ -33,14 +34,14 @@ const Register = () => {
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styling.safeContainer}>
+
             <TouchableWithoutFeedback
                 onPress={() => {
                     Keyboard.dismiss();
                 }}  >
-
-                <View style={GlobalStyle.containerView}>
-                    <View style={GlobalStyle.nameFieldView}>
+                <View style={styling.containerView}>
+                    <View style={styling.nameFieldView}>
                         <Input
                             label='Name'
                             placeholder='Name'
@@ -60,17 +61,17 @@ const Register = () => {
                         />
                     </View>
 
-                    <View style={GlobalStyle.headerView}>
+                    <View style={styling.headerView}>
                         <DropDownPicker
                             items={[
                                 { label: 'Male', value: 'Male' },
                                 { label: 'Female', value: 'Female' },]}
                             defaultValue={Gender}
                             placeholder='Select Gender'
-                            labelStyle={GlobalStyle.dropdownLabel}
-                            style={GlobalStyle.dropDown}
-                            containerStyle={GlobalStyle.containerStyle}
-                            dropDownStyle={GlobalStyle.dropdownStyle}
+                            labelStyle={styling.dropdownLabel}
+                            style={styling.dropDown}
+                            containerStyle={styling.containerStyle}
+                            dropDownStyle={styling.dropdownStyle}
                             showArrow={true}
                             onChangeItem={(gender) => {
                                 setGender(gender.value)
@@ -81,7 +82,7 @@ const Register = () => {
                     <KeyboardAvoidingView
                         behavior='height'
                     >
-                        <View style={GlobalStyle.innerFieldView}>
+                        <View style={styling.innerFieldView}>
                             <Input
                                 label='Address'
                                 placeholder='Address'
@@ -128,6 +129,8 @@ const Register = () => {
                         </View>
                     </KeyboardAvoidingView>
                     {Name != '' && Surname != '' && Email != '' && Gender != '' && Address != '' && UI != '' && Special != '' && Telephone != '' ? SaveData() : console.log('empty')}
+
+
 
                 </View>
 

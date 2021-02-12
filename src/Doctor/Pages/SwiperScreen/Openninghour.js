@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, } from 'react-native';
+import { View, StatusBar, SafeAreaView, } from 'react-native';
 import { Text } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
-import { GlobalStyle } from '../StyleSheet/GlobalStyle';
+import { styling } from './styling';
 
 const OpenningHour = () => {
     const Timepick = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'];
@@ -116,16 +116,16 @@ const OpenningHour = () => {
     }
 
     return (
-        <SafeAreaView>
-            <View style={GlobalStyle.containerView}>
-                <View style={GlobalStyle.headerView}>
-                    <Text style={GlobalStyle.headerText}>Openning Hour</Text>
+        <SafeAreaView style={styling.safeContainer}>
+            <View style={styling.containerView}>
+                <View style={styling.headerView}>
+                    <Text style={styling.headerText}>Openning Hour</Text>
                 </View>
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Monday </Text>
+                    <Text style={styling.daytagLabel}>Monday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -186,11 +186,11 @@ const OpenningHour = () => {
 
                 </View>
 
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Tuesday </Text>
+                    <Text style={styling.daytagLabel}>Tuesday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -250,11 +250,11 @@ const OpenningHour = () => {
                 </View>
 
 
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Wednesday </Text>
+                    <Text style={styling.daytagLabel}>Wednesday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -311,11 +311,11 @@ const OpenningHour = () => {
                     </View> : console.log('wait')}
                 </View>
 
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Thursday </Text>
+                    <Text style={styling.daytagLabel}>Thursday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -375,11 +375,11 @@ const OpenningHour = () => {
                     </View> : console.log('wait')}
                 </View>
 
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Friday </Text>
+                    <Text style={styling.daytagLabel}>Friday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -437,11 +437,11 @@ const OpenningHour = () => {
                     </View> : console.log('wait')}
                 </View>
 
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Saturday </Text>
+                    <Text style={styling.daytagLabel}>Saturday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -496,11 +496,11 @@ const OpenningHour = () => {
                         <Text>Afternoon: {startAfternoonSaturday} - {endAfternoonSaturday}</Text>
                     </View> : console.log('wait')}
                 </View>
-                <View style={GlobalStyle.dayView}>
+                <View style={styling.dayView}>
 
-                    <Text style={GlobalStyle.daytagLabel}>Sunday </Text>
+                    <Text style={styling.daytagLabel}>Sunday </Text>
 
-                    <View style={GlobalStyle.daypickerView}>
+                    <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>

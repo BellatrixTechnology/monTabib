@@ -1,4 +1,4 @@
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { hp, wp } from '../../../Global/Styles/Scalling';
 import { StyleSheet } from 'react-native';
 import { fontSize } from '../../../Constant/Constant';
 
@@ -43,30 +43,32 @@ export const styling = StyleSheet.create({
     },
     innerView: {
         marginTop: 50,
-        // width: wp('80%'),
+        width: wp('80%'),
         height: hp('40%'),
         alignItems: 'center',
+        alignSelf: 'center'
         // justifyContent: 'center',
     },
     signupView: {
+        height: hp('20%'),
         width: wp('90%'),
-        height: hp('16%'),
-        justifyContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     signupOpacity: {
-        width: wp('85%'),
-        height: hp('8%'),
-        borderRadius: 8,
+
         backgroundColor: '#007bff',
+        height: hp('6%'),
+        width: wp('80%'),
         alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: 10
     },
 
     signupText: {
+        fontFamily: 'SFUIText-Bold',
         fontSize: fontSize.button,
-        color: 'white',
-        fontFamily: 'SFUIText-Bold'
+        color: 'white'
 
     },
 

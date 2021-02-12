@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput } from 'react-native';
 import { Text } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GlobalStyle } from '../StyleSheet/GlobalStyle';
-
+import { styling } from './styling';
 
 const Services = () => {
     const [Consult, setConsult] = useState('');
@@ -21,30 +20,31 @@ const Services = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styling.safeContainer}>
+
             <TouchableWithoutFeedback
                 onPress={() => {
                     Keyboard.dismiss();
                 }}  >
-                <View style={GlobalStyle.containerView}>
-                    <View style={GlobalStyle.innerContainerView}>
-                        <Text style={GlobalStyle.headerText}>Consultation In</Text>
+                <View style={styling.containerView}>
+                    <View style={styling.innerContainerView}>
+                        <Text style={styling.serviceText}>Consultation In</Text>
                         <TextInput
                             multiline={true}
                             numberOfLines={10}
                             placeholder=' Consultation'
                             value={Consult}
                             onChangeText={(text) => { setConsult(text) }}
-                            style={GlobalStyle.servicetextinput}
+                            style={styling.servicetextinput}
                         />
-                        <Text style={GlobalStyle.headerText}>Services</Text>
+                        <Text style={styling.serviceText}>Services</Text>
                         <TextInput
                             multiline={true}
                             numberOfLines={10}
                             placeholder='  Services'
                             value={Service}
                             onChangeText={(text) => { setService(text) }}
-                            style={GlobalStyle.servicetextinput}
+                            style={styling.servicetextinput}
                         />
                         {Consult != '' && Service != '' ? SaveData() : console.log('empty')}
                     </View>

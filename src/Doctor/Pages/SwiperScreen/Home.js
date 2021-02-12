@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, ToastAndroid, ScrollView } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { StatusBar, View, TouchableOpacity, Text, ToastAndroid, ScrollView, SafeAreaView } from 'react-native';
 import Swiper from 'react-native-swiper';
-import OpenningHour from '../Components/Openninghour';
-import Register from '../Components/Register';
-import Services from '../Components/Services';
-import Subscription from '../Components/Subscription';
+import OpenningHour from './Openninghour';
+import Register from './Register';
+import Services from './Services';
+import Subscription from './Subscription';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import firebase from '../../db/config';
-import { GlobalStyle } from '../StyleSheet/GlobalStyle';
+import firebase from '../../../db/config';
 
+import { styling } from './styling';
 
 
 const Home = (props) => {
@@ -150,68 +149,74 @@ const Home = (props) => {
     }
 
     return (
-        <View style={GlobalStyle.backgroudView}>
-            <Swiper showsButtons={false} showsPagination={false} loop={false} index={id}>
-                <ScrollView style={{ height: 10 }}>
-                    <View style={GlobalStyle.slide1}>
-                        <Register />
-                        <View style={GlobalStyle.nextButtonView}>
-                            <TouchableOpacity style={GlobalStyle.nextButton}
-                                onPress={() => {
-                                    swipe(1)
-                                    registerdata()
-                                }}
-                            >
-                                <Text style={GlobalStyle.nextbuttonText}>Next</Text>
-                            </TouchableOpacity >
+        <SafeAreaView style={styling.safeContainer}>
+            <StatusBar barStyle="dark-content" hidden={false} backgroundColor="white" translucent={false} />
+
+            <ScrollView>
+                <View style={styling.mainContainer}>
+                    <Swiper showsButtons={false} showsPagination={false} loop={false} index={id}>
+
+                        <View style={styling.slide1}>
+                            <Register />
+                            <View style={styling.nextButtonView}>
+                                <TouchableOpacity style={styling.nextButton}
+                                    onPress={() => {
+                                        swipe(1)
+                                        registerdata()
+                                    }}
+                                >
+                                    <Text style={styling.nextbuttonText}>Next</Text>
+                                </TouchableOpacity >
+                            </View>
                         </View>
-                    </View>
-                </ScrollView>
-                <View style={GlobalStyle.slide1}>
-                    <OpenningHour />
 
-                    <View style={GlobalStyle.nextButtonView}>
-                        <TouchableOpacity style={GlobalStyle.nextButton}
-                            onPress={() => {
-                                swipe(2)
-                                openning()
-                            }}
-                        >
-                            <Text style={GlobalStyle.nextbuttonText}>Next</Text>
-                        </TouchableOpacity >
-                    </View>
-                </View>
-                <View style={GlobalStyle.slide1}>
-                    <Services />
-                    <View style={GlobalStyle.nextButtonView}>
-                        <TouchableOpacity style={GlobalStyle.nextButton}
-                            onPress={() => {
-                                swipe(3)
-                                Service()
-                            }}
-                        >
-                            <Text style={GlobalStyle.nextbuttonText}>Next</Text>
-                        </TouchableOpacity >
-                    </View>
-                </View>
-                <View style={GlobalStyle.slide1}>
-                    <Subscription />
-                    <View style={GlobalStyle.nextButtonView}>
-                        <TouchableOpacity style={GlobalStyle.nextButton} onPress={() => {
-                            upload()
-                            props.navigation.navigate('Tab')
+                        <View style={styling.slide1}>
+                            <OpenningHour />
 
-                        }} >
-                            <Text style={GlobalStyle.nextbuttonText}>Done</Text>
-                        </TouchableOpacity >
-                    </View>
+                            <View style={styling.nextButtonView}>
+                                <TouchableOpacity style={styling.nextButton}
+                                    onPress={() => {
+                                        swipe(2)
+                                        openning()
+                                    }}
+                                >
+                                    <Text style={styling.nextbuttonText}>Next</Text>
+                                </TouchableOpacity >
+                            </View>
+                        </View>
+                        <View style={styling.slide1}>
+                            <Services />
+                            <View style={styling.nextButtonView}>
+                                <TouchableOpacity style={styling.nextButton}
+                                    onPress={() => {
+                                        swipe(3)
+                                        Service()
+                                    }}
+                                >
+                                    <Text style={styling.nextbuttonText}>Next</Text>
+                                </TouchableOpacity >
+                            </View>
+                        </View>
+                        <View style={styling.slide1}>
+                            <Subscription />
+                            <View style={styling.nextButtonView}>
+                                <TouchableOpacity style={styling.nextButton} onPress={() => {
+                                    upload()
+                                    props.navigation.navigate('Tab')
 
-
-                </View>
-            </Swiper>
+                                }} >
+                                    <Text style={styling.nextbuttonText}>Done</Text>
+                                </TouchableOpacity >
+                            </View>
 
 
-        </View >
+                        </View>
+                    </Swiper>
+
+
+                </View >
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
