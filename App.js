@@ -18,12 +18,21 @@ import EProfile from './src/Patient/Pages/EditProfile/EditProfile';
 import SignUp from './src/Patient/Pages/Signup/Signup';
 import ListConsultation from './src/Patient/Pages/ListConsultation/ListConsultation';
 import LoginIn from './src/Patient/Pages/LoginIn/LoginIn';
+import Main from './src/MainScreen/Main';
+import PTabs from './src/Patient/Pages/PTabs';
 
 
 const { Navigator, Screen } = createStackNavigator();
 
 const AuthStack = () => (
+
   <Navigator headerMode='none'>
+    <Screen name='Main' component={Main} />
+    <Screen name="Home" component={Home} />
+
+    <Screen name="Tab" component={Tabs} />
+    <Screen name='PTabs' component={PTabs} />
+
     <Screen name='Signup' component={SignUp} />
 
     <Screen name='LoginIn' component={LoginIn} />
@@ -54,9 +63,7 @@ const AuthStack = () => (
 
     <Screen name="ProfileScreen" component={ProfileScreen} />
 
-    <Screen name="Home" component={Home} />
 
-    <Screen name="Tab" component={Tabs} />
 
 
   </Navigator>

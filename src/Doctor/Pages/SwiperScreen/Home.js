@@ -201,7 +201,7 @@ const Home = (props) => {
                             <Subscription />
                             <View style={styling.nextButtonView}>
                                 <TouchableOpacity style={styling.nextButton} onPress={() => {
-                                    upload()
+                                    // upload()
                                     props.navigation.navigate('Tab')
 
                                 }} >

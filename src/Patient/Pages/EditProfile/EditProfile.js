@@ -5,12 +5,14 @@ import { styling } from './styling';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const EditProfile = (props) => {
+const EditProfile = ({ props }) => {
 
     return (
         <SafeAreaView style={styling.safeContainer}>
             <View style={styling.heading}>
-                <Icon name='left' size={28} />
+                <Icon.Button name='left' size={28} backgroundColor={'white'} color='black' onPress={() => {
+                    // props.navigation.push('Profile')
+                }}></Icon.Button>
                 <View style={styling.headingTXTView}>
                     <Text style={styling.headingTXT}>Edit Profile</Text>
                 </View>

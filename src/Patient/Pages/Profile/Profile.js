@@ -6,7 +6,7 @@ import { styling } from './styling';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const Profile = (props) => {
+const Profile = ({ props }) => {
 
     return (
         <SafeAreaView style={styling.safeContainer}>
@@ -25,7 +25,7 @@ const Profile = (props) => {
                         titleStyle={{ color: 'black' }}
                     />
 
-                    <TouchableOpacity style={styling.editOpacity}>
+                    <TouchableOpacity style={styling.editOpacity} onPress={() => { props.navigation.navigate('EProfile') }}>
                         <Text style={styling.editTXT}>Edit profile</Text>
                     </TouchableOpacity>
 

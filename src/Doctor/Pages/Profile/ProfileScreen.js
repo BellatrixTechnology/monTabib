@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { styling } from './styling';
-const ProfileScreen = (props) => {
+
+const ProfileScreen = ({ props }) => {
 
     return (
         <SafeAreaView style={styling.safeContainer}>

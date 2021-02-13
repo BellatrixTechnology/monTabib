@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { styling } from './styling';
 
 const EditProfile = (props) => {
-    // const myIcon = (<Icon name="rocket" size={30} color="#900" />)
 
     return (
         <SafeAreaView style={styling.safeContainer}>

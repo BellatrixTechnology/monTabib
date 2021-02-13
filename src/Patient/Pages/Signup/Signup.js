@@ -65,7 +65,7 @@ const SignUp = (props) => {
                         <TouchableOpacity style={styling.OpacityLog}>
                             <Text style={styling.Opacitytxt}>Sign Up</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styling.Opacitycreate}>
+                        <TouchableOpacity style={styling.Opacitycreate} onPress={() => { props.navigation.navigate('LoginIn') }}>
                             <Text style={styling.labeltag}>Already Have Account? </Text>
                             <Text style={styling.forgetlabel}>LOG IN</Text>
                         </TouchableOpacity>

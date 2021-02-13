@@ -44,12 +44,12 @@ const LoginIn = (props) => {
                     <Text style={styling.forgetlabel}>Foregt Password?</Text>
                 </View>
                 <View style={styling.OpacityView}>
-                    <TouchableOpacity style={styling.OpacityLog}>
+                    <TouchableOpacity style={styling.OpacityLog} onPress={() => { props.navigation.navigate('PTabs') }}>
                         <Text style={styling.Opacitytxt}>LOGIN</Text>
                     </TouchableOpacity>
                     <View style={styling.createv}>
                         <Text style={styling.labeltag}>Don't have account? </Text>
-                        <TouchableOpacity style={styling.Opacitycreate} onPress={() => props.navigation.navigate('SIgnUp')}>
+                        <TouchableOpacity style={styling.Opacitycreate} onPress={() => { props.navigation.navigate('Signup') }}>
 
                             <Text style={styling.forgetlabel}>Sign Up</Text>
                         </TouchableOpacity>
