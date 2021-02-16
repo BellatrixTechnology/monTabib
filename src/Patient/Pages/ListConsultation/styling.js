@@ -58,5 +58,35 @@ export const styling = StyleSheet.create({
         fontSize: fontSize.label,
         fontFamily: 'SFUIText-bold',
         fontWeight: '700'
+    },
+    dataView: {
+        paddingTop: 20,
+        height: hp('10%'),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 0.5
+    },
+    dataTXT: {
+        fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Regular',
+        // fontWeight: '700'
+    },
+    ActionView: {
+        width: wp(20),
+        alignItems: 'center',
+    },
+    actionOp: {
+        width: wp(20),
+        height: hp(4),
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'blue',
+        borderRadius: 20
+    },
+    txtOp: {
+        fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Regular',
+        color: 'white'
     }
 })

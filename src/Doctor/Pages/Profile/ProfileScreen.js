@@ -34,13 +34,10 @@ const ProfileScreen = ({ props }) => {
                         containerStyle={styling.avatarStyles}
                         titleStyle={{ color: 'black' }}
                     />
-                    <View style={styling.labelView}>
-                        <Text>Name</Text>
-                        <Text>Email</Text>
-                    </View>
+
 
                 </View>
-                <View style={styling.openView}>
+                {/* <View style={styling.openView}>
                     <Text style={styling.tagTXT} >Opening Hour</Text>
                     <Text style={styling.tagTXT} >Monday:            10:00  -  21:00</Text>
                     <Text style={styling.tagTXT} >Tuesday:           10:00  -  21:00</Text>
@@ -50,8 +47,20 @@ const ProfileScreen = ({ props }) => {
                     <Text style={styling.tagTXT} >Saturday:         10:00  -  21:00</Text>
                     <Text style={styling.tagTXT} >Sunday:           10:00  -  21:00</Text>
 
-                </View>
+                </View> */}
                 <View style={styling.fieldView}>
+                    <View style={styling.buttonView}>
+                        <Text style={styling.buttonTXT}>Opening Hour</Text>
+                        <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
+
+                        </Icon.Button>
+                    </View>
+                    <View style={styling.buttonView}>
+                        <Text style={styling.buttonTXT}>Curriculum</Text>
+                        <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
+
+                        </Icon.Button>
+                    </View>
                     <View style={styling.buttonView}>
                         <Text style={styling.buttonTXT}>Services</Text>
                         <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
@@ -59,7 +68,7 @@ const ProfileScreen = ({ props }) => {
                         </Icon.Button>
                     </View>
                     <View style={styling.buttonView}>
-                        <Text style={styling.buttonTXT}>Courses</Text>
+                        <Text style={styling.buttonTXT}>Subscription</Text>
                         <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
 
                         </Icon.Button>

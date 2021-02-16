@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 const Tabs = (props) => {
 
     const Consult = () => {
-        return <Consultation />
+        return <Consultation props={props} />
     }
     const Home = () => {
         return <Agenda />

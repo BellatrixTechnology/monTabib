@@ -40,7 +40,7 @@ export const styling = StyleSheet.create({
     absenceOpacity: {
         backgroundColor: '#dc3545',
         flexDirection: 'row',
-        width: wp('42%'),
+        width: wp('20'),
         height: hp('7%'),
         alignItems: 'center',
         justifyContent: 'center',
@@ -49,13 +49,44 @@ export const styling = StyleSheet.create({
     },
     labelView: {
         paddingTop: 20,
-        height: hp('40%'),
+        height: hp('8'),
         flexDirection: 'row',
         justifyContent: 'space-between',
+        borderBottomWidth: 0.5
     },
     labelTXT: {
         fontSize: fontSize.label,
         fontFamily: 'SFUIText-bold',
         fontWeight: '700'
+    },
+    dataView: {
+        paddingTop: 20,
+        height: hp('10%'),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 0.5
+    },
+    dataTXT: {
+        fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Regular',
+        // fontWeight: '700'
+    },
+    ActionView: {
+        width: wp(20),
+        alignItems: 'center',
+    },
+    actionOp: {
+        width: wp(10),
+        height: hp(6),
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'blue',
+        borderRadius: 2000
+    },
+    txtOp: {
+        fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Regular',
+        color: 'white'
     }
 })

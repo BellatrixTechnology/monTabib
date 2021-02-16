@@ -22,25 +22,41 @@ const SignUp = (props) => {
                 <View style={styling.mainContainer}>
                     <View style={styling.labelView}>
                         <Text style={styling.welcomeText}>Sign Up</Text>
-                        <Text style={styling.signText}>Create a New Account</Text>
                     </View>
                     <View style={styling.innerView}>
                         <View style={namefocus ? styling.fieldfocus : styling.fieldnotfocus}>
                             <Icons name='user' size={18} style={namefocus ? { color: '#3f4079' } : { color: 'grey' }} />
 
                             <TextInput
-                                placeholder='Name'
+                                placeholder='First Name'
                                 onFocus={() => setnamefocus(true)}
                             />
                         </View>
-                        <View style={emailfocus ? styling.fieldfocus : styling.fieldnotfocus}>
-                            <Icon name='email-outline' size={18} style={emailfocus ? { color: '#3f4079' } : { color: 'grey' }} />
+                        <View style={namefocus ? styling.fieldfocus : styling.fieldnotfocus}>
+                            <Icons name='user' size={18} style={namefocus ? { color: '#3f4079' } : { color: 'grey' }} />
 
                             <TextInput
-                                placeholder='Email'
-                                onFocus={() => setemailfocus(true)}
+                                placeholder='Last Name'
+                                onFocus={() => setnamefocus(true)}
                             />
                         </View>
+                        <View style={namefocus ? styling.fieldfocus : styling.fieldnotfocus}>
+                            <Icon name='gender-male-female' size={18} style={namefocus ? { color: '#3f4079' } : { color: 'grey' }} />
+
+                            <TextInput
+                                placeholder='Gender'
+                                onFocus={() => setnamefocus(true)}
+                            />
+                        </View>
+                        <View style={namefocus ? styling.fieldfocus : styling.fieldnotfocus}>
+                            <Icon name='calendar' size={18} style={namefocus ? { color: '#3f4079' } : { color: 'grey' }} />
+
+                            <TextInput
+                                placeholder='DOB'
+                                onFocus={() => setnamefocus(true)}
+                            />
+                        </View>
+
                         <View style={phonefocus ? styling.fieldfocus : styling.fieldnotfocus}>
                             <Icon name='cellphone' size={18} style={phonefocus ? { color: '#3f4079' } : { color: 'grey' }} />
 
@@ -56,6 +72,14 @@ const SignUp = (props) => {
 
                             <TextInput
                                 placeholder='Password'
+                                onFocus={() => setpassfocus(true)}
+                            />
+                        </View>
+                        <View style={passfocus ? styling.fieldfocus : styling.fieldnotfocus}>
+                            <Icon name='lock-outline' size={18} style={passfocus ? { color: '#3f4079' } : { color: 'grey' }} />
+
+                            <TextInput
+                                placeholder='Confirm Password'
                                 onFocus={() => setpassfocus(true)}
                             />
                         </View>

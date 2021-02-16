@@ -22,7 +22,19 @@ const ListConsultation = () => {
                     <Text style={styling.labelTXT}>Doctor Name</Text>
                     <Text style={styling.labelTXT}>Date</Text>
                     <Text style={styling.labelTXT}>Telephone</Text>
-                    <Text style={styling.labelTXT}>Service</Text>
+                    <View style={styling.ActionView}>
+                        <Text style={styling.labelTXT}>Action</Text>
+                    </View>
+
+
+                </View>
+                <View style={styling.dataView}>
+                    <Text style={styling.dataTXT}>Roger</Text>
+                    <Text style={styling.dataTXT}>20-2-2022</Text>
+                    <Text style={styling.dataTXT}>090078601</Text>
+                    <TouchableOpacity style={styling.actionOp}>
+                        <Text style={styling.txtOp}>Remove</Text>
+                    </TouchableOpacity>
                 </View>
 
 

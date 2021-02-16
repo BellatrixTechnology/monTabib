@@ -43,11 +43,11 @@ const AuthStack = () => (
 
     <Screen name='Profile' component={Profile} />
 
-    <Screen name="Prescribe" component={Prescribe} />
 
     <Screen name='Agenda' component={Agenda} />
 
     <Screen name="Consultation" component={Consultation} />
+    <Screen name="Prescribe" component={Prescribe} />
 
     <Screen name='Absences' component={Absences} />
 

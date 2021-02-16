@@ -6,7 +6,7 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 import { styling } from './styling';
 import Dialog from "react-native-dialog";
 
-const Consultation = (props) => {
+const Consultation = ({ props }) => {
     const [show, setshow] = useState(false);
     const [data, setData] = useState(false);
     const [name, setName] = useState('');
@@ -27,20 +27,18 @@ const Consultation = (props) => {
                     }}
                 >
                     <Icons name='plus' size={20} color='white' />
-                    <Text style={styling.consultTXT}> Add Consultation</Text>
                 </TouchableOpacity>
                 {data != false ? <View style={styling.patientView}>
                     <Text style={styling.patientTXT}>Patient Detail</Text>
                     <View style={styling.detailView}>
                         <Text style={styling.headTXT}>Patient Name:</Text>
-                        <Text style={styling.labelTXT}>{name}</Text>
-                    </View>
-                    <View style={styling.detailView}>
-                        <Text style={styling.headTXT}>Phone #:</Text>
-                        <Text style={styling.labelTXT}>{phone}</Text>
-                    </View>
-                    <View style={styling.detailView}>
                         <Text style={styling.headTXT}>Date of Consultation:</Text>
+
+                    </View>
+
+                    <View style={styling.detailView}>
+                        <Text style={styling.labelTXT}>{name}</Text>
+
                         <Text style={styling.labelTXT}>{date}</Text>
                     </View>
                     <View style={styling.opacityButton} >

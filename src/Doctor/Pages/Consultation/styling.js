@@ -26,7 +26,7 @@ export const styling = StyleSheet.create({
     consultationOpacity: {
         backgroundColor: 'red',
         flexDirection: 'row',
-        width: wp('50%'),
+        width: wp('15%'),
         height: hp('7%'),
         alignItems: 'center',
         justifyContent: 'center',

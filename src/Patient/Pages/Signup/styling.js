@@ -16,7 +16,7 @@ const styling = StyleSheet.create({
 
     },
     headerView: {
-        height: hp('10%'),
+        height: hp('6%'),
         width: wp('100%'),
         paddingTop: 20,
         paddingLeft: 20,
@@ -25,15 +25,14 @@ const styling = StyleSheet.create({
 
     },
     labelView: {
-        height: hp('7%'),
+        height: hp('12%'),
         width: wp('100%'),
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
     },
     innerView: {
-        marginTop: 6,
-        height: hp('55%'),
+        height: hp('65%'),
         width: wp('80%'),
         alignItems: 'center',
         justifyContent: 'center',
@@ -50,7 +49,7 @@ const styling = StyleSheet.create({
     },
     fieldfocus: {
         width: wp('80%'),
-        height: hp('8%'),
+        height: hp('7%'),
         borderRadius: 10,
         backgroundColor: 'white',
         color: '#3f4079',
@@ -64,7 +63,7 @@ const styling = StyleSheet.create({
     },
     fieldnotfocus: {
         width: wp('80%'),
-        height: hp('8%'),
+        height: hp('7%'),
         backgroundColor: 'white',
         color: '#3f4079',
         marginBottom: 20,
@@ -90,7 +89,7 @@ const styling = StyleSheet.create({
         color: 'black'
     },
     OpacityView: {
-        height: hp('20%'),
+        height: hp('10%'),
         width: wp('90%'),
         alignItems: 'center',
         justifyContent: 'space-between'
