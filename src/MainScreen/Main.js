@@ -13,7 +13,7 @@ const Main = (props) => {
                 <View>
                     <TouchableOpacity style={styles.docOpacity}
                         onPress={() => {
-                            props.navigation.navigate('Home')
+                            props.navigation.navigate('LoginScreen')
                         }}
                     >
                         <Text style={styles.DTXT}>Doctor</Text>

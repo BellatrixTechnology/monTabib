@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StatusBar, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { styling } from './styling';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
 
 // import CalendarPicker from 'react-native-calendar-picker';
@@ -39,7 +39,7 @@ const Absences = () => {
                     <Text style={styling.dataTXT}>090078601</Text>
                     <View style={styling.ActionView}>
                         <TouchableOpacity style={styling.actionOp}>
-                            <Icon name='cross' color='white' size={30} />
+                            <Icon name='closecircle' color='#0069da' size={40} />
                         </TouchableOpacity>
                     </View>
                 </View>

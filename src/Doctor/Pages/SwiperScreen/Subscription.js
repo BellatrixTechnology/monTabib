@@ -19,7 +19,7 @@ const Subscription = () => {
                 <View style={styling.diamondCard}>
                     <View style={styling.cardinnerView}>
                         <Text style={styling.cardLabel}>Diamond</Text>
-                        <Text style={styling.cardLabel}> 350$</Text>
+                        <Text style={styling.cardLabel}> 19.99 euro</Text>
                         <Text style={styling.cardLabel}> {diamondselect}</Text>
                     </View>
                     <TouchableOpacity onPress={() => { setdSelect('Selected'), setgSelect(''), setsSelect('') }}>
@@ -29,7 +29,7 @@ const Subscription = () => {
                         <Text>UnSelect</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styling.goldCard}>
+                {/* <View style={styling.goldCard}>
                     <View style={styling.cardinnerView}>
                         <Text style={styling.cardLabel}>Gold</Text>
                         <Text style={styling.cardLabel}> 200$</Text>
@@ -42,8 +42,8 @@ const Subscription = () => {
                     <TouchableOpacity onPress={() => { setgSelect('') }}>
                         <Text>UnSelect</Text>
                     </TouchableOpacity>
-                </View>
-                <View style={styling.silverCard}>
+                </View> */}
+                {/* <View style={styling.silverCard}>
                     <View style={styling.cardinnerView}>
                         <Text style={styling.cardLabel}>Silver</Text>
                         <Text style={styling.cardLabel}> 100$</Text>
@@ -56,7 +56,7 @@ const Subscription = () => {
                     <TouchableOpacity onPress={() => { setsSelect('') }}>
                         <Text>UnSelect</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
 
 
 

@@ -9,23 +9,22 @@ export const styling = StyleSheet.create({
     mainContainer: {
         height: hp(100),
         width: wp(100),
+        backgroundColor: 'white'
     },
     slide1: {
         padding: 10,
-        height: hp(92),
-        width: wp(95),
-        marginTop: hp(2),
+        height: hp(95),
+        width: wp(100),
         backgroundColor: 'white',
         alignContent: 'center',
         alignSelf: 'center',
         borderRadius: 10,
-        elevation: 10,
         alignItems: 'center',
 
     },
     nextButtonView: {
-        width: wp(80),
-        alignItems: 'flex-end',
+        width: wp(25),
+        alignItems: 'center',
         justifyContent: 'flex-end',
         alignSelf: 'flex-end',
     },
@@ -43,9 +42,10 @@ export const styling = StyleSheet.create({
         textAlign: 'center',
     },
     containerView: {
+        paddingTop: 20,
         width: wp(95),
         alignContent: 'center',
-        height: hp(81),
+        height: hp(84),
     },
     headerView: {
         height: hp(5),
@@ -72,7 +72,6 @@ export const styling = StyleSheet.create({
     },
     dropdownStyle: {
         width: wp(90),
-        backgroundColor: 'red'
     },
     dropdowncontainerStyle: {
         width: wp(90),
@@ -106,13 +105,23 @@ export const styling = StyleSheet.create({
         alignSelf: 'center',
     },
     servicetextinput: {
-        height: hp(20),
-        width: wp(90),
+        width: wp(55),
         borderWidth: 1,
-        borderRadius: 15,
+        borderRadius: 10,
         borderColor: 'grey',
-        textAlignVertical: 'top'
+        textAlignVertical: 'center',
+        marginBottom: 4,
 
+
+
+    },
+    servicePriceinput: {
+        width: wp(25),
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: 'grey',
+        textAlignVertical: 'center',
+        marginBottom: 10
     },
     diamondCard: {
         padding: 20,
@@ -158,6 +167,18 @@ export const styling = StyleSheet.create({
     serviceText: {
         fontSize: fontSize.tag,
         fontFamily: 'SFUIText-Bold',
+    },
+    addButton: {
+        height: hp('5%'),
+        flexDirection: 'row',
+        width: wp('30%'),
+        alignSelf: 'center',
+        justifyContent: 'space-evenly',
+    },
+    txtInputView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
     }
 
 })

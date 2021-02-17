@@ -20,6 +20,7 @@ import ListConsultation from './src/Patient/Pages/ListConsultation/ListConsultat
 import LoginIn from './src/Patient/Pages/LoginIn/LoginIn';
 import Main from './src/MainScreen/Main';
 import PTabs from './src/Patient/Pages/PTabs';
+import LoginScreen from './src/Doctor/Pages/LoginScreen/LoginScreen';
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -28,6 +29,8 @@ const AuthStack = () => (
 
   <Navigator headerMode='none'>
     <Screen name='Main' component={Main} />
+
+    <Screen name='LoginScreen' component={LoginScreen} />
     <Screen name="Home" component={Home} />
 
     <Screen name="Tab" component={Tabs} />

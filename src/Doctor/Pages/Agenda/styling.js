@@ -25,7 +25,11 @@ export const styling = StyleSheet.create({
 
     calendarView: {
         marginTop: 20,
-        height: hp('40%'),
+        height: hp('80%'),
+        width: wp('90%'),
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center'
 
     },
     headerTXT: {
@@ -35,7 +39,7 @@ export const styling = StyleSheet.create({
     opcaityView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 30,
+        marginBottom: 20,
     },
     consultationOpacity: {
         flexDirection: 'row',

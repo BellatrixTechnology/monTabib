@@ -42,13 +42,13 @@ const Register = () => {
                 }}  >
                 <View style={styling.containerView}>
                     <View style={styling.nameFieldView}>
+
                         <Input
                             label='Name'
                             placeholder='Name'
                             value={Name}
                             onChangeText={(name) => {
                                 setName(name)
-
                             }}
                         />
                         <Input

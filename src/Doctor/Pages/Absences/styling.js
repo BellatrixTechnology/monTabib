@@ -40,7 +40,7 @@ export const styling = StyleSheet.create({
     absenceOpacity: {
         backgroundColor: '#dc3545',
         flexDirection: 'row',
-        width: wp('20'),
+        width: wp('15%'),
         height: hp('7%'),
         alignItems: 'center',
         justifyContent: 'center',
@@ -81,7 +81,6 @@ export const styling = StyleSheet.create({
         height: hp(6),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'blue',
         borderRadius: 2000
     },
     txtOp: {
