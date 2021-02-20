@@ -21,6 +21,7 @@ import LoginIn from './src/Patient/Pages/LoginIn/LoginIn';
 import Main from './src/MainScreen/Main';
 import PTabs from './src/Patient/Pages/PTabs';
 import LoginScreen from './src/Doctor/Pages/LoginScreen/LoginScreen';
+import addPatient from './src/Doctor/Pages/Consultation/addPatient';
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -28,8 +29,8 @@ const { Navigator, Screen } = createStackNavigator();
 const AuthStack = () => (
 
   <Navigator headerMode='none'>
-    <Screen name='Main' component={Main} />
 
+    <Screen name='Main' component={Main} />
     <Screen name='LoginScreen' component={LoginScreen} />
     <Screen name="Home" component={Home} />
 
@@ -46,6 +47,7 @@ const AuthStack = () => (
 
     <Screen name='Profile' component={Profile} />
 
+    <Screen name='addPatient' component={addPatient} />
 
     <Screen name='Agenda' component={Agenda} />
 

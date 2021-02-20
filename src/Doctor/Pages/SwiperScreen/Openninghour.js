@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StatusBar, SafeAreaView, } from 'react-native';
+import { View, StatusBar, SafeAreaView, Switch } from 'react-native';
 import { Text } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
@@ -36,6 +36,8 @@ const OpenningHour = () => {
     const [endAfternoonFriday, setendAfternoonFriday] = useState('');
     const [endAfternoonSaturday, setendAfternoonSaturday] = useState('');
     const [endAfternoonSunday, setendAfternoonSunday] = useState('');
+    const [sat, setSat] = useState(false);
+    const [sun, setSun] = useState(false);
 
     const SaveData = () => {
 
@@ -440,8 +442,17 @@ const OpenningHour = () => {
                 <View style={styling.dayView}>
 
                     <Text style={styling.daytagLabel}>Saturday </Text>
+                    {sat == false && <Switch
 
-                    <View style={styling.daypickerView}>
+                        trackColor={{ false: "#767577", true: "#FF2D55" }}
+                        thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={() => {
+                            setSat(true)
+                        }}
+                        value={sat}
+                    />}
+                    {sat == true && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -490,68 +501,79 @@ const OpenningHour = () => {
                                 }
                             })}
                         </Picker>
-                    </View>
+                    </View>}
                     {endMorningSaturday != '' || endAfternoonSaturday != '' ? <View >
                         <Text>Morning:- {startMorningSaturday} - {endMorningSaturday}</Text>
                         <Text>Afternoon: {startAfternoonSaturday} - {endAfternoonSaturday}</Text>
                     </View> : console.log('wait')}
+
                 </View>
                 <View style={styling.dayView}>
 
                     <Text style={styling.daytagLabel}>Sunday </Text>
+                    {sun == false && <Switch
 
-                    <View style={styling.daypickerView}>
-                        <Picker
-                            style={{ height: 50, width: 120 }}
-                            onValueChange={(itemValue, itemIndex) =>
+                        trackColor={{ false: "#767577", true: "#FF2D55" }}
+                        thumbColor={sun ? "#E5E5E5" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={() => {
+                            setSun(true)
+                        }}
+                        value={sun}
+                    />}
+                    {sun == true &&
+                        <View style={styling.daypickerView}>
+                            <Picker
+                                style={{ height: 50, width: 120 }}
+                                onValueChange={(itemValue, itemIndex) =>
 
-                                setday(itemValue)
-                            }>
-                            <Picker.Item label="Day Part" value="Day Part" />
-                            <Picker.Item label="Morning" value="Morning" />
-                            <Picker.Item label="Afternoon" value="Afternoon" />
-                        </Picker>
-                        <Picker
-                            style={{ height: 50, width: 130 }}
-                            onValueChange={(itemValue, itemIndex) => {
-                                if (day == 'Morning') {
-                                    setstartMorningSunday(itemValue)
-                                }
-                                else {
-                                    setstartAfternoonSunday(itemValue)
-                                }
-                            }}>
-                            <Picker.Item label="Start Time" value="Start Time" />
-                            {
-                                Timepick.map(val => {
-                                    return <Picker.Item label={val} value={val} />
-                                })}
-                        </Picker>
-                        <Picker
-                            style={{ height: 50, width: 130 }}
-                            onValueChange={(itemValue, itemIndex) => {
-                                if (day == 'Morning') {
-                                    setendMorningSunday(itemValue)
-                                }
-                                else {
-                                    setendAfternoonSunday(itemValue)
-                                }
-                            }}>
-                            <Picker.Item label="End Time" value="End Time" />
-                            {day == 'Morning' ? Timepick.map(val => {
-                                if (val > startMorningSunday) {
-                                    return <Picker.Item label={val} value={val} />
+                                    setday(itemValue)
+                                }>
+                                <Picker.Item label="Day Part" value="Day Part" />
+                                <Picker.Item label="Morning" value="Morning" />
+                                <Picker.Item label="Afternoon" value="Afternoon" />
+                            </Picker>
+                            <Picker
+                                style={{ height: 50, width: 130 }}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    if (day == 'Morning') {
+                                        setstartMorningSunday(itemValue)
+                                    }
+                                    else {
+                                        setstartAfternoonSunday(itemValue)
+                                    }
+                                }}>
+                                <Picker.Item label="Start Time" value="Start Time" />
+                                {
+                                    Timepick.map(val => {
+                                        return <Picker.Item label={val} value={val} />
+                                    })}
+                            </Picker>
+                            <Picker
+                                style={{ height: 50, width: 130 }}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    if (day == 'Morning') {
+                                        setendMorningSunday(itemValue)
+                                    }
+                                    else {
+                                        setendAfternoonSunday(itemValue)
+                                    }
+                                }}>
+                                <Picker.Item label="End Time" value="End Time" />
+                                {day == 'Morning' ? Timepick.map(val => {
+                                    if (val > startMorningSunday) {
+                                        return <Picker.Item label={val} value={val} />
+                                    }
+
+                                }) : Timepick.map(val => {
+                                    if (val > startAfternoonSunday) {
+                                        return <Picker.Item label={val} value={val} />
+                                    }
+                                })
                                 }
 
-                            }) : Timepick.map(val => {
-                                if (val > startAfternoonSunday) {
-                                    return <Picker.Item label={val} value={val} />
-                                }
-                            })
-                            }
-
-                        </Picker>
-                    </View>
+                            </Picker>
+                        </View>}
                     {endMorningSunday != '' || endAfternoonSunday != '' ? <View >
                         <Text>Morning:: {startMorningSunday} - {endMorningSunday}</Text>
                         <Text>Afternoon {startAfternoonSunday} - {endAfternoonSunday}</Text>
@@ -562,7 +584,7 @@ const OpenningHour = () => {
                 {endAfternoonSunday != '' ? SaveData() : console.log('empty')}
 
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
 
     )
 }

@@ -5,13 +5,22 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import { styling } from './styling';
 import Dialog from "react-native-dialog";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 const Prescribe = () => {
 
     const [inputList, setInputList] = useState([{ Wording: "", EndDate: "" }])
-    const handleAddClick = () => {
+
+    const addInputConst = () => {
         setInputList([...inputList, { Wording: "", EndDate: "" }]);
-    };
+
+    }
+    const removeInputConst = (i) => {
+        const list = [...inputList];
+        list.splice(i, 1);
+        setInputList(list);
+    }
     return (
         <SafeAreaView style={styling.safeContainer}>
 
@@ -33,7 +42,7 @@ const Prescribe = () => {
 
                 </View>
 
-                <View style={styling.PrecribeView}>
+                <View style={styling.reportView}>
                     <Text style={styling.patientTXT}>Report</Text>
                     <TextInput
                         multiline={true}
@@ -45,42 +54,57 @@ const Prescribe = () => {
                     />
                 </View>
                 <View style={styling.PrecribeView}>
-                    <Text style={styling.patientTXT}>Prescription</Text>
-                    <TextInput
-                        multiline={true}
-                        numberOfLines={10}
-                        placeholder='Prescription'
-                        // value={Consult}
+                    <ScrollView showsVerticalScrollIndicator={false}>
 
-                        style={styling.servicetextinput}
-                    />
-                    {/* <View>
-                        {inputList.map((value, index) => {
-                            return <Input
-                                placeholder='hello'
-                            />
+                        <Text style={styling.patientTXT}>Prescription</Text>
+                        {/* <TextInput
+                            multiline={true}
+                            numberOfLines={10}
+                            placeholder='Prescription'
+                            // value={Consult}
+
+                            style={styling.servicetextinput}
+                        /> */}
+                        {inputList.map((x, i) => {
+                            return (
+                                <View>
+                                    <View style={styling.txtInputView}>
+                                        <TextInput
+                                            multiline={true}
+                                            // numberOfLines={10}
+                                            placeholder=' Consultation'
+                                            // value={Consult}
+                                            onChangeText={(text) => { setConsult(text) }}
+                                            style={styling.stextinput}
+                                        />
+                                        <TextInput
+                                            multiline={true}
+                                            // numberOfLines={10}
+                                            placeholder='End Date'
+                                            // value={Consult}
+                                            onChangeText={(text) => { setConsult(text) }}
+                                            style={styling.sPriceinput}
+                                        />
+                                    </View>
+                                    {inputList.length - 1 == i ?
+                                        <View style={styling.addButton}>
+                                            <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputConst(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => { addInputConst() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
+                                        </View> : console.log('da')}
+                                </View>
+                            )
+
                         })}
-                    </View>
-                    <TouchableOpacity onPress={() => {
-                        handleAddClick()
-                    }}>
-                        <Text>Add</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            handleRemoveClick()
-                        }}>
+                    </ScrollView>
 
-                        <Text>delete</Text>
-                    </TouchableOpacity> */}
                 </View>
-
                 <View style={styling.SaveView}>
                     <TouchableOpacity style={styling.SaveOpacity}>
                         <Text style={styling.opacityTXT}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
         </SafeAreaView >
     )
 }

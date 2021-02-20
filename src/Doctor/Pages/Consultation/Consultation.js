@@ -22,9 +22,7 @@ const Consultation = ({ props }) => {
                 </View>
 
                 <TouchableOpacity style={styling.consultationOpacity}
-                    onPress={() => {
-                        setshow(true)
-                    }}
+                    onPress={() => props.navigation.navigate('addPatient')}
                 >
                     <Icons name='plus' size={20} color='white' />
                 </TouchableOpacity>
@@ -65,7 +63,7 @@ const Consultation = ({ props }) => {
                     console.log('waiting')
                 }
 
-                <View>
+                {/* <View>
                     <Dialog.Container visible={show}>
                         <Dialog.Title>Add Consultation Detail</Dialog.Title>
 
@@ -81,7 +79,8 @@ const Consultation = ({ props }) => {
                         }} />
                     </Dialog.Container>
 
-                </View>
+                </View> */}
+
             </View>
         </SafeAreaView>
     )

@@ -11,7 +11,7 @@ export const styling = StyleSheet.create({
         paddingLeft: 20,
         paddingBottom: 20,
         width: wp('100%'),
-        height: hp('100%')
+        height: hp('90%'),
     },
     headerView: {
         height: hp('10%'),
@@ -99,11 +99,15 @@ export const styling = StyleSheet.create({
         fontSize: fontSize.label,
 
     },
-
-    PrecribeView: {
+    reportView: {
         height: hp('23%'),
         padding: 10,
         borderBottomWidth: 0.5
+    },
+    PrecribeView: {
+        height: hp('25%'),
+        padding: 10,
+        // borderBottomWidth: 0.5
     },
     servicetextinput: {
         marginTop: 10,
@@ -127,5 +131,169 @@ export const styling = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 10
+    },
+    txtInputView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+    },
+    stextinput: {
+        width: wp(55),
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: 'grey',
+        textAlignVertical: 'center',
+        marginBottom: 4,
+    },
+    sPriceinput: {
+        width: wp(25),
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: 'grey',
+        textAlignVertical: 'center',
+        marginBottom: 10
+    },
+    addButton: {
+        height: hp('5%'),
+        flexDirection: 'row',
+        width: wp('30%'),
+    },
+    mainAddView: {
+        height: hp(100),
+        width: wp(100),
+        padding: 20,
+        backgroundColor: '#3f4079'
+    },
+    swiperView: {
+        height: hp(80),
+        alignSelf: 'center',
+        backgroundColor: 'white'
+
+    },
+    addPatientView: {
+        height: hp(80),
+
+    },
+    checkView: {
+        width: wp(90),
+        height: hp(6),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 10,
+
+    },
+    patientDataView: {
+        height: hp(70),
+        width: wp(80),
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    dropdownView: {
+        alignItems: 'center',
+        height: hp(7),
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    dropDown: {
+        width: wp(80),
+    },
+    dropdownLabel: {
+        color: 'grey'
+    },
+    dropdownStyle: {
+        width: wp(80),
+    },
+    dropdowncontainerStyle: {
+        width: wp(80),
+    },
+    opacityView: {
+        height: hp(20),
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
+    OpacityLog: {
+        height: hp('6%'),
+        width: wp('30%'),
+        backgroundColor: '#3f4079',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    Opacitytxt: {
+        fontFamily: 'SFUIText-Bold',
+        fontSize: fontSize.button,
+        color: 'white'
+    },
+    patientDropView: {
+        marginTop: hp(20),
+        height: hp(30),
+        justifyContent: 'space-evenly'
+    },
+    timeView: {
+        height: hp(80),
+        width: wp(80),
+        alignSelf: 'center',
+    },
+    dayView: {
+        height: hp(5),
+        width: wp(70),
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    selecttimeView: {
+        height: hp(10),
+        width: wp(70),
+        alignSelf: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+
+    },
+    timeOpacity: {
+        width: wp(20),
+        alignItems: 'center',
+        borderColor: '#3f4079',
+        height: hp(4),
+        borderWidth: 1,
+        justifyContent: 'center',
+        marginRight: 10,
+        borderRadius: 10
+    },
+    selecttimeOpacity: {
+        width: wp(20),
+        alignItems: 'center',
+        backgroundColor: '#3f4079',
+        height: hp(4),
+        justifyContent: 'center',
+        marginRight: 10,
+        borderRadius: 10
+    },
+    selecttimeTxt: {
+        fontSize: fontSize.button,
+        fontFamily: 'SFUIText',
+        color: 'white'
+    },
+    timeTxt: {
+        fontSize: fontSize.button,
+        fontFamily: 'SFUIText',
+        color: '#3f4079'
+    },
+    detailsView: {
+        height: hp(80),
+        width: wp(80),
+        alignSelf: 'center',
+    },
+    innerDetail: {
+        height: hp(50),
+        width: wp(70),
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    opacityPView: {
+        height: hp(20),
+        alignSelf: 'center'
     }
 })
