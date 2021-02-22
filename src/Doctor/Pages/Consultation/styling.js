@@ -162,7 +162,8 @@ export const styling = StyleSheet.create({
         height: hp(100),
         width: wp(100),
         padding: 20,
-        backgroundColor: '#3f4079'
+        backgroundColor: '#3f4079',
+        justifyContent: 'center'
     },
     swiperView: {
         height: hp(80),
@@ -172,6 +173,7 @@ export const styling = StyleSheet.create({
     },
     addPatientView: {
         height: hp(80),
+        backgroundColor: 'white',
 
     },
     checkView: {
@@ -209,9 +211,9 @@ export const styling = StyleSheet.create({
         width: wp(80),
     },
     opacityView: {
-        height: hp(20),
+        height: hp(15),
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
     OpacityLog: {
         height: hp('6%'),

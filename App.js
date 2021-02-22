@@ -22,6 +22,8 @@ import Main from './src/MainScreen/Main';
 import PTabs from './src/Patient/Pages/PTabs';
 import LoginScreen from './src/Doctor/Pages/LoginScreen/LoginScreen';
 import addPatient from './src/Doctor/Pages/Consultation/addPatient';
+import HomeScreen from './src/Patient/Pages/HomeScreen/HomeScreen';
+import ListDoctor from './src/Patient/Pages/ListDoctor.js/ListDoctor';
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -29,12 +31,18 @@ const { Navigator, Screen } = createStackNavigator();
 const AuthStack = () => (
 
   <Navigator headerMode='none'>
-
     <Screen name='Main' component={Main} />
+
+    <Screen name='HomeScreen' component={HomeScreen} />
+    <Screen name='ListDoctor' component={ListDoctor} />
+    <Screen name="Tab" component={Tabs} />
+
+    <Screen name="Consultation" component={Consultation} />
+    <Screen name='addPatient' component={addPatient} />
+
     <Screen name='LoginScreen' component={LoginScreen} />
     <Screen name="Home" component={Home} />
 
-    <Screen name="Tab" component={Tabs} />
     <Screen name='PTabs' component={PTabs} />
 
     <Screen name='Signup' component={SignUp} />
@@ -47,11 +55,9 @@ const AuthStack = () => (
 
     <Screen name='Profile' component={Profile} />
 
-    <Screen name='addPatient' component={addPatient} />
 
     <Screen name='Agenda' component={Agenda} />
 
-    <Screen name="Consultation" component={Consultation} />
     <Screen name="Prescribe" component={Prescribe} />
 
     <Screen name='Absences' component={Absences} />

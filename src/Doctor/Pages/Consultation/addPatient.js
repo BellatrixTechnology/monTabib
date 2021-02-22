@@ -7,6 +7,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { styling } from './styling';
@@ -14,8 +15,11 @@ import Swiper from 'react-native-swiper'
 
 
 const addPatient = (props) => {
-    const [check, setCheck] = useState(false);
 
+    const [check, setCheck] = useState(false);
+    const [main, setMain] = useState(true);
+    const [timeView, setTimeView] = useState(false);
+    const [detail, setDetail] = useState(false)
     const Monday = [
         { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
         { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
@@ -61,126 +65,146 @@ const addPatient = (props) => {
     const [date, setdate] = useState('');
 
     const [markers, setMarkers] = useState([])
+    const uploaded = () => {
+        const SaveData = () => {
+            let obj = {
+                FirstName: firstName,
+                Second: secondName,
+                DOB: DOB,
+                service: service,
+                time: time,
+                date: date,
+            }
+            AsyncStorage.setItem('Detail', JSON.stringify(obj));
 
+        }
+    }
     return (
         <SafeAreaView style={styling.safeContainer}>
             <View style={styling.mainAddView}>
+                {main && <View style={styling.addPatientView}>
+                    <View style={styling.checkView}>
+                        <Text style={styling.removeTXT}>If patient not registered check it!</Text>
+                        <Icon.Button name='checkcircle' backgroundColor='white' color={!check ? 'black' : 'green'} onPress={() => {
+                            if (!check) {
+                                setCheck(true)
+                            }
+                            else setCheck(false)
+                        }}></Icon.Button>
+                    </View>
 
-                <Swiper style={styling.swiperView} showsButtons={true} scrollEnabled={false} autoplay={false} pagingEnabled={false}>
-                    <View style={styling.addPatientView}>
-                        <View style={styling.checkView}>
-                            <Text style={styling.removeTXT}>If patient not registered check it!</Text>
-                            <Icon.Button name='checkcircle' backgroundColor='white' color={!check ? 'black' : 'green'} onPress={() => {
-                                if (!check) {
-                                    setCheck(true)
-                                }
-                                else setCheck(false)
-                            }}></Icon.Button>
+                    {check && <View style={styling.patientDataView}>
+                        <Text style={styling.headTXT}>Patient Detail</Text>
+                        <Input
+                            placeholder='First Name'
+                            value={firstName}
+                            onChangeText={(val) => {
+                                SetFName(val)
+                            }}
+                        />
+                        <Input
+                            placeholder='Second Name'
+                            value={secondName}
+                            onChangeText={(val) => {
+                                SetSName(val)
+                            }}
+                        />
+                        <Input
+                            placeholder='Date Of Birth'
+                            value={DOB}
+                            onChangeText={(val) => {
+                                SetDOB(val)
+                            }}
+                        />
+
+                        <View style={styling.dropdownView}>
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Consultation', value: 'Consultation' },
+                                    { label: 'Therapy', value: 'Therapy' },]}
+                                defaultValue={service}
+                                placeholder='Service Type'
+                                labelStyle={styling.dropdownLabel}
+                                style={styling.dropDown}
+                                containerStyle={styling.containerStyle}
+                                dropDownStyle={styling.dropdownStyle}
+                                showArrow={true}
+                                onChangeItem={(service) => {
+                                    setService(service.value)
+                                }}
+
+                            />
                         </View>
 
-                        {check && <View style={styling.patientDataView}>
-                            <Text style={styling.headTXT}>Patient Detail</Text>
-                            <Input
-                                placeholder='First Name'
-                                value={firstName}
-                                onChangeText={(val) => {
-                                    SetFName(val)
-                                }}
-                            />
-                            <Input
-                                placeholder='Second Name'
-                                value={secondName}
-                                onChangeText={(val) => {
-                                    SetSName(val)
-                                }}
-                            />
-                            <Input
-                                placeholder='Date Of Birth'
-                                value={DOB}
-                                onChangeText={(val) => {
-                                    SetDOB(val)
-                                }}
-                            />
+                        <View style={styling.opacityView}>
+                            <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                setCheck(false)
+                                let newMarkers = [...markers];
+                                newMarkers.push(
+                                    firstName
+                                )
+                                setMarkers(newMarkers)
+                            }}          >
+                                <Text style={styling.Opacitytxt}>SAVE</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>}
 
+                    {!check &&
+                        <View style={styling.patientDropView}>
                             <View style={styling.dropdownView}>
-                                <DropDownPicker
-                                    items={[
-                                        { label: 'Consultation', value: 'Consultation' },
-                                        { label: 'Therapy', value: 'Therapy' },]}
-                                    defaultValue={service}
-                                    placeholder='Service Type'
-                                    labelStyle={styling.dropdownLabel}
-                                    style={styling.dropDown}
-                                    containerStyle={styling.containerStyle}
-                                    dropDownStyle={styling.dropdownStyle}
-                                    showArrow={true}
-                                    onChangeItem={(service) => {
-                                        setService(service.value)
-                                    }}
+                                <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
+                                    <Picker
+                                        style={{ height: hp(10), width: wp(70) }}
+                                        onValueChange={(itemValue, itemIndex) =>
 
-                                />
+                                            SetFName(itemValue)
+                                        }
+                                        selectedValue={firstName}
+                                    >
+                                        <Picker.item label='name' value='name' />
+                                        {markers.map(item => {
+                                            return <Picker.Item label={item} value={item} />
+                                        })}
+                                    </Picker>
+                                </View>
+
+                            </View>
+                            <View style={styling.dropdownView}>
+                                <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
+                                    <Picker
+                                        style={{ height: hp(10), width: wp(70) }}
+                                        onValueChange={(itemValue, itemIndex) =>
+
+                                            setService(itemValue)
+                                        }
+                                        selectedValue={service}
+                                    >
+                                        <Picker.item label='Service Type' value='Servie' />
+                                        <Picker.item label='Consultation' value='Consultation' />
+                                        <Picker.item label='Therapy' value='Therapy' />
+
+
+                                    </Picker>
+                                </View>
                             </View>
 
                             <View style={styling.opacityView}>
                                 <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                    setCheck(false)
-                                    let newMarkers = [...markers];
-                                    newMarkers.push(
-                                        firstName
-                                    )
-                                    setMarkers(newMarkers)
-                                }}
-
-                                >
-                                    <Text style={styling.Opacitytxt}>SAVE</Text>
+                                    setMain(false)
+                                    setTimeView(true)
+                                }}          >
+                                    <Text style={styling.Opacitytxt}>NEXT</Text>
                                 </TouchableOpacity>
                             </View>
-                        </View>}
-
-                        {!check &&
-                            <View style={styling.patientDropView}>
-                                <View style={styling.dropdownView}>
-                                    <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
-                                        <Picker
-                                            style={{ height: hp(10), width: wp(70) }}
-                                            onValueChange={(itemValue, itemIndex) =>
-
-                                                SetFName(itemValue)
-                                            }
-                                            selectedValue={firstName}
-                                        >
-                                            <Picker.item label='name' />
-                                            {markers.map(item => {
-                                                return <Picker.Item label={item} value={item} />
-                                            })}
-                                        </Picker>
-                                    </View>
-
-                                </View>
-                                <View style={styling.dropdownView}>
-                                    <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
-                                        <Picker
-                                            style={{ height: hp(10), width: wp(70) }}
-                                            onValueChange={(itemValue, itemIndex) =>
-
-                                                setService(itemValue)
-                                            }
-                                            selectedValue={service}
-                                        >
-                                            <Picker.item label='Service Type' value='Servie' />
-                                            <Picker.item label='Consultation' value='Consultation' />
-                                            <Picker.item label='Therapy' value='Therapy' />
 
 
-                                        </Picker>
-                                    </View>
-                                </View>
+                        </View>
+                    }
 
+                </View>}
 
-                            </View>
-                        }
-
-                    </View>
+                {timeView && <View style={styling.addPatientView}>
                     <View style={styling.timeView}>
                         <View style={styling.headerView}>
                             <Text style={styling.headTXT}>Select Time</Text>
@@ -365,10 +389,23 @@ const addPatient = (props) => {
                                     }}
                                 />
                             </View>
+                            <View style={styling.opacityView}>
+                                <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                    setMain(false)
+                                    setTimeView(false)
+                                    setDetail(true)
+                                }}          >
+                                    <Text style={styling.Opacitytxt}>NEXT</Text>
+                                </TouchableOpacity>
+                            </View>
                         </ScrollView>
                     </View>
 
 
+
+                </View>}
+
+                {detail && <View style={styling.addPatientView}>
                     <View style={styling.detailsView} >
                         <View style={styling.headerView}>
                             <Text style={styling.headTXT}>Patient Detail</Text>
@@ -382,13 +419,16 @@ const addPatient = (props) => {
 
                         </View>
                         <View style={styling.opacityPView}>
-                            <TouchableOpacity style={styling.OpacityLog} >
+                            <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                uploaded();
+                            }}>
                                 <Text style={styling.Opacitytxt}>Proceed</Text>
                             </TouchableOpacity>
                         </View>
 
                     </View>
-                </Swiper>
+                </View>
+                }
 
             </View>
         </SafeAreaView >

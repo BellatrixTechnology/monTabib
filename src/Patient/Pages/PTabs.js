@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Profile from './Profile/Profile';
 import ListConsultation from './ListConsultation/ListConsultation';
+import HomeScreen from './HomeScreen/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,9 @@ const PTabs = (props) => {
     const Pro = () => {
         return <Profile props={props} />
     }
+    const ListDoc = () => {
+        return <HomeScreen props={props} />
+    }
 
     return (
         <NavigationContainer independent={true}>
@@ -30,6 +34,14 @@ const PTabs = (props) => {
                     inactiveTintColor: 'gray',
                 }}
             >
+                < Tab.Screen name="ListDoctor" component={ListDoc}
+                    options={{
+                        // tabBarColor: '#6bfaf3',
+                        tabBarIcon: () => (
+                            <Icons name="search" color="black" size={22} />
+                        ),
+                    }}
+                />
                 < Tab.Screen name="Home" component={Home}
                     options={{
                         // tabBarColor: '#6bfaf3',

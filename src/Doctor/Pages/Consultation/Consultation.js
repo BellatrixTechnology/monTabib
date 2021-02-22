@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import { styling } from './styling';
 import Dialog from "react-native-dialog";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Consultation = ({ props }) => {
     const [show, setshow] = useState(false);
@@ -12,6 +13,20 @@ const Consultation = ({ props }) => {
     const [name, setName] = useState('');
     const [date, setdate] = useState('');
     const [phone, setphone] = useState('');
+    const [obj2, setobj2] = useState({});
+
+    const get = async () => {
+        try {
+            let Detail = await AsyncStorage.getItem('Detail');
+            let parsed3 = JSON.parse(Detail);
+            setobj2(parsed3);
+        }
+        catch (error) {
+            console.log(error)
+        }
+        console.log(obj2)
+    }
+
     return (
         <SafeAreaView style={styling.safeContainer}>
 
@@ -22,7 +37,10 @@ const Consultation = ({ props }) => {
                 </View>
 
                 <TouchableOpacity style={styling.consultationOpacity}
-                    onPress={() => props.navigation.navigate('addPatient')}
+                    onPress={() => {
+                        get();
+                        props.navigation.navigate('addPatient', { props: props })
+                    }}
                 >
                     <Icons name='plus' size={20} color='white' />
                 </TouchableOpacity>
