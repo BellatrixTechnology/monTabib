@@ -16,8 +16,11 @@ export const styling = StyleSheet.create({
 
     },
     headView: {
+        flexDirection: 'row',
+        alignItems: 'center',
         height: hp(10),
-        justifyContent: 'center'
+        width: wp(90),
+        justifyContent: 'space-between'
     },
     innerView: {
         height: hp(80),
@@ -41,11 +44,23 @@ export const styling = StyleSheet.create({
         color: '#e74e84',
         lineHeight: 60
     },
+    headDRTXT: {
+        fontSize: fontSize.head,
+        fontFamily: 'SFUIText-Bold',
+        color: 'black',
+        lineHeight: 60
+    },
     labelTXT: {
         fontSize: fontSize.line,
         fontFamily: 'SFUIText-Bold',
         color: 'black',
         lineHeight: 20
+    },
+    labelDRTXT: {
+        fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Bold',
+        color: 'black',
+        lineHeight: 28
     },
     dayView: {
         height: hp(3),
@@ -92,6 +107,7 @@ export const styling = StyleSheet.create({
         color: '#3f4079'
     },
     OpacityLog: {
+        marginTop: hp(5),
         height: hp('6%'),
         width: wp('80%'),
         backgroundColor: 'white',

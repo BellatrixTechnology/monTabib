@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { styling } from './styling';
 
 const HomeScreen = ({ props }) => {
+    const [Gender, setGender] = useState('');
+
     const [Special, setSpecial] = useState('');
     const [City, setCity] = useState('')
     return (
@@ -18,30 +20,29 @@ const HomeScreen = ({ props }) => {
                 </View>
                 <View style={styling.innerView}>
 
-                    <View style={styling.dropdownView}>
+                    <View style={styling.headersView}>
                         <DropDownPicker
                             items={[
                                 { label: 'Allergists', value: 'Allergists' },
                                 { label: 'Dermatologists', value: 'Dermatologists' },
                                 { label: 'Cardiologists', value: 'Cardiologists' },
-                                { label: 'Endocrinologists', value: 'Endocrinologists' },
-                                { label: 'Gastroenterologists', value: 'Gastroenterologists' }
+                                { label: 'Gastroenterologists', value: 'Gastroenterologists' },
                             ]}
                             defaultValue={Special}
-                            placeholder='Specialist'
+                            placeholder='Select Specialist'
                             labelStyle={styling.dropdownLabel}
                             style={styling.dropDown}
                             containerStyle={styling.containerStyle}
                             dropDownStyle={styling.dropdownStyle}
                             showArrow={true}
-                            onChangeItem={(val) => {
-                                console(val)
-                                setSpecial(val.value)
+                            onChangeItem={(special) => {
+                                console.log('ee')
+                                setSpecial(special.value)
                             }}
 
                         />
                     </View>
-                    <View style={styling.dropdownView}>
+                    <View style={styling.headersView}>
                         <DropDownPicker
                             items={[
                                 { label: 'Algiers', value: 'Algiers' },
@@ -51,6 +52,47 @@ const HomeScreen = ({ props }) => {
                             ]}
                             defaultValue={City}
                             placeholder='City'
+                            labelStyle={styling.dropdownLabel}
+                            style={styling.dropDown}
+                            containerStyle={styling.containerStyle}
+                            dropDownStyle={styling.dropdownStyle}
+                            showArrow={true}
+                            onChangeItem={(city) => { setCity(city.value) }}
+                        />
+                    </View>
+
+                </View>
+                <View style={styling.innerView}>
+
+                    <View style={styling.headersView}>
+                        <DropDownPicker
+                            items={[
+                                { label: 'Male', value: 'Male' },
+                                { label: 'Female', value: 'Female' },
+                            ]}
+                            defaultValue={Special}
+                            placeholder='Select Gender'
+                            labelStyle={styling.dropdownLabel}
+                            style={styling.dropDown}
+                            containerStyle={styling.containerStyle}
+                            dropDownStyle={styling.dropdownStyle}
+                            showArrow={true}
+                            onChangeItem={(special) => {
+                                console.log('ee')
+                                setSpecial(special.value)
+                            }}
+
+                        />
+                    </View>
+                    <View style={styling.headersView}>
+                        <DropDownPicker
+                            items={[
+                                { label: 'Today', value: 'Today' },
+                                { label: 'Tomorrow', value: 'Tomorrow' },
+
+                            ]}
+                            defaultValue={City}
+                            placeholder='Availablity'
                             labelStyle={styling.dropdownLabel}
                             style={styling.dropDown}
                             containerStyle={styling.containerStyle}

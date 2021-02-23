@@ -28,8 +28,16 @@ export const styling = StyleSheet.create({
         justifyContent: 'flex-end',
         alignSelf: 'flex-end',
     },
+    nextPButtonView: {
+        paddingLeft: 20,
+        width: wp(100),
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        alignSelf: 'flex-end',
+        flexDirection: 'row'
+    },
     nextButton: {
-        width: wp(20),
+        width: wp(25),
         borderRadius: 8,
         paddingVertical: 14,
         paddingHorizontal: 10,

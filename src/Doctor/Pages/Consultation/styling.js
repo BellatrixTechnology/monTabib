@@ -13,6 +13,9 @@ export const styling = StyleSheet.create({
         width: wp('100%'),
         height: hp('90%'),
     },
+    headView: {
+        height: hp(6)
+    },
     headerView: {
         height: hp('10%'),
         alignItems: 'center',
@@ -163,7 +166,7 @@ export const styling = StyleSheet.create({
         width: wp(100),
         padding: 20,
         backgroundColor: '#3f4079',
-        justifyContent: 'center'
+        // justifyContent: 'center'
     },
     swiperView: {
         height: hp(80),
@@ -196,7 +199,8 @@ export const styling = StyleSheet.create({
         alignItems: 'center',
         height: hp(7),
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginBottom: hp(10)
     },
     dropDown: {
         width: wp(80),

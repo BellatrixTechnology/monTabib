@@ -173,7 +173,15 @@ const Home = (props) => {
                         <View style={styling.slide1}>
                             <OpenningHour />
 
-                            <View style={styling.nextButtonView}>
+                            <View style={styling.nextPButtonView}>
+                                <TouchableOpacity style={styling.nextButton}
+                                    onPress={() => {
+                                        swipe(0)
+                                        openning()
+                                    }}
+                                >
+                                    <Text style={styling.nextbuttonText}>Previous</Text>
+                                </TouchableOpacity >
                                 <TouchableOpacity style={styling.nextButton}
                                     onPress={() => {
                                         swipe(2)
@@ -186,11 +194,19 @@ const Home = (props) => {
                         </View>
                         <View style={styling.slide1}>
                             <Services />
-                            <View style={styling.nextButtonView}>
+                            <View style={styling.nextPButtonView}>
+                                <TouchableOpacity style={styling.nextButton}
+                                    onPress={() => {
+                                        swipe(1)
+                                        openning()
+                                    }}
+                                >
+                                    <Text style={styling.nextbuttonText}>Previous</Text>
+                                </TouchableOpacity >
                                 <TouchableOpacity style={styling.nextButton}
                                     onPress={() => {
                                         swipe(3)
-                                        Service()
+                                        openning()
                                     }}
                                 >
                                     <Text style={styling.nextbuttonText}>Next</Text>
@@ -199,7 +215,15 @@ const Home = (props) => {
                         </View>
                         <View style={styling.slide1}>
                             <Subscription />
-                            <View style={styling.nextButtonView}>
+                            <View style={styling.nextPButtonView}>
+                                <TouchableOpacity style={styling.nextButton}
+                                    onPress={() => {
+                                        swipe(2)
+                                        openning()
+                                    }}
+                                >
+                                    <Text style={styling.nextbuttonText}>Previous</Text>
+                                </TouchableOpacity >
                                 <TouchableOpacity style={styling.nextButton} onPress={() => {
                                     // upload()
                                     props.navigation.navigate('Tab')

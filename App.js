@@ -24,6 +24,9 @@ import LoginScreen from './src/Doctor/Pages/LoginScreen/LoginScreen';
 import addPatient from './src/Doctor/Pages/Consultation/addPatient';
 import HomeScreen from './src/Patient/Pages/HomeScreen/HomeScreen';
 import ListDoctor from './src/Patient/Pages/ListDoctor.js/ListDoctor';
+import Services from './src/Doctor/Pages/Services/Services';
+import Experience from './src/Doctor/Pages/Experience/Experience';
+import Opennings from './src/Doctor/Pages/Opennings/Opennings';
 
 
 const { Navigator, Screen } = createStackNavigator();
@@ -38,7 +41,6 @@ const AuthStack = () => (
     <Screen name="Tab" component={Tabs} />
 
     <Screen name="Consultation" component={Consultation} />
-    <Screen name='addPatient' component={addPatient} />
 
     <Screen name='LoginScreen' component={LoginScreen} />
     <Screen name="Home" component={Home} />
@@ -55,6 +57,7 @@ const AuthStack = () => (
 
     <Screen name='Profile' component={Profile} />
 
+    <Screen name='addPatient' component={addPatient} />
 
     <Screen name='Agenda' component={Agenda} />
 
@@ -74,9 +77,9 @@ const AuthStack = () => (
 
     <Screen name="ProfileScreen" component={ProfileScreen} />
 
-
-
-
+    <Screen name='Services' component={Services} />
+    <Screen name='Experience' component={Experience} />
+    <Screen name='Opennings' component={Opennings} />
   </Navigator>
 );
 

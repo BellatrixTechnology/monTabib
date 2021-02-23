@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { styling } from './styling';
 
@@ -37,36 +38,26 @@ const ProfileScreen = ({ props }) => {
 
 
                 </View>
-                {/* <View style={styling.openView}>
-                    <Text style={styling.tagTXT} >Opening Hour</Text>
-                    <Text style={styling.tagTXT} >Monday:            10:00  -  21:00</Text>
-                    <Text style={styling.tagTXT} >Tuesday:           10:00  -  21:00</Text>
-                    <Text style={styling.tagTXT} >Wednesday:     10:00  -  21:00</Text>
-                    <Text style={styling.tagTXT} >Thursday:         10:00  -  21:00</Text>
-                    <Text style={styling.tagTXT} >Friday:              10:00  -  21:00</Text>
-                    <Text style={styling.tagTXT} >Saturday:         10:00  -  21:00</Text>
-                    <Text style={styling.tagTXT} >Sunday:           10:00  -  21:00</Text>
 
-                </View> */}
                 <View style={styling.fieldView}>
-                    <View style={styling.buttonView}>
+                    <TouchableOpacity style={styling.buttonView} >
                         <Text style={styling.buttonTXT}>Opening Hour</Text>
-                        <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
+                        <Icon.Button name="right" color='black' size={25} style={styling.arrowButton} activeOpacity={1}>
 
                         </Icon.Button>
-                    </View>
-                    <View style={styling.buttonView}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styling.buttonView} onPress={() => props.navigation.navigate('Experience')}>
                         <Text style={styling.buttonTXT}>Curriculum</Text>
                         <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
 
                         </Icon.Button>
-                    </View>
-                    <View style={styling.buttonView}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styling.buttonView} onPress={() => props.navigation.navigate('Services')}>
                         <Text style={styling.buttonTXT}>Services</Text>
-                        <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
+                        <Icon.Button name="right" color='black' size={25} style={styling.arrowButton} activeOpacity={1}>
 
                         </Icon.Button>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styling.buttonView}>
                         <Text style={styling.buttonTXT}>Subscription</Text>
                         <Icon.Button name="right" color='black' size={25} style={styling.arrowButton}>
@@ -75,7 +66,7 @@ const ProfileScreen = ({ props }) => {
                     </View>
                 </View>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 
 }

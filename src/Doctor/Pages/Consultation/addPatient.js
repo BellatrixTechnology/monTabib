@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FlatList, View, TouchableOpacity, ToastAndroid, ScrollView, SafeAreaView } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/Entypo';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { styling } from './styling';
-import Swiper from 'react-native-swiper'
+
 
 
 const addPatient = (props) => {
@@ -81,7 +81,14 @@ const addPatient = (props) => {
     }
     return (
         <SafeAreaView style={styling.safeContainer}>
+
+
             <View style={styling.mainAddView}>
+                <View style={styling.headView}>
+                    <TouchableOpacity>
+                        <Icons name='circle-with-cross' size={30} color='white' onPress={() => { props.navigation.goBack() }} />
+                    </TouchableOpacity>
+                </View>
                 {main && <View style={styling.addPatientView}>
                     <View style={styling.checkView}>
                         <Text style={styling.removeTXT}>If patient not registered check it!</Text>
@@ -162,7 +169,7 @@ const addPatient = (props) => {
                                         }
                                         selectedValue={firstName}
                                     >
-                                        <Picker.item label='name' value='name' />
+                                        <Picker.item label='Name' value='name' />
                                         {markers.map(item => {
                                             return <Picker.Item label={item} value={item} />
                                         })}
@@ -420,7 +427,9 @@ const addPatient = (props) => {
                         </View>
                         <View style={styling.opacityPView}>
                             <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                uploaded();
+                                // uploaded();
+                                props.navigation.goBack()
+
                             }}>
                                 <Text style={styling.Opacitytxt}>Proceed</Text>
                             </TouchableOpacity>

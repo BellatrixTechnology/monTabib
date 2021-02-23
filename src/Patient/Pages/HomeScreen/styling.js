@@ -20,7 +20,7 @@ export const styling = StyleSheet.create({
         justifyContent: 'center'
     },
     innerView: {
-        height: hp(50),
+        height: hp(25),
         flexDirection: 'row',
         width: wp(90),
         alignItems: 'center',
@@ -32,12 +32,14 @@ export const styling = StyleSheet.create({
         fontFamily: 'SFUIText-Bold',
         color: 'white'
     },
-    dropdownView: {
+    headersView: {
+        height: hp(6),
         alignItems: 'center',
-        height: hp(8),
-        width: wp(40),
-        marginBottom: 30,
-        elevation: 3
+        alignSelf: 'center',
+        marginBottom: 5,
+    },
+    dropdownView: {
+        alignItems: 'center'
     },
     dropDown: {
         width: wp(40),

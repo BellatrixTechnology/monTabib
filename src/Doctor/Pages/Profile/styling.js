@@ -34,7 +34,7 @@ export const styling = StyleSheet.create({
     avatarView: {
         height: hp(25),
         width: wp(90),
-        flexDirection: 'row',
+        alignItems: 'center'
     },
     openView: {
         height: hp(25),

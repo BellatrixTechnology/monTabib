@@ -31,31 +31,31 @@ const Tabs = (props) => {
                 initialRouteName='Home'
                 backBehavior='none'
                 tabBarOptions={{
-                    activeTintColor: '#ff7e00',
+                    activeTintColor: '#45347a',
                     inactiveTintColor: 'gray',
                 }}
             >
                 < Tab.Screen name="Agenda" component={Home}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icon name="view-agenda-outline" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icon name="view-agenda-outline" color={color} size={22} />
                         ),
                     }}
                 />
                 <Tab.Screen name="Consultation" component={Consult}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icon name="calendar-multiple-check" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icon name="calendar-multiple-check" color={color} size={22} />
                         ),
                     }}
                 />
                 <Tab.Screen name="Absence" component={Absence}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icon name="application" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icon name="application" color={color} size={22} />
 
                         ),
                     }}
@@ -63,8 +63,8 @@ const Tabs = (props) => {
                 <Tab.Screen name="My Profile" component={MyProfile}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icons name="user-alt" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icons name="user-alt" color={color} size={22} />
 
                         ),
                     }}

@@ -30,31 +30,31 @@ const PTabs = (props) => {
                 initialRouteName='Home'
                 backBehavior='none'
                 tabBarOptions={{
-                    activeTintColor: '#ff7e00',
+                    activeTintColor: '#45347a',
                     inactiveTintColor: 'gray',
                 }}
             >
                 < Tab.Screen name="ListDoctor" component={ListDoc}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icons name="search" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icons name="search" color={color} size={22} />
                         ),
                     }}
                 />
                 < Tab.Screen name="Home" component={Home}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icon name="view-agenda-outline" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icon name="view-agenda-outline" color={color} size={22} />
                         ),
                     }}
                 />
                 <Tab.Screen name="Profile" component={Pro}
                     options={{
                         // tabBarColor: '#6bfaf3',
-                        tabBarIcon: () => (
-                            <Icons name="user-alt" color="black" size={22} />
+                        tabBarIcon: ({ color }) => (
+                            <Icons name="user-alt" color={color} size={22} />
                         ),
                     }}
                 />
