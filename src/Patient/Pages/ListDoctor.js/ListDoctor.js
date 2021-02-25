@@ -4,6 +4,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import Icon from 'react-native-vector-icons/AntDesign';
+import Awesome from 'react-native-vector-icons/FontAwesome'
 import { styling } from './styling';
 
 const ListDoctor = (props) => {
@@ -14,6 +15,8 @@ const ListDoctor = (props) => {
     const [book, setBook] = useState(false);
     const [detail, setdetail] = useState(false);
     const [booking, setBooking] = useState(false);
+    const [Confirmation, setConfirmation] = useState(false);
+
 
     const [selectMon, setMonSelect] = useState(null);
     const [time, setTime] = useState('');
@@ -33,6 +36,47 @@ const ListDoctor = (props) => {
                     <View style={{ width: wp(12) }} />
                 </View>
                 {!book && <View style={styling.innerView}>
+                    <View style={styling.drView}>
+
+                        <View style={styling.headersView}>
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Male', value: 'Male' },
+                                    { label: 'Female', value: 'Female' },
+                                ]}
+                                defaultValue={Special}
+                                placeholder='Select Gender'
+                                labelStyle={styling.dropdownLabel}
+                                style={styling.dropDown}
+                                containerStyle={styling.containerStyle}
+                                dropDownStyle={styling.dropdownStyle}
+                                showArrow={true}
+                                onChangeItem={(special) => {
+                                    console.log('ee')
+                                    setSpecial(special.value)
+                                }}
+
+                            />
+                        </View>
+                        <View style={styling.headersView}>
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Today', value: 'Today' },
+                                    { label: 'Tomorrow', value: 'Tomorrow' },
+
+                                ]}
+                                defaultValue={City}
+                                placeholder='Availablity'
+                                labelStyle={styling.dropdownLabel}
+                                style={styling.dropDown}
+                                containerStyle={styling.containerStyle}
+                                dropDownStyle={styling.dropdownStyle}
+                                showArrow={true}
+                                onChangeItem={(city) => { setCity(city.value) }}
+                            />
+                        </View>
+
+                    </View>
                     <TouchableOpacity style={styling.nameView} onPress={() => {
                         setdetail(true),
                             setBook(true)
@@ -46,7 +90,11 @@ const ListDoctor = (props) => {
                         <Text style={styling.labelTXT}>ACUPUNCTURIST</Text>
                         <Text style={styling.labelTXT}>0519291929</Text>
                     </TouchableOpacity >
-
+                    <TouchableOpacity style={styling.nameView}>
+                        <Text style={styling.DRTXT}>Dr. Mario</Text>
+                        <Text style={styling.labelTXT}>ACUPUNCTURIST</Text>
+                        <Text style={styling.labelTXT}>051453`1929</Text>
+                    </TouchableOpacity >
                 </View>
                 }
                 {detail && <View style={styling.innerView}>
@@ -233,10 +281,29 @@ const ListDoctor = (props) => {
                         </View>
                     </ScrollView>
 
-                    <TouchableOpacity style={styling.OpacityLog} onPress={() => props.navigation.navigate('PTabs')}>
+                    <TouchableOpacity style={styling.OpacityLog} onPress={() => { setConfirmation(true), setBook(true), setdetail(false), setBooking(false) }}>
                         <Text style={styling.Opacitytxt}>Confirm</Text>
                     </TouchableOpacity>
                 </View>}
+
+                {Confirmation && <View style={styling.inner2View}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
+                        <Text style={styling.labelDRTXT}>Your consultation is confirmed </Text>
+                        <Awesome name='check-circle-o' color='green' size={30} />
+                    </View>
+
+                    <View style={styling.sucesssView}>
+                        <Text style={styling.sucessTxT}>We have sent you a confirmation email.</Text>
+                        <Text style={styling.sucessTxT}>  You will also receive a reminder text message the day before the consultation.</Text>
+                        <Text style={styling.sucessTxT}>   If you wish to cancel this consultation, please go to your personal space, Consultations tab.</Text>
+
+                        <Text style={styling.msgTxT}> The monTabib team thanks you!</Text>
+                    </View>
+
+                </View>}
+
+
+
             </View>
 
         </SafeAreaView >

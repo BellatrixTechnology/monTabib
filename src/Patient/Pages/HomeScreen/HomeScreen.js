@@ -62,47 +62,7 @@ const HomeScreen = ({ props }) => {
                     </View>
 
                 </View>
-                <View style={styling.innerView}>
 
-                    <View style={styling.headersView}>
-                        <DropDownPicker
-                            items={[
-                                { label: 'Male', value: 'Male' },
-                                { label: 'Female', value: 'Female' },
-                            ]}
-                            defaultValue={Special}
-                            placeholder='Select Gender'
-                            labelStyle={styling.dropdownLabel}
-                            style={styling.dropDown}
-                            containerStyle={styling.containerStyle}
-                            dropDownStyle={styling.dropdownStyle}
-                            showArrow={true}
-                            onChangeItem={(special) => {
-                                console.log('ee')
-                                setSpecial(special.value)
-                            }}
-
-                        />
-                    </View>
-                    <View style={styling.headersView}>
-                        <DropDownPicker
-                            items={[
-                                { label: 'Today', value: 'Today' },
-                                { label: 'Tomorrow', value: 'Tomorrow' },
-
-                            ]}
-                            defaultValue={City}
-                            placeholder='Availablity'
-                            labelStyle={styling.dropdownLabel}
-                            style={styling.dropDown}
-                            containerStyle={styling.containerStyle}
-                            dropDownStyle={styling.dropdownStyle}
-                            showArrow={true}
-                            onChangeItem={(city) => { setCity(city.value) }}
-                        />
-                    </View>
-
-                </View>
                 <TouchableOpacity style={styling.OpacityLog} onPress={() => props.navigation.navigate('ListDoctor')}  >
                     <Text style={styling.Opacitytxt}>Search</Text>
                 </TouchableOpacity>

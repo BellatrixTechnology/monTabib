@@ -26,8 +26,45 @@ export const styling = StyleSheet.create({
         height: hp(80),
         width: wp(90),
         alignItems: 'center',
+        // justifyContent: 'center',
+        backgroundColor: 'white'
+    },
+    inner2View: {
+        height: hp(80),
+        width: wp(90),
+        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white'
+
+    },
+    headersView: {
+        height: hp(6),
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginBottom: 5,
+    },
+    drView: {
+        height: hp(25),
+        flexDirection: 'row',
+        width: wp(90),
+        alignItems: 'center',
+        justifyContent: 'center',
+        justifyContent: 'space-evenly'
+    },
+    dropdownView: {
+        alignItems: 'center'
+    },
+    dropDown: {
+        width: wp(40),
+    },
+    dropdownLabel: {
+        color: 'grey'
+    },
+    dropdownStyle: {
+        width: wp(40),
+    },
+    dropdowncontainerStyle: {
+        width: wp(40),
     },
     nameView: {
         height: hp(13),
@@ -124,4 +161,22 @@ export const styling = StyleSheet.create({
         fontSize: fontSize.button,
         color: '#e74e84'
     },
+    sucesssView: {
+        height: hp(20),
+        alignItems: 'center',
+        padding: 10
+    },
+    sucessTxT: {
+        fontFamily: 'SFUIText',
+        fontSize: fontSize.line,
+        textAlign: 'center',
+        lineHeight: 30
+    },
+    msgTxT: {
+        fontFamily: 'SFUIText',
+        fontSize: fontSize.line,
+        textAlign: 'center',
+        lineHeight: 30,
+        color: '#e74e84'
+    }
 })

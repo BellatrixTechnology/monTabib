@@ -14,7 +14,8 @@ export const styling = StyleSheet.create({
         height: hp('90%'),
     },
     headView: {
-        height: hp(6)
+        height: hp(6),
+        
     },
     headerView: {
         height: hp('10%'),
