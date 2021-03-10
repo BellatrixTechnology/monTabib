@@ -9,7 +9,39 @@ import { styling } from './styling';
 const LoginScreen = (props) => {
     const [focuspass, setpassfocus] = useState(false);
     const [emailfocus, setemailfocus] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorPassword, seterrorPassword] = useState(false);
 
+    const loginUser = () => {
+        fetch('https://montabib.com/loginApp', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "username": email,
+                "password": password
+            })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                console.log(responseJson.error)
+                if (responseJson.error == 'Invalid credentials.') {
+                    seterrorPassword(true)
+                }
+                else {
+                    seterrorPassword(false)
+                    props.navigation.navigate('Tab')
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
     return (
         <SafeAreaView style={styling.safeContainer}>
             <View style={styling.mainContainer}>
@@ -28,6 +60,7 @@ const LoginScreen = (props) => {
                         <TextInput
                             placeholder='Email'
                             onFocus={() => setemailfocus(true)}
+                            onChangeText={val => setEmail(val)}
                         />
                     </View>
                     <View style={focuspass ? styling.fieldfocus : styling.fieldnotfocus}>
@@ -36,14 +69,20 @@ const LoginScreen = (props) => {
                         <TextInput
                             placeholder='Password'
                             onFocus={() => setpassfocus(true)}
+                            onChangeText={val => setPassword(val)}
                         />
                     </View>
+                    {errorPassword && <Text style={{ color: 'red' }}>Email or Password incorrect</Text>}
+
                 </View>
                 <View style={styling.forgetView}>
                     <Text style={styling.forgetlabel}>Foregt Password?</Text>
                 </View>
                 <View style={styling.OpacityView}>
-                    <TouchableOpacity style={styling.OpacityLog} onPress={() => { props.navigation.navigate('Tab') }}>
+                    <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                        // props.navigation.navigate('Tab')
+                        loginUser()
+                    }}>
                         <Text style={styling.Opacitytxt}>LOGIN</Text>
                     </TouchableOpacity>
                     <View style={styling.createv}>
@@ -64,4 +103,4 @@ const LoginScreen = (props) => {
 
 
 
-export default LoginScreen; 
+export default LoginScreen;

@@ -15,6 +15,7 @@ const Home = (props) => {
     const [obj, setobj] = useState({});
     const [obj1, setobj1] = useState({});
     const [obj2, setobj2] = useState({});
+    const [ids, setID] = useState('')
 
     const [id, setid] = useState(0);
     const swipe = (a) => {
@@ -56,96 +57,87 @@ const Home = (props) => {
 
 
     const upload = () => {
-        console.log(obj)
-        console.log(obj1)
-        console.log(obj2)
-        const db = firebase.firestore().collection('Doctor');
-        db.add({
-            Name: obj.Name,
-            Email: obj.Email,
-            SurName: obj.SurName,
-            Gender: obj.Gender,
-            Address: obj.Address,
-            Telephone: obj.Telephone,
-            UI: obj.UI,
-            Specialist: obj.Specialist,
-            Consult: obj2.Consult,
-            Service: obj2.Service,
-            Days: {
-                Monday: {
-                    Morning: {
-                        Start: obj1.Monday.Morning.Start,
-                        End: obj1.Monday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Monday.Afternoon.Start,
-                        End: obj1.Monday.Afternoon.End
-                    }
-                },
-                Tuesday: {
-                    Morning: {
-                        Start: obj1.Tuesday.Morning.Start,
-                        End: obj1.Tuesday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Tuesday.Afternoon.Start,
-                        End: obj1.Tuesday.Afternoon.End
-                    }
-                },
-                Wednesday: {
-                    Morning: {
-                        Start: obj1.Wednesday.Morning.Start,
-                        End: obj1.Wednesday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Wednesday.Afternoon.Start,
-                        End: obj1.Wednesday.Afternoon.End
-                    }
-                },
-                Thursday: {
-                    Morning: {
-                        Start: obj1.Thursday.Morning.Start,
-                        End: obj1.Thursday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Thursday.Afternoon.Start,
-                        End: obj1.Thursday.Afternoon.End
-                    }
-                },
-                Friday: {
-                    Morning: {
-                        Start: obj1.Friday.Morning.Start,
-                        End: obj1.Friday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Friday.Afternoon.Start,
-                        End: obj1.Friday.Afternoon.End
-                    }
-                },
-                Saturday: {
-                    Morning: {
-                        Start: obj1.Saturday.Morning.Start,
-                        End: obj1.Saturday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Saturday.Afternoon.Start,
-                        End: obj1.Saturday.Afternoon.End
-                    }
-                },
-                Sunday: {
-                    Morning: {
-                        Start: obj1.Sunday.Morning.Start,
-                        End: obj1.Sunday.Morning.End
-                    },
-                    Afternoon: {
-                        Start: obj1.Sunday.Afternoon.Start,
-                        End: obj1.Sunday.Afternoon.End
-                    }
-                },
+        console.log(obj.Email)
+        fetch('https://www.montabib.com/api/users', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/json'
             },
-        })
-        ToastAndroid.show("Registered Successfully!", ToastAndroid.SHORT);
+            body: JSON.stringify({
+                "username": obj.Email,
+                "password": obj.Name,
+                "rank": true
+            })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                if (responseJson.error == 'Invalid credentials.') {
+                    console.log('sadasd')
 
+                }
+                else {
+                    setID(responseJson.id)
+                    saveDATA()
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+
+        // Name: obj.Name,
+        // Email: obj.Email,
+        // SurName: obj.SurName,
+        // Gender: obj.Gender,
+        // Address: obj.Address,
+        // Telephone: obj.Telephone,
+        // UI: obj.UI,
+        // Specialist: obj.Specialist,
+        // Consult: obj2.Consult,
+        // Service: obj2.Service,
+
+
+        ToastAndroid.show("Registered Successfully!", ToastAndroid.SHORT);
+    }
+    const saveDATA = () => {
+        fetch('https://www.montabib.com/api/medecins', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "nom": obj.SurName,
+                "prenom": obj.Name,
+                "sexe": "1",
+                "adresse": obj.Address,
+                "email": obj.Email,
+                "telephone": obj.Telephone,
+                "description": "medecin de tizi ouzou",
+                "specialisation": [
+                    "/api/specialisations/1"
+                ],
+                "lat": 0.64077229268898,
+                "lon": 0.07063884171566,
+                "latDegree": 36.713548,
+                "lonDegree": 4.0473075,
+                "identifiantUnique": obj.UI,
+                "user": "/api/users/" + ids
+            })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                if (responseJson.error == 'Invalid credentials.') {
+                    console.log('sadasd')
+                }
+                else {
+
+                    console.log('asdasd')
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     return (
@@ -225,8 +217,8 @@ const Home = (props) => {
                                     <Text style={styling.nextbuttonText}>Previous</Text>
                                 </TouchableOpacity >
                                 <TouchableOpacity style={styling.nextButton} onPress={() => {
-                                    // upload()
-                                    props.navigation.navigate('Tab')
+                                    upload()
+                                    // props.navigation.navigate('Tab')
 
                                 }} >
                                     <Text style={styling.nextbuttonText}>Done</Text>
