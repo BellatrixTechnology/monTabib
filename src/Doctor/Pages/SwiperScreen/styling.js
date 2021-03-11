@@ -60,6 +60,7 @@ export const styling = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         marginBottom: 5,
+        marginTop: hp(2)
     },
     headerText: {
         fontSize: fontSize.header,

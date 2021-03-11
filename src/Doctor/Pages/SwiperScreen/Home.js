@@ -15,7 +15,7 @@ const Home = (props) => {
     const [obj, setobj] = useState({});
     const [obj1, setobj1] = useState({});
     const [obj2, setobj2] = useState({});
-    const [ids, setID] = useState('')
+    const [userId, setuseiD] = useState('')
 
     const [id, setid] = useState(0);
     const swipe = (a) => {
@@ -57,7 +57,6 @@ const Home = (props) => {
 
 
     const upload = () => {
-        console.log(obj.Email)
         fetch('https://www.montabib.com/api/users', {
             method: 'POST',
             headers: {
@@ -70,36 +69,26 @@ const Home = (props) => {
                 "password": obj.Name,
                 "rank": true
             })
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson, 'res JSON');
-                if (responseJson.error == 'Invalid credentials.') {
-                    console.log('sadasd')
+        }).then((res) => {
+            console.log('register', res);
+            if (res.ok == true) {
+                res.json().then((data) => {
+                    // setuseiD()
+                    saveDATA(data.id)
 
-                }
-                else {
-                    setID(responseJson.id)
-                    saveDATA()
-                }
-            }).catch((error) => {
-                console.error(error);
-            });
+                    console.log(data)
+                })
+            } else {
+                console.log('ad')
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
 
-        // Name: obj.Name,
-        // Email: obj.Email,
-        // SurName: obj.SurName,
-        // Gender: obj.Gender,
-        // Address: obj.Address,
-        // Telephone: obj.Telephone,
-        // UI: obj.UI,
-        // Specialist: obj.Specialist,
-        // Consult: obj2.Consult,
-        // Service: obj2.Service,
-
-
-        ToastAndroid.show("Registered Successfully!", ToastAndroid.SHORT);
     }
-    const saveDATA = () => {
+    const saveDATA = (userIDAPI) => {
+        console.log(userIDAPI)
+        console.log("/api/users/" + userIDAPI)
         fetch('https://www.montabib.com/api/medecins', {
             method: 'POST',
             headers: {
@@ -107,9 +96,9 @@ const Home = (props) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "nom": obj.SurName,
-                "prenom": obj.Name,
-                "sexe": "1",
+                "nom": obj.Name,
+                "prenom": obj.SurName,
+                "sexe": obj.Gender,
                 "adresse": obj.Address,
                 "email": obj.Email,
                 "telephone": obj.Telephone,
@@ -121,22 +110,24 @@ const Home = (props) => {
                 "lon": 0.07063884171566,
                 "latDegree": 36.713548,
                 "lonDegree": 4.0473075,
-                "identifiantUnique": obj.UI,
-                "user": "/api/users/" + ids
+                "identifiantUnique": "OIBEC23",
+                "user": ["/api/users/" + userIDAPI]
             })
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson, 'res JSON');
-                if (responseJson.error == 'Invalid credentials.') {
-                    console.log('sadasd')
-                }
-                else {
-
-                    console.log('asdasd')
-                }
-            })
+        }).then((ress) => {
+            console.log(ress)
+            if (ress.ok == true) {
+                console.log(ress)
+                ress.json().then((data) => {
+                    console.log(data)
+                    // props.navigation.navigate('Tab')
+                });
+            } else {
+                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+            }
+        })
             .catch((error) => {
-                console.error(error);
+                console.log(error)
+                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
             });
     }
 
@@ -218,7 +209,7 @@ const Home = (props) => {
                                 </TouchableOpacity >
                                 <TouchableOpacity style={styling.nextButton} onPress={() => {
                                     upload()
-                                    // props.navigation.navigate('Tab')
+                                    // 
 
                                 }} >
                                     <Text style={styling.nextbuttonText}>Done</Text>

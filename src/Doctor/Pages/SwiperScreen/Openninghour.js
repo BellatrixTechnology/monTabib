@@ -36,6 +36,11 @@ const OpenningHour = () => {
     const [endAfternoonFriday, setendAfternoonFriday] = useState('');
     const [endAfternoonSaturday, setendAfternoonSaturday] = useState('');
     const [endAfternoonSunday, setendAfternoonSunday] = useState('');
+    const [mon, setMon] = useState(false);
+    const [tues, setTues] = useState(false);
+    const [wed, setWed] = useState(false);
+    const [thrus, setThrus] = useState(false);
+    const [friday, setFriday] = useState(false);
     const [sat, setSat] = useState(false);
     const [sun, setSun] = useState(false);
 
@@ -124,10 +129,22 @@ const OpenningHour = () => {
                     <Text style={styling.headerText}>Openning Hour</Text>
                 </View>
                 <View style={styling.dayView}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styling.daytagLabel}>Monday </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                setMon(true)
+                                if (!mon) { setMon(true) } else { setMon(false) }
 
-                    <Text style={styling.daytagLabel}>Monday </Text>
+                            }}
+                            value={mon}
+                        />
+                    </View>
 
-                    <View style={styling.daypickerView}>
+                    {mon && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -179,20 +196,31 @@ const OpenningHour = () => {
                             }
 
                         </Picker>
-                    </View>
+                    </View>}
 
-                    {endMorningMonday != '' || endAfternoonMonday != '' ? <View >
+                    {mon && <View >
                         <Text>Morning: {startMorningMonday} - {endMorningMonday}</Text>
                         <Text>Afternoon: {startAfternoonMonday} - {endAfternoonMonday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
 
                 </View>
 
                 <View style={styling.dayView}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styling.daytagLabel}>Tuesday </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                setTues(true)
+                                if (!tues) { setTues(true) } else setTues(false)
 
-                    <Text style={styling.daytagLabel}>Tuesday </Text>
-
-                    <View style={styling.daypickerView}>
+                            }}
+                            value={tues}
+                        />
+                    </View>
+                    {tues && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -244,7 +272,7 @@ const OpenningHour = () => {
                             }
 
                         </Picker>
-                    </View>
+                    </View>}
                     {endMorningTuesday != '' || endAfternoonTuesday != '' ? <View >
                         <Text>Morning: {startMorningTuesday} - {endMorningTuesday}</Text>
                         <Text>Afternoon: {startAfternoonTuesday} - {endAfternoonTuesday}</Text>
@@ -254,9 +282,21 @@ const OpenningHour = () => {
 
                 <View style={styling.dayView}>
 
-                    <Text style={styling.daytagLabel}>Wednesday </Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styling.daytagLabel}>Wednesday </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                setWed(true)
+                                if (!wed) { setWed(true) } else setWed(false)
 
-                    <View style={styling.daypickerView}>
+                            }}
+                            value={wed}
+                        />
+                    </View>
+                    {wed && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -306,7 +346,7 @@ const OpenningHour = () => {
                             })}
 
                         </Picker>
-                    </View>
+                    </View>}
                     {endMorningWednesday != '' || endAfternoonWednesday != '' ? <View >
                         <Text>Morning: {startMorningWednesday} - {endMorningWednesday}</Text>
                         <Text>Afternoon: {startAfternoonWednesday} - {endAfternoonWednesday}</Text>
@@ -314,10 +354,23 @@ const OpenningHour = () => {
                 </View>
 
                 <View style={styling.dayView}>
+                    <View style={{ flexDirection: 'row' }}>
 
-                    <Text style={styling.daytagLabel}>Thursday </Text>
+                        <Text style={styling.daytagLabel}>Thursday </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                setThrus(true)
+                                if (!thrus) { setThrus(true) } else setThrus(false)
 
-                    <View style={styling.daypickerView}>
+                            }}
+                            value={thrus}
+                        />
+                    </View>
+
+                    {thrus && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -369,7 +422,7 @@ const OpenningHour = () => {
                             }
 
                         </Picker>
-                    </View>
+                    </View>}
 
                     {endMorningThursday != '' || endAfternoonThursday != '' ? <View >
                         <Text>Morning: {startMorningThursday} - {endMorningThursday}</Text>
@@ -378,10 +431,23 @@ const OpenningHour = () => {
                 </View>
 
                 <View style={styling.dayView}>
+                    <View style={{ flexDirection: 'row' }}>
 
-                    <Text style={styling.daytagLabel}>Friday </Text>
+                        <Text style={styling.daytagLabel}>Friday </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                setFriday(true)
+                                if (!friday) { setFriday(true) } else setFriday(false)
 
-                    <View style={styling.daypickerView}>
+                            }}
+                            value={friday}
+                        />
+                    </View>
+
+                    {friday && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -432,7 +498,7 @@ const OpenningHour = () => {
                             }
 
                         </Picker>
-                    </View>
+                    </View>}
                     {endMorningFriday != '' || endAfternoonFriday != '' ? <View >
                         <Text>Morning: {startMorningFriday} - {endMorningFriday}</Text>
                         <Text>Afternoon: {startAfternoonFriday} - {endAfternoonFriday}</Text>
@@ -440,18 +506,21 @@ const OpenningHour = () => {
                 </View>
 
                 <View style={styling.dayView}>
+                    <View style={{ flexDirection: 'row' }}>
 
-                    <Text style={styling.daytagLabel}>Saturday </Text>
-                    {sat == false && <Switch
+                        <Text style={styling.daytagLabel}>Saturday </Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                setSat(true)
+                                if (!sat) { setSat(true) } else setSat(false)
 
-                        trackColor={{ false: "#767577", true: "#FF2D55" }}
-                        thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={() => {
-                            setSat(true)
-                        }}
-                        value={sat}
-                    />}
+                            }}
+                            value={sat}
+                        />
+                    </View>
                     {sat == true && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
@@ -510,17 +579,19 @@ const OpenningHour = () => {
                 </View>
                 <View style={styling.dayView}>
 
-                    <Text style={styling.daytagLabel}>Sunday </Text>
-                    {sun == false && <Switch
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styling.daytagLabel}>Sunday </Text>
+                        <Switch
 
-                        trackColor={{ false: "#767577", true: "#FF2D55" }}
-                        thumbColor={sun ? "#E5E5E5" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={() => {
-                            setSun(true)
-                        }}
-                        value={sun}
-                    />}
+                            trackColor={{ false: "#767577", true: "#FF2D55" }}
+                            thumbColor={sun ? "#E5E5E5" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() => {
+                                if (!sun) { setSun(true) } else setSun(false)
+                            }}
+                            value={sun}
+                        />
+                    </View>
                     {sun == true &&
                         <View style={styling.daypickerView}>
                             <Picker

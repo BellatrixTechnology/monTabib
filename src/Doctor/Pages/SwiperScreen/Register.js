@@ -29,7 +29,6 @@ const Register = () => {
         }
         AsyncStorage.setItem('user', JSON.stringify(obj));
 
-
     }
 
 
@@ -64,8 +63,8 @@ const Register = () => {
                     <View style={styling.headerView}>
                         <DropDownPicker
                             items={[
-                                { label: 'Male', value: 'Male' },
-                                { label: 'Female', value: 'Female' },]}
+                                { label: 'Male', value: '1' },
+                                { label: 'Female', value: '0' },]}
                             defaultValue={Gender}
                             placeholder='Select Gender'
                             labelStyle={styling.dropdownLabel}
@@ -75,6 +74,24 @@ const Register = () => {
                             showArrow={true}
                             onChangeItem={(gender) => {
                                 setGender(gender.value)
+                            }}
+
+                        />
+                    </View>
+                    <View style={styling.headerView}>
+                        <DropDownPicker
+                            items={[
+                                { label: 'Acupuncture', value: '1' },
+                                { label: 'Surgeon', value: '2' },]}
+                            defaultValue={Special}
+                            placeholder='Your Specialization'
+                            labelStyle={styling.dropdownLabel}
+                            style={styling.dropDown}
+                            containerStyle={styling.containerStyle}
+                            dropDownStyle={styling.dropdownStyle}
+                            showArrow={true}
+                            onChangeItem={(special) => {
+                                setSpecial(special.value)
                             }}
 
                         />
@@ -118,14 +135,15 @@ const Register = () => {
                                     setUI(ui)
                                 }}
                             />
-                            <Input
+                            {/* <Input
                                 label='Specialization'
                                 placeholder='Your Specialization'
                                 value={Special}
                                 onChangeText={(special) => {
                                     setSpecial(special)
                                 }}
-                            />
+                            /> */}
+
                         </View>
                     </KeyboardAvoidingView>
                     {Name != '' && Surname != '' && Email != '' && Gender != '' && Address != '' && UI != '' && Special != '' && Telephone != '' ? SaveData() : console.log('empty')}
