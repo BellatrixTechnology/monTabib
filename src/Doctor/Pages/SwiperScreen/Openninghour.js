@@ -8,41 +8,41 @@ import { styling } from './styling';
 const OpenningHour = () => {
     const Timepick = ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'];
     const [day, setday] = useState('');
-    const [startMorningMonday, setstartMorningMonday] = useState('');
-    const [startMorningTuesday, setstartMorningTuesday] = useState('');
-    const [startMorningWednesday, setstartMorningWednesday] = useState('');
-    const [startMorningThursday, setstartMorningThursday] = useState('');
-    const [startMorningFriday, setstartMorningFriday] = useState('');
-    const [startMorningSaturday, setstartMorningSaturday] = useState('');
-    const [startMorningSunday, setstartMorningSunday] = useState('');
-    const [endMorningMonday, setendMorningMonday] = useState('');
-    const [endMorningTuesday, setendMorningTuesday] = useState('');
-    const [endMorningWednesday, setendMorningWednesday] = useState('');
-    const [endMorningThursday, setendMorningThursday] = useState('');
-    const [endMorningFriday, setendMorningFriday] = useState('');
-    const [endMorningSaturday, setendMorningSaturday] = useState('');
-    const [endMorningSunday, setendMorningSunday] = useState('');
-    const [startAfternoonMonday, setstartAfternoonMonday] = useState('');
-    const [startAfternoonTuesday, setstartAfternoonTuesday] = useState('');
-    const [startAfternoonWednesday, setstartAfternoonWednesday] = useState('');
-    const [startAfternoonThursday, setstartAfternoonThursday] = useState('');
-    const [startAfternoonFriday, setstartAfternoonFriday] = useState('');
-    const [startAfternoonSaturday, setstartAfternoonSaturday] = useState('');
-    const [startAfternoonSunday, setstartAfternoonSunday] = useState('');
-    const [endAfternoonMonday, setendAfternoonMonday] = useState('');
-    const [endAfternoonTuesday, setendAfternoonTuesday] = useState('');
-    const [endAfternoonWednesday, setendAfternoonWednesday] = useState('');
-    const [endAfternoonThursday, setendAfternoonThursday] = useState('');
-    const [endAfternoonFriday, setendAfternoonFriday] = useState('');
-    const [endAfternoonSaturday, setendAfternoonSaturday] = useState('');
-    const [endAfternoonSunday, setendAfternoonSunday] = useState('');
-    const [mon, setMon] = useState(false);
-    const [tues, setTues] = useState(false);
-    const [wed, setWed] = useState(false);
-    const [thrus, setThrus] = useState(false);
-    const [friday, setFriday] = useState(false);
-    const [sat, setSat] = useState(false);
-    const [sun, setSun] = useState(false);
+    const [startMorningMonday, setstartMorningMonday] = useState('00:00');
+    const [startMorningTuesday, setstartMorningTuesday] = useState('00:00');
+    const [startMorningWednesday, setstartMorningWednesday] = useState('00:00');
+    const [startMorningThursday, setstartMorningThursday] = useState('00:00');
+    const [startMorningFriday, setstartMorningFriday] = useState('00:00');
+    const [startMorningSaturday, setstartMorningSaturday] = useState('00:00');
+    const [startMorningSunday, setstartMorningSunday] = useState('00:00');
+    const [endMorningMonday, setendMorningMonday] = useState('00:00');
+    const [endMorningTuesday, setendMorningTuesday] = useState('00:00');
+    const [endMorningWednesday, setendMorningWednesday] = useState('00:00');
+    const [endMorningThursday, setendMorningThursday] = useState('00:00');
+    const [endMorningFriday, setendMorningFriday] = useState('00:00');
+    const [endMorningSaturday, setendMorningSaturday] = useState('00:00');
+    const [endMorningSunday, setendMorningSunday] = useState('00:00');
+    const [startAfternoonMonday, setstartAfternoonMonday] = useState('00:00');
+    const [startAfternoonTuesday, setstartAfternoonTuesday] = useState('00:00');
+    const [startAfternoonWednesday, setstartAfternoonWednesday] = useState('00:00');
+    const [startAfternoonThursday, setstartAfternoonThursday] = useState('00:00');
+    const [startAfternoonFriday, setstartAfternoonFriday] = useState('00:00');
+    const [startAfternoonSaturday, setstartAfternoonSaturday] = useState('00:00');
+    const [startAfternoonSunday, setstartAfternoonSunday] = useState('00:00');
+    const [endAfternoonMonday, setendAfternoonMonday] = useState('00:00');
+    const [endAfternoonTuesday, setendAfternoonTuesday] = useState('00:00');
+    const [endAfternoonWednesday, setendAfternoonWednesday] = useState('00:00');
+    const [endAfternoonThursday, setendAfternoonThursday] = useState('00:00');
+    const [endAfternoonFriday, setendAfternoonFriday] = useState('00:00');
+    const [endAfternoonSaturday, setendAfternoonSaturday] = useState('00:00');
+    const [endAfternoonSunday, setendAfternoonSunday] = useState('00:00');
+    const [mon, setMon] = useState(true);
+    const [tues, setTues] = useState(true);
+    const [wed, setWed] = useState(true);
+    const [thrus, setThrus] = useState(true);
+    const [friday, setFriday] = useState(true);
+    const [sat, setSat] = useState(true);
+    const [sun, setSun] = useState(true);
 
     const SaveData = () => {
 
@@ -55,7 +55,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonMonday,
                     End: endAfternoonMonday
-                }
+                },
+                status: mon
             },
             Tuesday: {
                 Morning: {
@@ -65,7 +66,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonTuesday,
                     End: endAfternoonTuesday
-                }
+                },
+                status: tues
             },
             Wednesday: {
                 Morning: {
@@ -75,7 +77,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonWednesday,
                     End: endAfternoonWednesday
-                }
+                },
+                status: wed
             },
             Thursday: {
                 Morning: {
@@ -85,7 +88,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonThursday,
                     End: endAfternoonThursday
-                }
+                },
+                status: thrus
             },
             Friday: {
                 Morning: {
@@ -95,7 +99,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonFriday,
                     End: endAfternoonFriday
-                }
+                },
+                status: friday
             },
             Saturday: {
                 Morning: {
@@ -105,7 +110,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonSaturday,
                     End: endAfternoonSaturday
-                }
+                },
+                status: sat
             },
             Sunday: {
                 Morning: {
@@ -115,7 +121,8 @@ const OpenningHour = () => {
                 Afternoon: {
                     Start: startAfternoonSunday,
                     End: endAfternoonSunday
-                }
+                },
+                status: sun
             },
         }
         AsyncStorage.setItem('useropenning', JSON.stringify(data));
@@ -136,15 +143,20 @@ const OpenningHour = () => {
                             thumbColor={sat ? "#E5E5E5" : "#f4f3f4"}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
-                                setMon(true)
-                                if (!mon) { setMon(true) } else { setMon(false) }
+                                if (!mon) {
+                                    setMon(true)
+                                    setendMorningMonday('00:00')
+                                    setstartMorningMonday('00:00')
+                                    setendAfternoonMonday('00:00')
+                                    setstartAfternoonMonday('00:00')
+                                } else { setMon(false) }
 
                             }}
                             value={mon}
                         />
                     </View>
 
-                    {mon && <View style={styling.daypickerView}>
+                    {!mon && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -198,7 +210,7 @@ const OpenningHour = () => {
                         </Picker>
                     </View>}
 
-                    {mon && <View >
+                    {!mon && <View >
                         <Text>Morning: {startMorningMonday} - {endMorningMonday}</Text>
                         <Text>Afternoon: {startAfternoonMonday} - {endAfternoonMonday}</Text>
                     </View>}
@@ -214,13 +226,19 @@ const OpenningHour = () => {
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
                                 setTues(true)
-                                if (!tues) { setTues(true) } else setTues(false)
+                                if (!tues) {
+                                    setTues(true)
+                                    setendMorningTuesday('00:00')
+                                    setstartMorningTuesday('00:00')
+                                    setstartAfternoonTuesday('00:00')
+                                    setendAfternoonTuesday('00:00')
+                                } else setTues(false)
 
                             }}
                             value={tues}
                         />
                     </View>
-                    {tues && <View style={styling.daypickerView}>
+                    {!tues && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -273,10 +291,10 @@ const OpenningHour = () => {
 
                         </Picker>
                     </View>}
-                    {endMorningTuesday != '' || endAfternoonTuesday != '' ? <View >
+                    {!tues && <View >
                         <Text>Morning: {startMorningTuesday} - {endMorningTuesday}</Text>
                         <Text>Afternoon: {startAfternoonTuesday} - {endAfternoonTuesday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
                 </View>
 
 
@@ -290,13 +308,19 @@ const OpenningHour = () => {
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
                                 setWed(true)
-                                if (!wed) { setWed(true) } else setWed(false)
+                                if (!wed) {
+                                    setWed(true)
+                                    setendMorningWednesday('00:00')
+                                    setstartAfternoonWednesday('00:00')
+                                    setendAfternoonWednesday('00:00')
+                                    setstartMorningWednesday('00:00')
+                                } else setWed(false)
 
                             }}
                             value={wed}
                         />
                     </View>
-                    {wed && <View style={styling.daypickerView}>
+                    {!wed && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -347,10 +371,10 @@ const OpenningHour = () => {
 
                         </Picker>
                     </View>}
-                    {endMorningWednesday != '' || endAfternoonWednesday != '' ? <View >
+                    {!wed && <View >
                         <Text>Morning: {startMorningWednesday} - {endMorningWednesday}</Text>
                         <Text>Afternoon: {startAfternoonWednesday} - {endAfternoonWednesday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
                 </View>
 
                 <View style={styling.dayView}>
@@ -363,14 +387,20 @@ const OpenningHour = () => {
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
                                 setThrus(true)
-                                if (!thrus) { setThrus(true) } else setThrus(false)
+                                if (!thrus) {
+                                    setThrus(true)
+                                    setstartMorningThursday('00:00')
+                                    setendMorningThursday('00:00')
+                                    setstartAfternoonThursday('00:00')
+                                    setendAfternoonThursday('00:00')
+                                } else setThrus(false)
 
                             }}
                             value={thrus}
                         />
                     </View>
 
-                    {thrus && <View style={styling.daypickerView}>
+                    {!thrus && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -424,10 +454,10 @@ const OpenningHour = () => {
                         </Picker>
                     </View>}
 
-                    {endMorningThursday != '' || endAfternoonThursday != '' ? <View >
+                    {!thrus && <View >
                         <Text>Morning: {startMorningThursday} - {endMorningThursday}</Text>
                         <Text>Afternoon: {startAfternoonThursday} - {endAfternoonThursday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
                 </View>
 
                 <View style={styling.dayView}>
@@ -440,14 +470,20 @@ const OpenningHour = () => {
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
                                 setFriday(true)
-                                if (!friday) { setFriday(true) } else setFriday(false)
+                                if (!friday) {
+                                    setFriday(true)
+                                    setstartMorningFriday('00:00')
+                                    setendMorningFriday('00:00')
+                                    setstartAfternoonFriday('00:00')
+                                    setendAfternoonFriday('00:00')
+                                } else setFriday(false)
 
                             }}
                             value={friday}
                         />
                     </View>
 
-                    {friday && <View style={styling.daypickerView}>
+                    {!friday && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -499,10 +535,10 @@ const OpenningHour = () => {
 
                         </Picker>
                     </View>}
-                    {endMorningFriday != '' || endAfternoonFriday != '' ? <View >
+                    {!friday && <View >
                         <Text>Morning: {startMorningFriday} - {endMorningFriday}</Text>
                         <Text>Afternoon: {startAfternoonFriday} - {endAfternoonFriday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
                 </View>
 
                 <View style={styling.dayView}>
@@ -515,13 +551,19 @@ const OpenningHour = () => {
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
                                 setSat(true)
-                                if (!sat) { setSat(true) } else setSat(false)
+                                if (!sat) {
+                                    setSat(true)
+                                    setstartMorningSaturday('00:00')
+                                    setendMorningSaturday('00:00')
+                                    setstartAfternoonSaturday('00:00')
+                                    setendAfternoonSaturday('00:00')
+                                } else setSat(false)
 
                             }}
                             value={sat}
                         />
                     </View>
-                    {sat == true && <View style={styling.daypickerView}>
+                    {!sat == true && <View style={styling.daypickerView}>
                         <Picker
                             style={{ height: 50, width: 120 }}
                             onValueChange={(itemValue, itemIndex) =>
@@ -571,10 +613,10 @@ const OpenningHour = () => {
                             })}
                         </Picker>
                     </View>}
-                    {endMorningSaturday != '' || endAfternoonSaturday != '' ? <View >
+                    {!sat && <View >
                         <Text>Morning:- {startMorningSaturday} - {endMorningSaturday}</Text>
                         <Text>Afternoon: {startAfternoonSaturday} - {endAfternoonSaturday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
 
                 </View>
                 <View style={styling.dayView}>
@@ -587,12 +629,18 @@ const OpenningHour = () => {
                             thumbColor={sun ? "#E5E5E5" : "#f4f3f4"}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => {
-                                if (!sun) { setSun(true) } else setSun(false)
+                                if (!sun) {
+                                    setSun(true)
+                                    setstartMorningSunday('00:00')
+                                    setendMorningSunday('00:00')
+                                    setendAfternoonSunday('00:00')
+                                    setstartAfternoonSunday('00:00')
+                                } else setSun(false)
                             }}
                             value={sun}
                         />
                     </View>
-                    {sun == true &&
+                    {!sun == true &&
                         <View style={styling.daypickerView}>
                             <Picker
                                 style={{ height: 50, width: 120 }}
@@ -645,10 +693,10 @@ const OpenningHour = () => {
 
                             </Picker>
                         </View>}
-                    {endMorningSunday != '' || endAfternoonSunday != '' ? <View >
+                    {!sun && <View >
                         <Text>Morning:: {startMorningSunday} - {endMorningSunday}</Text>
                         <Text>Afternoon {startAfternoonSunday} - {endAfternoonSunday}</Text>
-                    </View> : console.log('wait')}
+                    </View>}
                 </View>
 
 

@@ -110,7 +110,7 @@ export const styling = StyleSheet.create({
 
     innerContainerView: {
         width: wp(90),
-        height: hp(81.5),
+        height: hp(70),
         alignSelf: 'center',
     },
     servicetextinput: {
@@ -178,11 +178,22 @@ export const styling = StyleSheet.create({
         fontFamily: 'SFUIText-Bold',
     },
     addButton: {
+        marginVertical: hp(1),
         height: hp('5%'),
         flexDirection: 'row',
-        width: wp('30%'),
+        width: wp('80%'),
         alignSelf: 'center',
         justifyContent: 'space-evenly',
+        // backgroundColor: 'red'
+    },
+    saveOpcatiy: {
+        backgroundColor: '#3f4079',
+        height: hp(6),
+        width: wp(40),
+        alignSelf: 'center',
+        marginVertical: hp(2),
+        alignItems: 'center', justifyContent: 'center',
+        borderRadius: 10
     },
     txtInputView: {
         flexDirection: 'row',

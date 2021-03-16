@@ -5,15 +5,29 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { hp, wp } from '../../../Global/Styles/Scalling';
+import { cos } from 'react-native-reanimated';
 
 const Services = () => {
-    const [Consult, setConsult] = useState('');
-    const [Service, setService] = useState('');
+    const [Consult, setConsult] = useState([]);
+    const [Service, setService] = useState([]);
     const [cons, setCons] = useState([{ Consult: "", Duration: "" }]);
-
+    const [conTemp, setconTemp] = useState('');
+    const [conDura, setconDua] = useState('');
+    const [serTemp, setserTemp] = useState('')
+    const [serPrice, setserPrice] = useState('');
     const [ser, setSer] = useState([{ Service: "", Price: "" }]);
-
-
+    const addconsult = () => {
+        setConsult([...Consult, { Consult: conTemp, Duration: conDura }])
+        setconDua('')
+        setconTemp('')
+        console.log(Consult)
+    }
+    const addServie = () => {
+        setService([...Service, { Service: serTemp, Price: serPrice }])
+        setserTemp('')
+        setserPrice('')
+        console.log(Service)
+    }
 
     const SaveData = () => {
 
@@ -42,7 +56,6 @@ const Services = () => {
         list.splice(i, 1);
         setSer(list);
     }
-
     return (
         <SafeAreaView style={styling.safeContainer}>
 
@@ -51,86 +64,84 @@ const Services = () => {
                     Keyboard.dismiss();
                 }}  >
                 <View style={styling.containerView}>
-
                     <View style={styling.innerContainerView}>
-                        <Text style={styling.serviceText}>Consultation In</Text>
-                        {/* <TextInput
-                            multiline={true}
-                            numberOfLines={10}
-                            placeholder=' Consultation'
-                            value={Consult}
-                            onChangeText={(text) => { setConsult(text) }}
-                            style={styling.servicetextinput}
-                        /> */}
+                        <ScrollView>
 
-                        {cons.map((x, i) => {
-                            return (
-                                <View>
-                                    <View style={styling.txtInputView}>
-                                        <TextInput
-                                            multiline={true}
-                                            // numberOfLines={10}
-                                            placeholder=' Consultation'
-                                            value={Consult}
-                                            onChangeText={(text) => { setConsult(text) }}
-                                            style={styling.servicetextinput}
-                                        />
-                                        <TextInput
-                                            multiline={true}
-                                            // numberOfLines={10}
-                                            placeholder='Duration'
-                                            value={Consult}
-                                            onChangeText={(text) => { setConsult(text) }}
-                                            style={styling.servicePriceinput}
-                                        />
+                            <Text style={styling.serviceText}>Consultation In</Text>
+
+                            {cons.map((x, i) => {
+                                return (
+                                    <View>
+                                        <View style={styling.txtInputView}>
+                                            <TextInput
+                                                multiline={true}
+                                                // numberOfLines={10}
+                                                placeholder=' Consultation'
+                                                value={Consult}
+                                                onChangeText={(text) => { setconTemp(text) }}
+                                                style={styling.servicetextinput}
+                                            />
+                                            <TextInput
+                                                multiline={true}
+                                                // numberOfLines={10}
+                                                placeholder='Duration'
+                                                value={Consult}
+                                                onChangeText={(text) => setconDua(text)}
+                                                style={styling.servicePriceinput}
+                                            />
+                                        </View>
+                                        {cons.length - 1 == i ?
+                                            <View style={styling.addButton}>
+                                                <TouchableOpacity><Text style={{ color: 'blue' }} onPress={() => addconsult()}>Add Consultation</Text></TouchableOpacity>
+                                                <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputConst(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => { addInputConst() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
+                                            </View> : console.log('da')}
                                     </View>
-                                    {cons.length - 1 == i ?
-                                        <View style={styling.addButton}>
-                                            <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputConst(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
-                                            <TouchableOpacity onPress={() => { addInputConst() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
-                                        </View> : console.log('da')}
-                                </View>
-                            )
+                                )
 
-                        })}
+                            })}
 
-                        <Text style={styling.serviceText}>Services</Text>
-                        {ser.map((x, i) => {
-                            return (
-                                <View>
-                                    <View style={styling.txtInputView}>
+                            <Text style={styling.serviceText}>Services</Text>
+                            {ser.map((x, i) => {
+                                return (
+                                    <View>
+                                        <View style={styling.txtInputView}>
 
-                                        <TextInput
-                                            multiline={true}
-                                            // numberOfLines={10}
-                                            placeholder=' Service'
-                                            value={Consult}
-                                            onChangeText={(text) => { setService(text) }}
-                                            style={styling.servicetextinput}
-                                        />
-                                        <TextInput
-                                            multiline={true}
-                                            // numberOfLines={10}
-                                            placeholder='Price'
-                                            value={Consult}
-                                            onChangeText={(text) => { setService(text) }}
-                                            style={styling.servicePriceinput}
-                                        />
+                                            <TextInput
+                                                multiline={true}
+                                                // numberOfLines={10}
+                                                placeholder=' Service'
+                                                value={Consult}
+                                                onChangeText={(text) => { setserTemp(text) }}
+                                                style={styling.servicetextinput}
+                                            />
+                                            <TextInput
+                                                multiline={true}
+                                                // numberOfLines={10}
+                                                placeholder='Price'
+                                                value={Consult}
+                                                onChangeText={(text) => { setserPrice(text) }}
+                                                style={styling.servicePriceinput}
+                                            />
 
+                                        </View>
+                                        {ser.length - 1 == i ?
+                                            <View style={styling.addButton}>
+                                                <TouchableOpacity><Text style={{ color: 'blue' }} onPress={() => addServie()}>Add Services</Text></TouchableOpacity>
+                                                <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputSer(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => { addInputSer() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
+                                            </View> : console.log('wait')}
                                     </View>
-                                    {ser.length - 1 == i ?
-                                        <View style={styling.addButton}>
-                                            <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputSer(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
-                                            <TouchableOpacity onPress={() => { addInputSer() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
-                                        </View> : console.log('wait')}
-                                </View>
-                            )
+                                )
 
-                        })}
+                            })}
 
-                        {Consult != '' && Service != '' ? SaveData() : console.log('empty')}
+                        </ScrollView>
+
                     </View>
-
+                    <TouchableOpacity style={styling.saveOpcatiy} onPress={() => SaveData()}>
+                        <Text style={{ color: 'white', fontSize: 20 }}>Save</Text>
+                    </TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
         </SafeAreaView>
