@@ -28,6 +28,7 @@ import Services from './src/Doctor/Pages/Services/Services';
 import Experience from './src/Doctor/Pages/Experience/Experience';
 import Opennings from './src/Doctor/Pages/Opennings/Opennings';
 
+console.disableYellowBox = true;
 
 const { Navigator, Screen } = createStackNavigator();
 

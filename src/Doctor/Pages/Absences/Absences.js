@@ -1,14 +1,80 @@
-import React from 'react';
-import { View, StatusBar, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StatusBar, TouchableOpacity, SafeAreaView, ToastAndroid } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import Dialog from "react-native-dialog";
 
 // import CalendarPicker from 'react-native-calendar-picker';
 
-
 const Absences = () => {
+    const [isVisible, setisVisible] = useState(false)
+    const [day, setDay] = useState('')
+    const [month, setMonth] = useState('')
+    const [year, setYear] = useState('')
+    const [hour, setHour] = useState('')
+    const [Mint, setMint] = useState('')
+    const [reason, setReason] = useState('')
+    // useEffect(() => {
+    //     get()
+    // }, [])
+    const SaveData = () => {
+        console.log(year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":00.223Z")
+        console.log('2021-02-24T20:56:08.223Z')
+        fetch('https://montabib.com/api/absences', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "dateDebut": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
+                "dateFin": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
+                "commentaire": reason
+                // "dateDebut": "2021-02-24T20:56:08.223Z",
+                // "dateFin": "2021-02-24T20:56:08.223Z",
+                // "commentaire": "string"
+            })
+        }).then((response) => {
+            console.log(response)
+            if (response.ok == true) {
+                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+            } else {
+                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+            }
+        })
+            .catch((error) => {
+                console.log(error)
+                ToastAndroid.show(error, ToastAndroid.SHORT);
+            });
+    }
+    const get = () => {
+
+        fetch('https://montabib.com/api/absences', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "dateDebut": "2021-02-24T20:56:08.223Z",
+                "dateFin": "2021-02-24T20:56:08.223Z",
+                "commentaire": "string"
+            })
+        }).then((response) => {
+            console.log(response)
+            if (response.ok == true) {
+                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+            } else {
+                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+            }
+        })
+            .catch((error) => {
+                console.log(error)
+                ToastAndroid.show(error, ToastAndroid.SHORT);
+            });
+    }
     return (
         <SafeAreaView style={styling.safeContainer} >
             <StatusBar barStyle="dark-content" hidden={false} backgroundColor="white" translucent={false} />
@@ -20,7 +86,7 @@ const Absences = () => {
                 </View>
 
                 <TouchableOpacity style={styling.absenceOpacity}
-
+                    onPress={() => setisVisible(true)}
                 >
                     <Icons name='plus' size={20} color='white' />
                 </TouchableOpacity>
@@ -43,6 +109,55 @@ const Absences = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <Dialog.Container visible={isVisible}>
+                    <Dialog.Title>Add Absence Detail</Dialog.Title>
+                    <Dialog.Input placeholder='Note' style={styling.resField} label='Reason' multiline={true} value={reason}
+                        onChangeText={(reas) => {
+                            setReason(reas)
+                        }} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Dialog.Input placeholder='DD' style={styling.dayField} keyboardType='number-pad' label='day' maxLength={2} value={day}
+                            onChangeText={(day) => {
+                                setDay(day)
+                            }} />
+                        <Dialog.Input placeholder='MM' style={styling.dayField} keyboardType='number-pad' maxLength={2} label='Month'
+                            value={month}
+                            onChangeText={(mon) => {
+                                setMonth(mon)
+                            }} />
+                        <Dialog.Input placeholder='YYYY' style={styling.dayField} keyboardType='number-pad' maxLength={4} label='Year'
+                            value={year}
+                            onChangeText={(year) => {
+                                setYear(year)
+                            }} />
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Dialog.Input placeholder='HH' style={styling.dayField} keyboardType='number-pad' label='Hour' maxLength={2}
+                            value={hour}
+                            onChangeText={(hour) => {
+                                setHour(hour)
+                            }}
+                        />
+                        <Dialog.Input placeholder='MM' style={styling.dayField} keyboardType='number-pad' label='Minutes' maxLength={2}
+                            value={Mint}
+                            onChangeText={(mint) => {
+                                setMint(mint)
+                            }}
+                        />
+                    </View>
+                    <Dialog.Button label="Cancel" onPress={() => setisVisible(false)} />
+                    <Dialog.Button label="Add" onPress={() => {
+                        if (day != '' && month != '' && year != '' && hour != '' && Mint != '' && reason != '') {
+                            SaveData()
+                            setisVisible(false)
+                        }
+                        else {
+                            ToastAndroid.show('Empty Fields', ToastAndroid.SHORT);
+
+                        }
+                    }} />
+                </Dialog.Container>
 
 
 

@@ -59,10 +59,7 @@ const Home = (props) => {
             console.log(error)
         }
         console.log(obj2)
-        obj2.Service.forEach(element => {
-            console.log(element)
-        });
-        SaveServie()
+
 
     }
 
@@ -182,7 +179,8 @@ const Home = (props) => {
                         }).then((response) => {
                             console.log(response)
                             if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+
+
                             } else {
                                 ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
@@ -395,74 +393,73 @@ const Home = (props) => {
                                 ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
-                    {
-
-                        obj2.Service.forEach(element => {
-
-                            fetch('https://montabib.com/api/services', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-
-                                    "libelle": element.Service,
-                                    "prix": element.Price
-
-                                })
-                            }).then((response) => {
-                                console.log(response)
-                                if (response.ok == true) {
-                                    response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                                } else {
-                                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-                                }
-                            })
-                                .catch((error) => {
-                                    console.log(error)
-                                    ToastAndroid.show(error, ToastAndroid.SHORT);
-                                });
-                        });
-
-
-                    }
-
                 }
-            }).catch((error) => {
+            }).then(() => {
+                SaveConsultation()
+            }).then(() => {
+                SaveServie()
+            }).then(() => { props.navigation.navigate('Tab') }).catch((error) => {
                 console.error(error);
             });
     }
     const SaveServie = () => {
-        // obj2.Consult.forEach(element => {
-        //     fetch('https://montabib.com/api/motifs', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
+        console.log(obj2.Service)
+        obj2.Service.forEach(element => {
+            fetch('https://montabib.com/api/services', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
 
-        //             "libelle": element.Consult,
-        //             "duree": element.Duration
+                    "libelle": element.Service,
+                    "prix": 0
 
-        //         })
-        //     }).then((response) => {
-        //         console.log("dasd", response)
-        //         if (response.ok == true) {
-        //             console.log(response)
-        //             response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-        //         } else {
-        //             ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-        //         }
-        //     })
-        //         .catch((error) => {
-        //             console.log(error)
-        //             ToastAndroid.show(error, ToastAndroid.SHORT);
-        //         });
+                })
+            }).then((response) => {
+                if (response.ok == true) {
+                    console.log(response)
+                    response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+                } else {
+                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                }
+            })
+                .catch((error) => {
+                    console.log(error)
+                    ToastAndroid.show(error, ToastAndroid.SHORT);
+                });
+        })
 
+    }
+    const SaveConsultation = () => {
+        console.log(obj2.Consult)
+        obj2.Consult.forEach(element => {
+            fetch('https://montabib.com/api/motifs', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
 
-        // }
+                    "libelle": element.Consult,
+                    "duree": element.Duration
+
+                })
+            }).then((response) => {
+                if (response.ok == true) {
+                    console.log(response)
+                    response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+                } else {
+                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                }
+            })
+                .catch((error) => {
+                    console.log(error)
+                    ToastAndroid.show(error, ToastAndroid.SHORT);
+                });
+        })
     }
     return (
         <SafeAreaView style={styling.safeContainer}>

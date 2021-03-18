@@ -87,5 +87,16 @@ export const styling = StyleSheet.create({
         fontSize: fontSize.label,
         fontFamily: 'SFUIText-Regular',
         color: 'white'
+    },
+    dayField: {
+        borderWidth: 0.5,
+        borderRadius: 6,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: wp(20)
+    },
+    resField: {
+        borderWidth: 0.5,
+        borderRadius: 10
     }
 })
