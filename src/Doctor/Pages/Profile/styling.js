@@ -10,11 +10,9 @@ export const styling = StyleSheet.create({
         width: wp(100),
         height: hp(100),
         padding: 20
-
     },
     innerView: {
-        padding: 10,
-        height: hp(10),
+        padding: wp(3),
         width: wp(100),
         justifyContent: 'space-between',
         alignItems: 'center',

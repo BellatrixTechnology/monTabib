@@ -5,6 +5,7 @@ import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import Dialog from "react-native-dialog";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import CalendarPicker from 'react-native-calendar-picker';
 
@@ -16,38 +17,74 @@ const Absences = () => {
     const [hour, setHour] = useState('')
     const [Mint, setMint] = useState('')
     const [reason, setReason] = useState('')
-    // useEffect(() => {
-    //     get()
-    // }, [])
+    const [userData, setUserData] = useState('')
+    useEffect(() => {
+        getUser()
+    }, [])
+    async function getUser() {
+        try {
+            let user = await AsyncStorage.getItem('UserData');
+            let parsed1 = JSON.parse(user);
+            setUserData(parsed1);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    console.log(userData)
+
     const SaveData = () => {
-        console.log(year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":00.223Z")
-        console.log('2021-02-24T20:56:08.223Z')
-        fetch('https://montabib.com/api/absences', {
+
+        fetch('https://www.montabib.com/loginApp', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "dateDebut": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
-                "dateFin": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
-                "commentaire": reason
-                // "dateDebut": "2021-02-24T20:56:08.223Z",
-                // "dateFin": "2021-02-24T20:56:08.223Z",
-                // "commentaire": "string"
+                "username": userData.username,
+                "password": userData.password
             })
-        }).then((response) => {
-            console.log(response)
-            if (response.ok == true) {
-                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-            } else {
-                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-            }
-        })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                console.log(responseJson.error)
+                if (responseJson.error == 'Invalid credentials.') {
+                }
+                else {
+                    fetch('https://montabib.com/api/absences', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "dateDebut": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
+                            "dateFin": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
+                            "commentaire": reason
+
+                        })
+                    }).then((response) => {
+                        console.log(response)
+                        if (response.ok == true) {
+                            response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+                        } else {
+                            ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                        }
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                            ToastAndroid.show(error, ToastAndroid.SHORT);
+                        });
+                }
+            })
             .catch((error) => {
-                console.log(error)
-                ToastAndroid.show(error, ToastAndroid.SHORT);
+                console.error('asdasd', error);
             });
+
+        console.log(year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":00.223Z")
+        console.log('2021-02-24T20:56:08.223Z')
+
     }
     const get = () => {
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput, StatusBar, SafeAreaView } from 'react-native';
 import { Text, Input, colors } from 'react-native-elements';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Icons from 'react-native-vector-icons/FontAwesome';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styling } from './styling';
@@ -15,12 +16,18 @@ const LoginScreen = (props) => {
     const [errorPassword, seterrorPassword] = useState(false);
 
     const loginUser = () => {
-        fetch('https://montabib.com/loginApp', {
+
+        let obj = {
+            username: email,
+            password: password
+        }
+        AsyncStorage.setItem('UserData', JSON.stringify(obj));
+
+        fetch('https://www.montabib.com/loginApp', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 "username": email,
@@ -39,7 +46,7 @@ const LoginScreen = (props) => {
                 }
             })
             .catch((error) => {
-                console.error(error);
+                console.error('asdasd', error);
             });
     }
     return (

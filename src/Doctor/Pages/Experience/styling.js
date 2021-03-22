@@ -4,17 +4,18 @@ import { fontSize } from '../../../Constant/Constant';
 
 export const styling = StyleSheet.create({
     safeContainer: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
 
 
     containerView: {
         padding: 20,
         alignContent: 'center',
-        height: hp(95),
+        height: hp(100),
+        width: wp(100)
     },
     headerView: {
-        height: hp(5),
         width: wp(100),
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -28,11 +29,11 @@ export const styling = StyleSheet.create({
     },
     innerContainerView: {
         width: wp(90),
-        height: hp(81.5),
+        height: hp(85),
         alignSelf: 'center',
     },
     servicetextinput: {
-        width: wp(55),
+        width: wp(45),
         borderWidth: 1,
         borderRadius: 10,
         borderColor: 'grey',
@@ -43,7 +44,7 @@ export const styling = StyleSheet.create({
 
     },
     servicePriceinput: {
-        width: wp(25),
+        width: wp(20),
         borderWidth: 1,
         borderRadius: 10,
         borderColor: 'grey',
@@ -57,9 +58,10 @@ export const styling = StyleSheet.create({
         fontFamily: 'SFUIText-Bold',
     },
     addButton: {
+        marginVertical: hp(1),
         height: hp('5%'),
         flexDirection: 'row',
-        width: wp('30%'),
+        width: wp('80%'),
         alignSelf: 'center',
         justifyContent: 'space-evenly',
     },
@@ -69,7 +71,7 @@ export const styling = StyleSheet.create({
 
     },
     opacityView: {
-        height: hp(15),
+        height: hp(10),
         alignItems: 'center',
         justifyContent: 'center',
     },

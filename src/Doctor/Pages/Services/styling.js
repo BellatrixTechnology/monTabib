@@ -4,14 +4,13 @@ import { fontSize } from '../../../Constant/Constant';
 
 export const styling = StyleSheet.create({
     safeContainer: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
-
-
     containerView: {
         padding: 20,
         alignContent: 'center',
-        height: hp(84),
+        height: hp(100),
     },
     headerView: {
         height: hp(5),
