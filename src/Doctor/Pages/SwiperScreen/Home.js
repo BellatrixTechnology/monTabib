@@ -7,11 +7,13 @@ import Services from './Services';
 import Subscription from './Subscription';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from '../../../db/config';
+import AlertModal from '../../Components/AlertModal/index';
 
 import { styling } from './styling';
 
 
 const Home = (props) => {
+    const [isVisible, setIsVisble] = useState(false)
     const [obj, setobj] = useState({});
     const [obj1, setobj1] = useState({});
     const [obj2, setobj2] = useState([]);
@@ -83,6 +85,7 @@ const Home = (props) => {
                 res.json().then((data) => {
                     saveDATA(data.id)
                     console.log(data)
+                    setIsVisble(true)
                 })
             } else {
                 console.log('ad')
@@ -103,8 +106,8 @@ const Home = (props) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "nom": obj.Name,
-                "prenom": obj.SurName,
+                "nom": obj.SurName,
+                "prenom": obj.Name,
                 "sexe": obj.Gender,
                 "adresse": obj.Address,
                 "email": obj.Email,
@@ -130,12 +133,10 @@ const Home = (props) => {
                     setMedicineId(ress.headers.map.location)
                 });
             } else {
-                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
             }
         })
             .catch((error) => {
                 console.log(error)
-                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
             });
     }
     const SaveTime = (uid) => {
@@ -156,7 +157,6 @@ const Home = (props) => {
             .then((responseJson) => {
                 console.log(responseJson, 'res JSON');
                 if (responseJson.error == 'Invalid credentials.') {
-                    ToastAndroid.show('check', ToastAndroid.SHORT);
 
                 }
                 else {
@@ -172,8 +172,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Monday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Monday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Monday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Monday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Monday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Monday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Monday.status
                             })
                         }).then((response) => {
@@ -182,12 +182,10 @@ const Home = (props) => {
 
 
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
                     {
@@ -202,8 +200,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Tuesday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Tuesday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Tuesday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Tuesday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Tuesday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Tuesday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Monday.status
                             })
                         }).then((response) => {
@@ -211,43 +209,13 @@ const Home = (props) => {
                             if (response.ok == true) {
                                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "mardi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Tuesday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Tuesday.Afternoon.End + ":40.253Z",
-                                "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Tuesday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Tuesday.Morning.End + ":40.253Z",
-                                "jourRepos": obj1.Tuesday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
-                            });
-                    }
+
                     {
                         fetch('https://montabib.com/api/heure_ouvertures', {
                             method: 'POST',
@@ -260,8 +228,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Wednesday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Wednesday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Wednesday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Wednesday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Wednesday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Wednesday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Wednesday.status
                             })
                         }).then((response) => {
@@ -269,12 +237,10 @@ const Home = (props) => {
                             if (response.ok == true) {
                                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
                     {
@@ -289,8 +255,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Thursday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Thursday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Thursday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Thursday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Thursday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Thursday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Thursday.status
                             })
                         }).then((response) => {
@@ -298,12 +264,10 @@ const Home = (props) => {
                             if (response.ok == true) {
                                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
                     {
@@ -318,8 +282,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Friday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Friday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Friday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Friday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Friday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Friday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Friday.status
                             })
                         }).then((response) => {
@@ -327,12 +291,10 @@ const Home = (props) => {
                             if (response.ok == true) {
                                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
                     {
@@ -347,8 +309,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Saturday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Saturday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Saturday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Saturday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Saturday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Saturday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Saturday.status
                             })
                         }).then((response) => {
@@ -356,12 +318,10 @@ const Home = (props) => {
                             if (response.ok == true) {
                                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
                     {
@@ -376,8 +336,8 @@ const Home = (props) => {
                                 "heureOuvertureMatin": "2021-03-13T" + obj1.Sunday.Morning.Start + ":40.253Z",
                                 "heureFermetureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.End + ":40.253Z",
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Sunday.Afternoon.Start + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Sunday.Morning.End + ":40.253Z",
+                                "heureFermetureMatin": "2021-03-13T" + obj1.Sunday.Morning.End + ":40.253Z",
+                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.Start + ":40.253Z",
                                 "jourRepos": obj1.Sunday.status
                             })
                         }).then((response) => {
@@ -385,12 +345,10 @@ const Home = (props) => {
                             if (response.ok == true) {
                                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                             } else {
-                                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                             }
                         })
                             .catch((error) => {
                                 console.log(error)
-                                ToastAndroid.show(error, ToastAndroid.SHORT);
                             });
                     }
                 }
@@ -398,7 +356,12 @@ const Home = (props) => {
                 SaveConsultation()
             }).then(() => {
                 SaveServie()
-            }).then(() => { props.navigation.navigate('Tab') }).catch((error) => {
+
+
+            }).then(() => {
+                setIsVisble(false)
+                props.navigation.navigate('Tab')
+            }).catch((error) => {
                 console.error(error);
             });
     }
@@ -422,12 +385,10 @@ const Home = (props) => {
                     console.log(response)
                     response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                 } else {
-                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                 }
             })
                 .catch((error) => {
                     console.log(error)
-                    ToastAndroid.show(error, ToastAndroid.SHORT);
                 });
         })
 
@@ -452,12 +413,10 @@ const Home = (props) => {
                     console.log(response)
                     response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                 } else {
-                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                 }
             })
                 .catch((error) => {
                     console.log(error)
-                    ToastAndroid.show(error, ToastAndroid.SHORT);
                 });
         })
     }
@@ -467,9 +426,10 @@ const Home = (props) => {
 
             <View style={styling.mainContainer}>
                 <Swiper showsButtons={false} showsPagination={false} loop={false} index={id}>
-                    <ScrollView>
 
-                        <View style={styling.slide1}>
+                    <View style={styling.slide1}>
+                        <ScrollView>
+
                             <Register />
                             <View style={styling.nextButtonView}>
                                 <TouchableOpacity style={styling.nextButton}
@@ -481,8 +441,9 @@ const Home = (props) => {
                                     <Text style={styling.nextbuttonText}>Next</Text>
                                 </TouchableOpacity >
                             </View>
-                        </View>
-                    </ScrollView>
+                        </ScrollView>
+
+                    </View>
 
                     <View style={styling.slide1}>
                         <OpenningHour />
@@ -546,8 +507,12 @@ const Home = (props) => {
                     </View>
                 </Swiper>
 
+                <AlertModal
+                    isVisible={isVisible}
+                />
 
             </View >
+
         </SafeAreaView>
     )
 }

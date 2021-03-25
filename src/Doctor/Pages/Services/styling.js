@@ -56,9 +56,10 @@ export const styling = StyleSheet.create({
         fontFamily: 'SFUIText-Bold',
     },
     addButton: {
+        marginVertical: hp(1),
         height: hp('5%'),
         flexDirection: 'row',
-        width: wp('30%'),
+        width: wp('80%'),
         alignSelf: 'center',
         justifyContent: 'space-evenly',
     },

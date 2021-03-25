@@ -44,109 +44,109 @@ const Register = () => {
 
                 <View style={styling.containerView}>
                     <View style={{ height: hp(80) }}>
-                        <ScrollView>
+                        {/* <ScrollView> */}
 
-                            <View style={styling.nameFieldView}>
+                        <View style={styling.nameFieldView}>
 
+                            <Input
+                                label='Name'
+                                placeholder='Name'
+                                value={Name}
+                                onChangeText={(name) => {
+                                    setName(name)
+                                }}
+                            />
+                            <Input
+                                label='Sur Name'
+                                placeholder='Sur-Name'
+                                value={Surname}
+                                onChangeText={(Sname) => {
+                                    setSurName(Sname)
+                                }}
+                            />
+                        </View>
+
+                        <View style={styling.dropdownsView}>
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Male', value: '1' },
+                                    { label: 'Female', value: '0' },]}
+                                defaultValue={Gender}
+                                placeholder='Select Gender'
+                                labelStyle={styling.dropdownLabel}
+                                style={styling.dropDown}
+                                containerStyle={styling.containerStyle}
+                                dropDownStyle={styling.dropdownStyle}
+                                showArrow={true}
+                                onChangeItem={(gender) => {
+                                    setGender(gender.value)
+                                }}
+
+                            />
+                        </View>
+                        <View style={styling.dropdownsView}>
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Acupuncture', value: '1' },
+                                    { label: 'Surgeon', value: '2' },]}
+                                defaultValue={Special}
+                                placeholder='Your Specialization'
+                                labelStyle={styling.dropdownLabel}
+                                style={styling.dropDown}
+                                containerStyle={styling.containerStyle}
+                                dropDownStyle={styling.dropdownStyle}
+                                showArrow={true}
+                                onChangeItem={(special) => {
+                                    setSpecial(special.value)
+                                }}
+
+                            />
+                        </View>
+                        <KeyboardAvoidingView
+                            behavior='height'
+                        >
+                            <View style={styling.innerFieldView}>
                                 <Input
-                                    label='Name'
-                                    placeholder='Name'
-                                    value={Name}
-                                    onChangeText={(name) => {
-                                        setName(name)
+                                    label='Address'
+                                    placeholder='Address'
+                                    value={Address}
+                                    onChangeText={(address) => {
+                                        setAddress(address)
                                     }}
                                 />
                                 <Input
-                                    label='Sur Name'
-                                    placeholder='Sur-Name'
-                                    value={Surname}
-                                    onChangeText={(Sname) => {
-                                        setSurName(Sname)
+                                    label='Telephone'
+                                    placeholder='Telephone'
+                                    keyboardType='phone-pad'
+                                    value={Telephone}
+                                    onChangeText={(Tphone) => {
+                                        setTelephone(Tphone)
                                     }}
                                 />
-                            </View>
-
-                            <View style={styling.headerView}>
-                                <DropDownPicker
-                                    items={[
-                                        { label: 'Male', value: '1' },
-                                        { label: 'Female', value: '0' },]}
-                                    defaultValue={Gender}
-                                    placeholder='Select Gender'
-                                    labelStyle={styling.dropdownLabel}
-                                    style={styling.dropDown}
-                                    containerStyle={styling.containerStyle}
-                                    dropDownStyle={styling.dropdownStyle}
-                                    showArrow={true}
-                                    onChangeItem={(gender) => {
-                                        setGender(gender.value)
+                                <Input
+                                    label='Email'
+                                    placeholder='Email'
+                                    autoCapitalize='none'
+                                    value={Email}
+                                    onChangeText={(email) => {
+                                        setEmail(email)
                                     }}
-
                                 />
-                            </View>
-                            <View style={styling.headerView}>
-                                <DropDownPicker
-                                    items={[
-                                        { label: 'Acupuncture', value: '1' },
-                                        { label: 'Surgeon', value: '2' },]}
-                                    defaultValue={Special}
-                                    placeholder='Your Specialization'
-                                    labelStyle={styling.dropdownLabel}
-                                    style={styling.dropDown}
-                                    containerStyle={styling.containerStyle}
-                                    dropDownStyle={styling.dropdownStyle}
-                                    showArrow={true}
-                                    onChangeItem={(special) => {
-                                        setSpecial(special.value)
+                                <Input
+                                    label='Unique Identifier (RPPS)'
+                                    placeholder='Unique Identifier (RPPS)'
+                                    keyboardType='phone-pad'
+                                    value={UI}
+                                    onChangeText={(ui) => {
+                                        setUI(ui)
                                     }}
-
                                 />
+
+
                             </View>
-                            <KeyboardAvoidingView
-                                behavior='height'
-                            >
-                                <View style={styling.innerFieldView}>
-                                    <Input
-                                        label='Address'
-                                        placeholder='Address'
-                                        value={Address}
-                                        onChangeText={(address) => {
-                                            setAddress(address)
-                                        }}
-                                    />
-                                    <Input
-                                        label='Telephone'
-                                        placeholder='Telephone'
-                                        keyboardType='phone-pad'
-                                        value={Telephone}
-                                        onChangeText={(Tphone) => {
-                                            setTelephone(Tphone)
-                                        }}
-                                    />
-                                    <Input
-                                        label='Email'
-                                        placeholder='Email'
-                                        autoCapitalize='none'
-                                        value={Email}
-                                        onChangeText={(email) => {
-                                            setEmail(email)
-                                        }}
-                                    />
-                                    <Input
-                                        label='Unique Identifier (RPPS)'
-                                        placeholder='Unique Identifier (RPPS)'
-                                        keyboardType='phone-pad'
-                                        value={UI}
-                                        onChangeText={(ui) => {
-                                            setUI(ui)
-                                        }}
-                                    />
-
-
-                                </View>
-                            </KeyboardAvoidingView>
-                            {Name != '' && Surname != '' && Email != '' && Gender != '' && Address != '' && UI != '' && Special != '' && Telephone != '' ? SaveData() : console.log('empty')}
-                        </ScrollView>
+                        </KeyboardAvoidingView>
+                        {Name != '' && Surname != '' && Email != '' && Gender != '' && Address != '' && UI != '' && Special != '' && Telephone != '' ? SaveData() : console.log('empty')}
+                        {/* </ScrollView> */}
 
                     </View>
                 </View>

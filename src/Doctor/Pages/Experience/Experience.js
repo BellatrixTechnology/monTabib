@@ -5,8 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { hp, wp } from '../../../Global/Styles/Scalling';
+import AlertModal from '../../Components/AlertModal/index';
 
 const Experience = (props) => {
+    const [isVisible, setIsVisble] = useState(false)
     const [Train, setsetTrain] = useState([{ Train: "", year: "" }]);
     const [experience, seteExperience] = useState([{ experience: "", year: "", end: "" }]);
     const [Training, setTraining] = useState([])
@@ -79,10 +81,8 @@ const Experience = (props) => {
                 console.log(responseJson, 'res JSON');
                 if (responseJson.error == 'Invalid credentials.') {
                     ToastAndroid.show('check', ToastAndroid.SHORT);
-
                 }
                 else {
-
                     {
                         experienceData.forEach(element => {
                             console.log(element.experience)
@@ -104,12 +104,10 @@ const Experience = (props) => {
                                     console.log(response)
                                     response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                                 } else {
-                                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                                 }
                             })
                                 .catch((error) => {
                                     console.log(error)
-                                    ToastAndroid.show(error, ToastAndroid.SHORT);
                                 });
                         })
                     }
@@ -131,14 +129,17 @@ const Experience = (props) => {
                             }).then((response) => {
                                 if (response.ok == true) {
                                     console.log(response)
-                                    response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+                                    response.json().then((data) => {
+                                        setIsVisble(false)
+                                        console.log(data)
+                                        ToastAndroid.show('Uploaded', ToastAndroid.SHORT);
+
+                                    }).catch((error) => { console.log(error) })
                                 } else {
-                                    ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                                 }
                             })
                                 .catch((error) => {
                                     console.log(error)
-                                    ToastAndroid.show(error, ToastAndroid.SHORT);
                                 });
                         })
                     }
@@ -196,7 +197,7 @@ const Experience = (props) => {
                                         </View>
                                         {Train.length - 1 == i ?
                                             <View style={styling.addButton}>
-                                                <TouchableOpacity><Text style={{ color: 'blue' }} onPress={() => training()}>Add Training</Text></TouchableOpacity>
+                                                <TouchableOpacity><Text style={{ color: 'blue' }} onPress={() => training()}>Add Record</Text></TouchableOpacity>
                                                 <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputConst(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
                                                 <TouchableOpacity onPress={() => { addInputConst() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
                                             </View> : console.log('da')}
@@ -250,15 +251,19 @@ const Experience = (props) => {
                                 <TouchableOpacity style={styling.OpacityLog}
                                     onPress={() => {
                                         StoreData()
+                                        setIsVisble(true)
                                     }}
                                 >
                                     <Text style={styling.Opacitytxt}>Save</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
-
+                        <AlertModal
+                            isVisible={isVisible}
+                        />
 
                     </View>
+
                 </ScrollView>
 
             </TouchableWithoutFeedback>

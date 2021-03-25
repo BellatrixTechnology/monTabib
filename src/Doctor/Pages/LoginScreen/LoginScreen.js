@@ -77,6 +77,7 @@ const LoginScreen = (props) => {
                             placeholder='Password'
                             onFocus={() => setpassfocus(true)}
                             onChangeText={val => setPassword(val)}
+                            secureTextEntry
                         />
                     </View>
                     {errorPassword && <Text style={{ color: 'red' }}>Email or Password incorrect</Text>}

@@ -7,15 +7,16 @@ export const styling = StyleSheet.create({
         flex: 1
     },
     mainContainer: {
-        height: hp(100),
-        width: wp(100),
+        flex: 1,
         backgroundColor: 'white'
+    },
+    TimeontainerView: {
+        width: wp(90),
+        height: hp(85)
     },
     slide1: {
         padding: 10,
-        height: hp(95),
-        width: wp(100),
-        backgroundColor: 'white',
+        flex: 1,
         alignContent: 'center',
         alignSelf: 'center',
         borderRadius: 10,
@@ -29,18 +30,16 @@ export const styling = StyleSheet.create({
         alignSelf: 'flex-end',
     },
     nextPButtonView: {
-        paddingLeft: 20,
-        width: wp(100),
+        width: wp(90),
+        alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'space-between',
-        alignSelf: 'flex-end',
         flexDirection: 'row'
     },
     nextButton: {
         width: wp(25),
         borderRadius: 8,
         paddingVertical: 14,
-        paddingHorizontal: 10,
         backgroundColor: '#3f4079',
     },
     nextbuttonText: {
@@ -50,12 +49,23 @@ export const styling = StyleSheet.create({
         textAlign: 'center',
     },
     containerView: {
-        paddingTop: 20,
         width: wp(95),
         alignContent: 'center',
         height: hp(84),
     },
     headerView: {
+        width: wp(80),
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    dropdownsView: {
+        height: hp(5),
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginBottom: 5,
+        marginTop: hp(2)
+    },
+    PickerdownsView: {
         height: hp(5),
         alignItems: 'center',
         alignSelf: 'center',
@@ -89,17 +99,27 @@ export const styling = StyleSheet.create({
         marginTop: 10
     },
     dayView: {
-        height: hp(11),
         alignItems: 'center',
         alignSelf: 'center',
+        marginVertical: hp(1),
     },
-    daypickerView: {
+    dayheadingView: {
         flexDirection: 'row',
-        height: hp(4),
-        width: wp(90),
+        width: wp(85),
         flexDirection: 'row',
         alignItems: 'center',
-        borderWidth: 1,
+        justifyContent: 'space-between',
+        alignSelf: 'center'
+    },
+    dayPickrView: {
+        width: wp(90),
+        flexDirection: 'row'
+    },
+    maindaytagView: {
+        marginBottom: hp(1),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: wp(40)
     },
     daytagLabel: {
         fontSize: fontSize.tag,
@@ -120,9 +140,6 @@ export const styling = StyleSheet.create({
         borderColor: 'grey',
         textAlignVertical: 'center',
         marginBottom: 4,
-
-
-
     },
     servicePriceinput: {
         width: wp(25),
@@ -198,7 +215,10 @@ export const styling = StyleSheet.create({
     txtInputView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-
+    },
+    mainTimePickerView: {
+        borderWidth: 0.5,
+        paddingHorizontal: wp(2),
     }
 
 })

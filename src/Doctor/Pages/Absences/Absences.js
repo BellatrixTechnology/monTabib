@@ -16,6 +16,11 @@ const Absences = () => {
     const [year, setYear] = useState('')
     const [hour, setHour] = useState('')
     const [Mint, setMint] = useState('')
+    const [endday, setendDay] = useState('')
+    const [endmonth, setendMonth] = useState('')
+    const [endyear, setendYear] = useState('')
+    const [endhour, setendHour] = useState('')
+    const [endMint, setendMint] = useState('')
     const [reason, setReason] = useState('')
     const [userData, setUserData] = useState('')
     useEffect(() => {
@@ -60,7 +65,7 @@ const Absences = () => {
                         },
                         body: JSON.stringify({
                             "dateDebut": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
-                            "dateFin": year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":08.223Z",
+                            "dateFin": endyear + "-" + endmonth + "-" + endday + "T" + endhour + ":" + endMint + ":08.223Z",
                             "commentaire": reason
 
                         })
@@ -83,6 +88,8 @@ const Absences = () => {
             });
 
         console.log(year + "-" + month + "-" + day + "T" + hour + ":" + Mint + ":00.223Z")
+        console.log(endyear + "-" + endmonth + "-" + endday + "T" + endhour + ":" + endMint + ":00.223Z")
+
         console.log('2021-02-24T20:56:08.223Z')
 
     }
@@ -139,7 +146,7 @@ const Absences = () => {
                 <View style={styling.dataView}>
                     <Text style={styling.dataTXT}>Roger</Text>
                     <Text style={styling.dataTXT}>20-2-2022</Text>
-                    <Text style={styling.dataTXT}>090078601</Text>
+                    <Text style={styling.dataTXT}>20-2-2022</Text>
                     <View style={styling.ActionView}>
                         <TouchableOpacity style={styling.actionOp}>
                             <Icon name='closecircle' color='#0069da' size={40} />
@@ -152,8 +159,11 @@ const Absences = () => {
                         onChangeText={(reas) => {
                             setReason(reas)
                         }} />
+                    <Text style={{ marginHorizontal: 5 }}>Start Date</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
                         <Dialog.Input placeholder='DD' style={styling.dayField} keyboardType='number-pad' label='day' maxLength={2} value={day}
+                            value={day}
                             onChangeText={(day) => {
                                 setDay(day)
                             }} />
@@ -183,9 +193,43 @@ const Absences = () => {
                             }}
                         />
                     </View>
+                    <Text style={{ marginHorizontal: 5 }}>End Date</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                        <Dialog.Input placeholder='DD' style={styling.dayField} keyboardType='number-pad' label='day' maxLength={2} value={day}
+                            value={endday}
+                            onChangeText={(day) => {
+                                setendDay(day)
+                            }} />
+                        <Dialog.Input placeholder='MM' style={styling.dayField} keyboardType='number-pad' maxLength={2} label='Month'
+                            value={endmonth}
+                            onChangeText={(mon) => {
+                                setendMonth(mon)
+                            }} />
+                        <Dialog.Input placeholder='YYYY' style={styling.dayField} keyboardType='number-pad' maxLength={4} label='Year'
+                            value={endyear}
+                            onChangeText={(year) => {
+                                setendYear(year)
+                            }} />
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Dialog.Input placeholder='HH' style={styling.dayField} keyboardType='number-pad' label='Hour' maxLength={2}
+                            value={endhour}
+                            onChangeText={(hour) => {
+                                setendHour(hour)
+                            }}
+                        />
+                        <Dialog.Input placeholder='MM' style={styling.dayField} keyboardType='number-pad' label='Minutes' maxLength={2}
+                            value={endMint}
+                            onChangeText={(mint) => {
+                                setendMint(mint)
+                            }}
+                        />
+                    </View>
                     <Dialog.Button label="Cancel" onPress={() => setisVisible(false)} />
                     <Dialog.Button label="Add" onPress={() => {
-                        if (day != '' && month != '' && year != '' && hour != '' && Mint != '' && reason != '') {
+                        if (day != '' && month != '' && year != '' && hour != '' && Mint != '' && reason != '' && endday != '' && endmonth != '' && endyear != '' && endhour != '' && endMint != '') {
                             SaveData()
                             setisVisible(false)
                         }
