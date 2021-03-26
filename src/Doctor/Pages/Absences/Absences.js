@@ -23,8 +23,12 @@ const Absences = () => {
     const [endMint, setendMint] = useState('')
     const [reason, setReason] = useState('')
     const [userData, setUserData] = useState('')
+    const [absence, setAbsense] = useState('')
+    const temp = "hydra:member"
     useEffect(() => {
         getUser()
+        get()
+
     }, [])
     async function getUser() {
         try {
@@ -36,7 +40,6 @@ const Absences = () => {
             console.log(error)
         }
     }
-    console.log(userData)
 
     const SaveData = () => {
 
@@ -94,31 +97,46 @@ const Absences = () => {
 
     }
     const get = () => {
-
-        fetch('https://montabib.com/api/absences', {
+        fetch('https://www.montabib.com/loginApp', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "dateDebut": "2021-02-24T20:56:08.223Z",
-                "dateFin": "2021-02-24T20:56:08.223Z",
-                "commentaire": "string"
+                "username": userData.username,
+                "password": userData.password
             })
-        }).then((response) => {
-            console.log(response)
-            if (response.ok == true) {
-                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-            } else {
-                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-            }
-        })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                console.log(responseJson.error)
+                if (responseJson.error == 'Invalid credentials.') {
+                }
+                else {
+                    fetch('https://montabib.com/api/absences', {
+                        method: 'GET'
+
+                    }).then((res) => {
+                        console.log(res)
+                        if (res.ok == true) {
+                            res.json().then((data) => { console.log('sdfsas223', setAbsense(data)) }).catch((error) => { console.log(error) })
+                        } else {
+                            ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                        }
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                            ToastAndroid.show(error, ToastAndroid.SHORT);
+                        });
+
+                }
+            })
             .catch((error) => {
-                console.log(error)
-                ToastAndroid.show(error, ToastAndroid.SHORT);
+                console.error('asdasd', error);
             });
     }
+    console.log('absense', absence)
     return (
         <SafeAreaView style={styling.safeContainer} >
             <StatusBar barStyle="dark-content" hidden={false} backgroundColor="white" translucent={false} />
