@@ -20,7 +20,7 @@ const Tabs = (props) => {
         return <Agenda />
     }
     const Absence = () => {
-        return <Absences />
+        return <Absences props={props} />
     }
     const MyProfile = () => {
         return <ProfileScreen props={props} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList, View, TouchableOpacity, ToastAndroid, ScrollView, SafeAreaView } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -6,7 +6,6 @@ import Icons from 'react-native-vector-icons/Entypo';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -65,20 +64,87 @@ const addPatient = (props) => {
     const [date, setdate] = useState('');
 
     const [markers, setMarkers] = useState([])
-    const uploaded = () => {
-        const SaveData = () => {
-            let obj = {
-                FirstName: firstName,
-                Second: secondName,
-                DOB: DOB,
-                service: service,
-                time: time,
-                date: date,
-            }
-            AsyncStorage.setItem('Detail', JSON.stringify(obj));
+    const [userData, setUserData] = useState('')
+    // const [absence, setAbsense] = useState([])
+    const temp = "hydra:member"
+    useEffect(() => {
+        getUser()
+
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            getUser()
+        });
+        return () => {
+            unsubscribe;
+        };
+    }, [])
+    async function getUser() {
+        try {
+            let user = await AsyncStorage.getItem('UserData');
+            let parsed1 = JSON.parse(user);
+            setUserData(parsed1);
+            console.log('sdfsd', parsed1)
 
         }
+        catch (error) {
+            console.log(error)
+        }
     }
+    async function SaveRecord() {
+        fetch('https://www.montabib.com/loginApp', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "username": userData.username,
+                "password": userData.password
+            })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                console.log(responseJson.error)
+                if (responseJson.error == 'Invalid credentials.') {
+                }
+                else {
+                    console.log('res', responseJson)
+                    fetch('https://montabib.com/api/consultations', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+
+                            "medecin": "/api/medecins/122",
+                            "patient": firstName,
+                            "dateConsultation": "2021-03-31T10:30:00.000Z",
+                            "motif": service,
+                            "compteRendu": ""
+
+
+                        })
+                    }).then((response) => {
+                        console.log(response)
+                        if (response.ok == true) {
+                            response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+                        } else {
+                            ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                        }
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                            ToastAndroid.show(error, ToastAndroid.SHORT);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('asdasd', error);
+            });
+
+    }
+
+
     return (
         <SafeAreaView style={styling.safeContainer}>
 
@@ -163,16 +229,18 @@ const addPatient = (props) => {
                                 <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
                                     <Picker
                                         style={{ height: hp(10), width: wp(70) }}
-                                        onValueChange={(itemValue, itemIndex) =>
-
+                                        onValueChange={(itemValue, itemIndex) => {
                                             SetFName(itemValue)
+                                            console.log(itemValue)
+                                        }
                                         }
                                         selectedValue={firstName}
                                     >
                                         <Picker.item label='Name' value='name' />
-                                        {markers.map(item => {
+                                        <Picker.item label='Chloe' value='/api/patients/1' />
+                                        {/* {markers.map(item => {
                                             return <Picker.Item label={item} value={item} />
-                                        })}
+                                        })} */}
                                     </Picker>
                                 </View>
 
@@ -181,14 +249,15 @@ const addPatient = (props) => {
                                 <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
                                     <Picker
                                         style={{ height: hp(10), width: wp(70) }}
-                                        onValueChange={(itemValue, itemIndex) =>
-
+                                        onValueChange={(itemValue, itemIndex) => {
                                             setService(itemValue)
+                                            console.log((itemValue));
+                                        }
                                         }
                                         selectedValue={service}
                                     >
                                         <Picker.item label='Service Type' value='Servie' />
-                                        <Picker.item label='Consultation' value='Consultation' />
+                                        <Picker.item label='CheckUp' value='/api/motifs/1184' />
                                         <Picker.item label='Therapy' value='Therapy' />
 
 
@@ -418,17 +487,18 @@ const addPatient = (props) => {
                             <Text style={styling.headTXT}>Patient Detail</Text>
                         </View>
                         <View style={styling.innerDetail}>
-                            <Text style={styling.headTXT}>First Name:  {firstName}</Text>
-                            <Text style={styling.headTXT}>Second Name:  {secondName}</Text>
-                            <Text style={styling.headTXT}>Date of Birth:  {DOB}</Text>
-                            <Text style={styling.headTXT}>Service:  {service}</Text>
+                            <Text style={styling.headTXT}>Name:  Chloe</Text>
+                            {/* <Text style={styling.headTXT}>Second Name:  none</Text> */}
+                            {/* <Text style={styling.headTXT}>Date of Birth:  {DOB}</Text> */}
+                            <Text style={styling.headTXT}>Service:  CheckUp</Text>
                             <Text style={styling.headTXT}>Date & Time:  {time} - {date}</Text>
 
                         </View>
                         <View style={styling.opacityPView}>
                             <TouchableOpacity style={styling.OpacityLog} onPress={() => {
                                 // uploaded();
-                                props.navigation.goBack()
+                                // props.navigation.goBack()
+                                SaveRecord()
 
                             }}>
                                 <Text style={styling.Opacitytxt}>Proceed</Text>

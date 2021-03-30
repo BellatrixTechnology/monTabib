@@ -39,6 +39,7 @@ const Experience = (props) => {
         setTraintemp('')
         setTyear('')
         setTEyear('')
+        console.log(Training)
     }
     const ExperienceData = () => {
         setexperinceData([...experienceData, { experience: Experincetemp, year: Eyear, end: EEyear }])

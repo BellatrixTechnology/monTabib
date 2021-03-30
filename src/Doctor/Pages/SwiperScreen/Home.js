@@ -46,6 +46,7 @@ const Home = (props) => {
             let useropen = await AsyncStorage.getItem('useropenning');
             let parsed2 = JSON.parse(useropen);
             setobj1(parsed2);
+            console.log(parsed2)
         }
         catch (error) {
             console.log(error)
@@ -67,6 +68,11 @@ const Home = (props) => {
 
 
     const upload = () => {
+        let objs = {
+            username: obj.Email,
+            password: obj.Name
+        }
+        AsyncStorage.setItem('UserData', JSON.stringify(objs));
         fetch('https://www.montabib.com/api/users', {
             method: 'POST',
             headers: {
@@ -86,6 +92,7 @@ const Home = (props) => {
                     saveDATA(data.id)
                     console.log(data)
                     setIsVisble(true)
+
                 })
             } else {
                 console.log('ad')
@@ -125,7 +132,7 @@ const Home = (props) => {
             })
         }).then((ress) => {
             console.log(ress.headers.map.location)
-            console.log(ress)
+            console.log('jnjn', ress)
             if (ress.ok == true) {
                 console.log(ress)
                 ress.json().then((data) => {
@@ -147,7 +154,6 @@ const Home = (props) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 "username": obj.Email,
