@@ -88,6 +88,8 @@ const Services = () => {
                                                 value={Consult}
                                                 onChangeText={(text) => setconDua(text)}
                                                 style={styling.servicePriceinput}
+                                                keyboardType='number-pad'
+                                                maxLength={3}
                                             />
                                         </View>
                                         {cons.length - 1 == i ?
@@ -122,6 +124,7 @@ const Services = () => {
                                                 value={Consult}
                                                 onChangeText={(text) => { setserPrice(text) }}
                                                 style={styling.servicePriceinput}
+                                                keyboardType='number-pad'
                                             />
 
                                         </View>
