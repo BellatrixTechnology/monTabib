@@ -6,7 +6,6 @@ const styling = StyleSheet.create({
         flex: 1
     },
     mainContainer: {
-        height: hp('100%'),
         width: wp('100%'),
         paddingLeft: 20,
         paddingRight: 20,
@@ -16,9 +15,7 @@ const styling = StyleSheet.create({
 
     },
     headerView: {
-        height: hp('6%'),
         width: wp('100%'),
-        paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
         backgroundColor: 'white',
@@ -26,13 +23,10 @@ const styling = StyleSheet.create({
     },
     labelView: {
         height: hp('12%'),
-        width: wp('100%'),
-        padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
     },
     innerView: {
-        height: hp('65%'),
         width: wp('80%'),
         alignItems: 'center',
         justifyContent: 'center',
