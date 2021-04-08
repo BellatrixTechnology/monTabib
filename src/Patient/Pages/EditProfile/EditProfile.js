@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Avatar, Input } from 'react-native-elements';
 import { styling } from './styling';
@@ -7,6 +7,46 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 const EditProfile = ({ props }) => {
 
+    useEffect(() => {
+        fetch('https://www.montabib.com/loginApp', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "username": 'Daniyalrathore1400@gmail.com',
+                "password": 'daniyal'
+            })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson, 'res JSON');
+                if (responseJson.error == 'Invalid credentials.') {
+                }
+                else {
+                    let id = 'https://montabib.com/api/patients/' + responseJson.patientid
+                    console.log(id)
+                    fetch(id, {
+                        method: 'GET'
+
+                    }).then((res) => {
+                        console.log(res)
+                        if (res.ok == true) {
+                            res.json().then((data) => { console.log('kk', data) }).catch((error) => { console.log(error) })
+                        } else {
+                            // ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                        }
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                            // ToastAndroid.show(error, ToastAndroid.SHORT);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error('asdasd', error);
+            });
+    }, [])
     return (
         <SafeAreaView style={styling.safeContainer}>
             <View style={styling.heading}>
@@ -71,4 +111,4 @@ const EditProfile = ({ props }) => {
         </SafeAreaView >
     )
 }
-export default EditProfile; 
+export default EditProfile;
