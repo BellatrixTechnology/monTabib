@@ -7,62 +7,60 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Profile from './Profile/Profile';
 import ListConsultation from './ListConsultation/ListConsultation';
+import { createStackNavigator } from '@react-navigation/stack';
+import ListDoctor from './ListDoctor.js/ListDoctor';
+import EditProfile from './EditProfile/EditProfile';
+const Stack = createStackNavigator();
 import HomeScreen from './HomeScreen/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
 
-const PTabs = (props) => {
-
-    const Home = () => {
-        return <ListConsultation />
-    }
-    const Pro = () => {
-        return <Profile props={props} />
-    }
-    const ListDoc = () => {
-        return <HomeScreen props={props} />
-    }
-
+const HomeScrn = () => {
     return (
-        <NavigationContainer independent={true}>
-            <Tab.Navigator
-                initialRouteName='Home'
-                backBehavior='none'
-                tabBarOptions={{
-                    activeTintColor: '#45347a',
-                    inactiveTintColor: 'gray',
+        <Tab.Navigator
+            initialRouteName='ListDoctor'
+            backBehavior='none'
+            tabBarOptions={{
+                activeTintColor: '#45347a',
+                inactiveTintColor: 'gray',
+            }}
+        >
+            < Tab.Screen name="ListDoctor" component={HomeScreen}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <Icons name="search" color={color} size={22} />
+                    ),
                 }}
-            >
-                < Tab.Screen name="ListDoctor" component={ListDoc}
-                    options={{
-                        // tabBarColor: '#6bfaf3',
-                        tabBarIcon: ({ color }) => (
-                            <Icons name="search" color={color} size={22} />
-                        ),
-                    }}
-                />
-                < Tab.Screen name="Home" component={Home}
-                    options={{
-                        // tabBarColor: '#6bfaf3',
-                        tabBarIcon: ({ color }) => (
-                            <Icon name="view-agenda-outline" color={color} size={22} />
-                        ),
-                    }}
-                />
-                <Tab.Screen name="Profile" component={Pro}
-                    options={{
-                        // tabBarColor: '#6bfaf3',
-                        tabBarIcon: ({ color }) => (
-                            <Icons name="user-alt" color={color} size={22} />
-                        ),
-                    }}
-                />
-
-
-            </Tab.Navigator>
-        </NavigationContainer>
+            />
+            < Tab.Screen name="Consultation" component={ListConsultation}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <Icon name="view-agenda-outline" color={color} size={22} />
+                    ),
+                }}
+            />
+            <Tab.Screen name="Profile" component={Profile}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <Icons name="user-alt" color={color} size={22} />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
     );
 }
 
-export default PTabs;
+
+
+
+export default function PTabs() {
+    return (
+        <NavigationContainer independent={true}>
+            <Stack.Navigator headerMode={null} initialRouteName='HomeScrn'>
+                <Stack.Screen name="Home" component={HomeScrn} />
+                <Stack.Screen name='EProfile' component={EditProfile} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
+}

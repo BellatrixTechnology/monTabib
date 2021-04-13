@@ -9,42 +9,43 @@ export const styling = StyleSheet.create({
 
     },
     mainContainer: {
-        height: hp('100%'),
-        width: wp('100%'),
-        padding: 20,
+        flex: 1,
+        paddingHorizontal: wp(2),
+        paddingTop: hp(1)
         // backgroundColor: 'red'
     },
     heading: {
+        paddingLeft: wp(2),
         height: hp('8%'),
+        width: wp(100),
         backgroundColor: 'white',
-        justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
-        elevation: 2
+        elevation: 2,
+        paddingRight: wp(7),
+        justifyContent: 'space-between'
     },
-    headingTXTView: {
-        width: wp('85%'),
-        alignItems: 'center',
-    },
+
     headingTXT: {
         fontSize: fontSize.head,
-        color: 'black'
+        color: 'black',
     },
     headView: {
-        height: hp('20%'),
+        marginVertical: hp(1),
         alignItems: 'center',
         justifyContent: 'center',
     },
-    avatarStyles: {
+    avatarView: {
         backgroundColor: '#cccccc',
-        height: 150,
-        width: 150,
-        borderRadius: 500
+        height: wp(30),
+        width: wp(30),
+        borderRadius: wp(20),
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     innerView: {
-        marginTop: 50,
+        marginTop: hp(2),
         width: wp('80%'),
-        height: hp('40%'),
         alignItems: 'center',
         alignSelf: 'center'
         // justifyContent: 'center',
@@ -53,11 +54,12 @@ export const styling = StyleSheet.create({
         height: hp('20%'),
         width: wp('90%'),
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignSelf: 'center'
     },
     signupOpacity: {
 
-        backgroundColor: '#007bff',
+        backgroundColor: '#3f4079',
         height: hp('6%'),
         width: wp('80%'),
         alignItems: 'center',

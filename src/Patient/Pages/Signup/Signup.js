@@ -5,7 +5,9 @@ import Icons from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { styling } from './styling'
+import { styling } from './styling';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SignUp = (props) => {
     const [namefocus, setnamefocus] = useState(false);
     const [lastfocus, setlastnamefocus] = useState(false);
@@ -38,7 +40,11 @@ const SignUp = (props) => {
         else { setError(true), setLoading(false), setFiedl('Check Your Data') }
     }
     function register() {
-
+        let obj = {
+            username: email,
+            password: password
+        }
+        AsyncStorage.setItem('PatData', JSON.stringify(obj));
         fetch('https://www.montabib.com/api/users', {
             method: 'POST',
             headers: {
@@ -88,7 +94,7 @@ const SignUp = (props) => {
             console.log('jnjn', ress)
             if (ress.ok == true) {
                 console.log(ress)
-                ress.json().then((data) => {
+                ress.json().then(() => {
                     props.navigation.navigate('PTabs')
                     setLoading(false)
                 });

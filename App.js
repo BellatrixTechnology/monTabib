@@ -37,7 +37,7 @@ const AuthStack = () => (
   <Navigator headerMode='none'>
     <Screen name='Main' component={Main} />
 
-    <Screen name='HomeScreen' component={HomeScreen} />
+    {/* <Screen name='HomeScreen' component={HomeScreen} /> */}
     <Screen name='ListDoctor' component={ListDoctor} />
     <Screen name="Tab" component={Tabs} />
 
@@ -53,11 +53,7 @@ const AuthStack = () => (
     <Screen name='LoginIn' component={LoginIn} />
 
     <Screen name='ListConsultation' component={ListConsultation} />
-
-    <Screen name='EProfile' component={EProfile} />
-
     <Screen name='Profile' component={Profile} />
-
     <Screen name='addPatient' component={addPatient} />
 
     <Screen name='Agenda' component={Agenda} />
@@ -77,6 +73,7 @@ const AuthStack = () => (
     <Screen name="Edit" component={EditProfile} />
 
     <Screen name="ProfileScreen" component={ProfileScreen} />
+    {/* <Screen name='EProfile' component={EProfile} /> */}
 
     <Screen name='Services' component={Services} />
     <Screen name='Experience' component={Experience} />

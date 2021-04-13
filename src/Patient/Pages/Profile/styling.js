@@ -24,11 +24,13 @@ export const styling = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    avatarStyles: {
+    avatarView: {
         backgroundColor: '#cccccc',
-        height: 150,
-        width: 150,
-        borderRadius: 500
+        height: wp(30),
+        width: wp(30),
+        borderRadius: wp(20),
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     editOpacity: {
         backgroundColor: '#3f4079',
@@ -48,22 +50,22 @@ export const styling = StyleSheet.create({
         height: hp('50%'),
     },
     nameView: {
-        width: wp('60%'),
-        height: hp('7%'),
-        alignItems: 'center',
+        width: wp(65),
+        alignSelf: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
     },
     nameTXT: {
         fontSize: fontSize.button,
-        fontFamily: 'SFUIText-Regular'
+        fontFamily: 'SFUIText-Bold',
     },
     headTXT: {
         fontSize: fontSize.label,
-        fontFamily: 'SFUIText-Bold'
+        fontFamily: 'SFUIText-Medium'
     },
     labelTXT: {
         fontSize: fontSize.label,
-        fontFamily: 'SFUIText-Regular'
+        fontFamily: 'SFUIText-Bold'
     },
     emailView: {
         padding: 10,

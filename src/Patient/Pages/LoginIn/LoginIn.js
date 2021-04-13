@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput, StatusBar, A
 import { Text, Input, colors } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icons from 'react-native-vector-icons/FontAwesome';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styling } from './styling';
 const LoginIn = (props) => {
@@ -24,7 +24,11 @@ const LoginIn = (props) => {
         else { setError(true), setLoading(false), setFiedl('Invalid credentials') }
     }
     function login() {
-
+        let obj = {
+            username: email,
+            password: password
+        }
+        AsyncStorage.setItem('PatData', JSON.stringify(obj));
         fetch('https://www.montabib.com/loginApp', {
             method: 'POST',
             headers: {
@@ -45,7 +49,9 @@ const LoginIn = (props) => {
                     setLoading(false)
                 }
                 else {
+                    setLoading(false)
                     props.navigation.navigate('PTabs')
+                    // setLoading(false)
                 }
             })
             .catch((error) => {
@@ -84,6 +90,7 @@ const LoginIn = (props) => {
                             onChangeText={(val) => { setpassword(val) }}
                             secureTextEntry
                         />
+
                     </View>
                     {errors && <Text style={{ color: 'red', alignSelf: 'center', marginBottom: 10 }}>{FieldTitle}</Text>}
 
