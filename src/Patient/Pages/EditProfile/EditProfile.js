@@ -59,12 +59,13 @@ const EditProfile = (props) => {
         }).then((responce) => responce.json()).then((res) => {
             setId(res.patientid)
             setUID(res.userid)
+            console.log(res.userid)
             fetch(`https://montabib.com/api/patients/` + res.patientid,
                 {
                     method: "GET",
                 }).then((res) => res.json()).then((data) => {
                     setName(data.nom)
-                    setEmail(data.user.username)
+                    setEmail(data.username)
                     setPhone(data.telephone)
                     setLast(data.prenom)
                     setDob(data.dateNaissance)
@@ -73,7 +74,7 @@ const EditProfile = (props) => {
         });
     }
     function setValue() {
-        console.log(dob, email, phone, gender, last, name)
+        console.log(dob, phone, gender, last, name, userId)
         fetch(`https://montabib.com/loginApp`, {
             method: "POST",
             headers: initHeader(),
@@ -85,7 +86,7 @@ const EditProfile = (props) => {
             ),
         }).then((responce) => responce.json()).then((res) => {
             console.log(res)
-            fetch('https://www.montabib.com/api/patients/18', {
+            fetch('https://www.montabib.com/api/patients/' + id, {
                 method: "PUT",
                 headers: initHeader(),
                 body: JSON.stringify({

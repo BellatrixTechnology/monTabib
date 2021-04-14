@@ -15,7 +15,6 @@ const Profile = (props) => {
 
     useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', () => {
-            // getUser()
             getData()
         });
         return () => {
@@ -23,28 +22,28 @@ const Profile = (props) => {
         };
     }, [])
 
-    getUser = async () => {
-        try {
-            let PatData = await AsyncStorage.getItem('PatData');
-            let parsed = await JSON.parse(PatData);
-            await setUSer(parsed);
-            console.log('sdfsd', parsed)
-            // getData(parsed)
+    // getUser = async () => {
+    //     try {
+    //         let PatData = await AsyncStorage.getItem('PatData');
+    //         let parsed = await JSON.parse(PatData);
+    //         await setUSer(parsed);
+    //         console.log('sdfsd', parsed)
+    //         // getData(parsed)
 
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    function getData(parsed) {
-        console.log('hello,', parsed)
+    //     }
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    function getData() {
+        console.log('hello,')
         fetch(`https://montabib.com/loginApp`, {
             method: "POST",
             headers: initHeader(),
             body: JSON.stringify(
                 {
-                    "username": 'daniyal_rathore00@gmail.com',
-                    "password": 'daniyal'
+                    "username": 'shoaib@gmail.com',
+                    "password": '12345678'
                 }
             ),
         }).then((responce) => responce.json()).then((res) => {
