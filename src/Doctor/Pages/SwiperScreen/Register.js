@@ -119,6 +119,7 @@ const Register = () => {
                                     placeholder='Telephone'
                                     keyboardType='phone-pad'
                                     value={Telephone}
+                                    maxLength={10}
                                     onChangeText={(Tphone) => {
                                         setTelephone(Tphone)
                                     }}

@@ -6,7 +6,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { styling } from './styling';
 
-const HomeScreen = ({ props }) => {
+const HomeScreen = (props) => {
+    console.log(props)
     const [Gender, setGender] = useState('');
 
     const [Special, setSpecial] = useState('');
@@ -23,11 +24,8 @@ const HomeScreen = ({ props }) => {
                     <View style={styling.headersView}>
                         <DropDownPicker
                             items={[
-                                { label: 'Allergists', value: 'Allergists' },
-                                { label: 'Dermatologists', value: 'Dermatologists' },
-                                { label: 'Cardiologists', value: 'Cardiologists' },
-                                { label: 'Gastroenterologists', value: 'Gastroenterologists' },
-                            ]}
+                                { label: 'Acupuncture', value: '1' },
+                                { label: 'Surgeon', value: '2' },]}
                             defaultValue={Special}
                             placeholder='Select Specialist'
                             labelStyle={styling.dropdownLabel}
@@ -36,7 +34,6 @@ const HomeScreen = ({ props }) => {
                             dropDownStyle={styling.dropdownStyle}
                             showArrow={true}
                             onChangeItem={(special) => {
-                                console.log('ee')
                                 setSpecial(special.value)
                             }}
 
@@ -45,10 +42,8 @@ const HomeScreen = ({ props }) => {
                     <View style={styling.headersView}>
                         <DropDownPicker
                             items={[
-                                { label: 'Algiers', value: 'Algiers' },
+                                { label: 'Paris', value: 'Paris' },
                                 { label: 'Djelfa', value: 'Djelfa' },
-                                { label: 'Sétif', value: 'Sétif' },
-                                { label: 'Annaba', value: 'Annaba' },
                             ]}
                             defaultValue={City}
                             placeholder='City'
@@ -63,7 +58,9 @@ const HomeScreen = ({ props }) => {
 
                 </View>
 
-                <TouchableOpacity style={styling.OpacityLog} onPress={() => props.navigation.navigate('ListDoctor')}  >
+                <TouchableOpacity
+                    disabled={City == '' && Special == '' ? true : false}
+                    style={styling.OpacityLog} onPress={() => props.navigation.navigate('ListDoctor', { city: City, Special: Special })}  >
                     <Text style={styling.Opacitytxt}>Search</Text>
                 </TouchableOpacity>
             </View>

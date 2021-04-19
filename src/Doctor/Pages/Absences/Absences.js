@@ -129,7 +129,7 @@ const Absences = ({ props }) => {
                         method: 'GET'
 
                     }).then((res) => {
-                        console.log('123asf56546sdf', res)
+                        console.log( res)
                         if (res.ok == true) {
                             res.json().then((data) => { console.log('kk', data), setAbsense(data['hydra:member']) }).catch((error) => { console.log(error) })
                         } else {

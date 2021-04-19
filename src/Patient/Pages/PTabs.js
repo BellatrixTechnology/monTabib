@@ -10,6 +10,7 @@ import ListConsultation from './ListConsultation/ListConsultation';
 import { createStackNavigator } from '@react-navigation/stack';
 import ListDoctor from './ListDoctor.js/ListDoctor';
 import EditProfile from './EditProfile/EditProfile';
+
 const Stack = createStackNavigator();
 import HomeScreen from './HomeScreen/HomeScreen';
 
@@ -19,14 +20,14 @@ const Tab = createBottomTabNavigator();
 const HomeScrn = () => {
     return (
         <Tab.Navigator
-            initialRouteName='ListDoctor'
+            initialRouteName='HomeScreen'
             backBehavior='none'
             tabBarOptions={{
                 activeTintColor: '#45347a',
                 inactiveTintColor: 'gray',
             }}
         >
-            < Tab.Screen name="ListDoctor" component={HomeScreen}
+            < Tab.Screen name="HomeScreen" component={HomeScreen}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icons name="search" color={color} size={22} />
@@ -60,6 +61,8 @@ export default function PTabs() {
             <Stack.Navigator headerMode={null} initialRouteName='HomeScrn'>
                 <Stack.Screen name="Home" component={HomeScrn} />
                 <Stack.Screen name='EProfile' component={EditProfile} />
+                <Stack.Screen name='ListDoctor' component={ListDoctor} />
+
             </Stack.Navigator>
         </NavigationContainer>
     )

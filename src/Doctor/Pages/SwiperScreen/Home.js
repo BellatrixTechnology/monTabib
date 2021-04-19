@@ -132,7 +132,7 @@ const Home = (props) => {
             })
         }).then((ress) => {
             console.log(ress.headers.map.location)
-            console.log('jnjn', ress)
+            console.log('jnjn', ress.error)
             if (ress.ok == true) {
                 console.log(ress)
                 ress.json().then((data) => {
@@ -383,7 +383,7 @@ const Home = (props) => {
                 body: JSON.stringify({
 
                     "libelle": element.Service,
-                    "prix": 0
+                    "prix": Number(element.Price)
 
                 })
             }).then((response) => {

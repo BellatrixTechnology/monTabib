@@ -15,52 +15,53 @@ const Profile = (props) => {
 
     useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', () => {
-            getData()
+            getUser()
         });
         return () => {
             unsubscribe;
         };
     }, [])
 
-    // getUser = async () => {
-    //     try {
-    //         let PatData = await AsyncStorage.getItem('PatData');
-    //         let parsed = await JSON.parse(PatData);
-    //         await setUSer(parsed);
-    //         console.log('sdfsd', parsed)
-    //         // getData(parsed)
+    getUser = async () => {
+        try {
+            let PatData = await AsyncStorage.getItem('PatData');
+            let parsed = await JSON.parse(PatData);
+            setUSer(parsed)
+            getData(parsed)
 
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-    function getData() {
-        console.log('hello,')
-        fetch(`https://montabib.com/loginApp`, {
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    function getData(parsed) {
+        fetch('https://montabib.com/loginApp', {
             method: "POST",
             headers: initHeader(),
             body: JSON.stringify(
                 {
-                    "username": 'shoaib@gmail.com',
-                    "password": '12345678'
+                    "username": parsed.username,
+                    "password": parsed.password
                 }
             ),
         }).then((responce) => responce.json()).then((res) => {
-            console.log(res.patientid)
-            fetch(`https://montabib.com/api/patients/` + res.patientid,
-                {
-                    method: "GET",
-                }).then((res) => res.json()).then((data) => {
-                    console.log(data)
-                    setName(data.nom + ' ' + data.prenom)
-                    setEmail(data.user.username)
-                    setPhone(data.telephone)
-
-                })
+            let temp = res.patientid
+            fetchrecord(temp)
         });
     }
 
+    async function fetchrecord(temp) {
+        fetch('https://montabib.com/api/patients/' + temp,
+            {
+                method: "GET",
+            }).then((res) => res.json()).then((data) => {
+                console.log(data)
+                setName(data.nom + ' ' + data.prenom)
+                setEmail(data.user.username)
+                setPhone(data.telephone)
+
+            })
+    }
     function initHeader() {
         let auth = {
             'Content-Type': "application/json",

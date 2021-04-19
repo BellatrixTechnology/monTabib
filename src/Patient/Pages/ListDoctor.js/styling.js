@@ -44,7 +44,7 @@ export const styling = StyleSheet.create({
         marginBottom: 5,
     },
     drView: {
-        height: hp(25),
+        height: hp(20),
         flexDirection: 'row',
         width: wp(90),
         alignItems: 'center',
@@ -178,5 +178,20 @@ export const styling = StyleSheet.create({
         textAlign: 'center',
         lineHeight: 30,
         color: '#e74e84'
+    },
+    loadMore: {
+        backgroundColor: '#d3d3d3',
+        alignItems: 'center',
+        paddingVertical: hp(1),
+        width: wp(30),
+        alignSelf: 'center',
+        borderRadius: wp(6),
+        marginBottom: hp(2),
+
+
+    },
+    loadMoreText: {
+        color: 'white',
+        fontSize: hp(3)
     }
 })

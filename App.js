@@ -38,7 +38,7 @@ const AuthStack = () => (
     <Screen name='Main' component={Main} />
 
     {/* <Screen name='HomeScreen' component={HomeScreen} /> */}
-    <Screen name='ListDoctor' component={ListDoctor} />
+    {/* <Screen name='ListDoctor' component={ListDoctor} /> */}
     <Screen name="Tab" component={Tabs} />
 
     <Screen name="Consultation" component={Consultation} />
