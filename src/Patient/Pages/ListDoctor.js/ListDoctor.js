@@ -64,23 +64,24 @@ const ListDoctor = ({ navigation, route }) => {
             });
     }
     async function getDoctorFilteravail(avl, page) {
-        //  // console.log(avl)
-        //     // let temp = []
-        //     fetch('https://montabib.com/api/searchDoctors/' + special + '/' + city + '/' + page + '?disponibilite=' + avl,
-        //         {
-        //             method: "GET",
-        //         }).then((res) => {
-        //             if (res.ok == true) {
-        //                 res.json().then((dat) => {
-        //                     setData(dat.medecins)
-        //                 }).catch((error) => { console.log(error) })
-        //             } else {
-        //                 console.log('err')
-        //             }
-        //         })
-        //         .catch((error) => {
-        //             console.log(error)
-        //         });
+        // console.log(avl)
+        // let temp = []
+        fetch('https://montabib.com/api/searchDoctors/' + special + '/' + city + '/' + page + '?sexe=' + gender + '&?disponibilite=' + avl,
+            {
+                method: "GET",
+            }).then((res) => {
+                if (res.ok == true) {
+                    res.json().then((dat) => {
+                        console.log(dat)
+                        setData(dat.medecins)
+                    }).catch((error) => { console.log(error) })
+                } else {
+                    console.log('err')
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
     const [selectMon, setMonSelect] = useState(null);
     const [time, setTime] = useState('');

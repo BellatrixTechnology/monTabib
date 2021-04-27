@@ -166,6 +166,7 @@ const Home = (props) => {
 
                 }
                 else {
+
                     {
                         fetch('https://montabib.com/api/heure_ouvertures', {
                             method: 'POST',
@@ -175,11 +176,11 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "lundi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Monday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Monday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Monday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Monday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Monday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Monday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Monday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Monday.Afternoon.Start,
                                 "jourRepos": obj1.Monday.status
                             })
                         }).then((response) => {
@@ -203,11 +204,11 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "mardi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Tuesday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Tuesday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Tuesday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Tuesday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Tuesday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Tuesday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Tuesday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Tuesday.Afternoon.Start,
                                 "jourRepos": obj1.Monday.status
                             })
                         }).then((response) => {
@@ -231,11 +232,11 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "mercredi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Wednesday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Wednesday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Wednesday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Wednesday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Wednesday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Wednesday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Wednesday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Wednesday.Afternoon.Start,
                                 "jourRepos": obj1.Wednesday.status
                             })
                         }).then((response) => {
@@ -258,11 +259,11 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "jeudi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Thursday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Thursday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Thursday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Thursday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Thursday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Thursday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Thursday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Thursday.Afternoon.Start,
                                 "jourRepos": obj1.Thursday.status
                             })
                         }).then((response) => {
@@ -285,11 +286,11 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "vendredi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Friday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Friday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Friday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Friday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Friday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Friday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Friday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Friday.Afternoon.Start,
                                 "jourRepos": obj1.Friday.status
                             })
                         }).then((response) => {
@@ -312,11 +313,11 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "samedi",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Saturday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Saturday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Saturday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Saturday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Saturday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Saturday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Saturday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Saturday.Afternoon.Start,
                                 "jourRepos": obj1.Saturday.status
                             })
                         }).then((response) => {
@@ -339,11 +340,16 @@ const Home = (props) => {
                             },
                             body: JSON.stringify({
                                 "jour": "dimanche",
-                                "heureOuvertureMatin": "2021-03-13T" + obj1.Sunday.Morning.Start + ":40.253Z",
-                                "heureFermetureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.End + ":40.253Z",
+                                "heureOuvertureMatin": obj1.Sunday.Morning.Start,
+                                "heureFermetureApresMidi": obj1.Sunday.Afternoon.End,
                                 "medecin": uid,
-                                "heureFermetureMatin": "2021-03-13T" + obj1.Sunday.Morning.End + ":40.253Z",
-                                "heureOuvertureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.Start + ":40.253Z",
+                                "heureFermetureMatin": obj1.Sunday.Morning.End,
+                                "heureOuvertureApresMidi": obj1.Sunday.Afternoon.Start,
+                                // "heureOuvertureMatin": "2021-03-13T" + obj1.Sunday.Morning.Start + ":00.253Z",
+                                // "heureFermetureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.End + ":00.253Z",
+                                // "medecin": uid,
+                                // "heureFermetureMatin": "2021-03-13T" + obj1.Sunday.Morning.End + ":00.253Z",
+                                // "heureOuvertureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.Start + ":00.253Z",
                                 "jourRepos": obj1.Sunday.status
                             })
                         }).then((response) => {
