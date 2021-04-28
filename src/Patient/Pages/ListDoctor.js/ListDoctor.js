@@ -6,7 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Awesome from 'react-native-vector-icons/FontAwesome'
 import { styling } from './styling';
-
+import moment from 'moment'
 const ListDoctor = ({ navigation, route }) => {
     const city = route.params.city
     const special = route.params.Special
@@ -20,7 +20,7 @@ const ListDoctor = ({ navigation, route }) => {
     const [booking, setBooking] = useState(false);
     const [Confirmation, setConfirmation] = useState(false);
     const [data, setData] = useState('')
-    const [data2, setdata2] = useState('')
+    const [available, setavaiableTime] = useState('')
     const [pages, setPage] = useState('1')
     useEffect(() => {
         getDoctor('1')
@@ -83,6 +83,25 @@ const ListDoctor = ({ navigation, route }) => {
                 console.log(error)
             });
     }
+    async function availableTime() {
+        fetch('https://montabib.com/api/availabilitiesDoctors/28',
+            {
+                method: "GET",
+            }).then((res) => {
+                if (res.ok == true) {
+                    res.json().then((dat) => {
+                        console.log(dat.availabilities)
+                        setavaiableTime(dat.availabilities)
+                    }).catch((error) => { console.log(error) })
+                } else {
+                    console.log('err')
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+
     const [selectMon, setMonSelect] = useState(null);
     const [time, setTime] = useState('');
     const [date, setdate] = useState('');
@@ -154,9 +173,10 @@ const ListDoctor = ({ navigation, route }) => {
                             return (
                                 <View>
                                     <TouchableOpacity style={styling.nameView} onPress={() => {
-                                        setdetail(true),
-                                            setDetailData(item)
+                                        setdetail(true)
+                                        setDetailData(item)
                                         setBook(true)
+                                        availableTime()
                                     }}>
                                         <Text style={styling.DRTXT}>{item.prenom} {item.nom}</Text>
                                         <Text style={styling.labelTXT}>ACUPUNCTURIST</Text>
@@ -212,51 +232,78 @@ const ListDoctor = ({ navigation, route }) => {
 
                 </View>
                 }
-                {detail && <View style={styling.innerView}>
-                    <View style={styling.nameView} >
-                        <Text style={styling.DRTXT}>{detailData.prenom} {detailData.nom}</Text>
-                        <Text style={styling.labelTXT}>ACUPUNCTURIST</Text>
-                        <Text style={styling.labelTXT}>{detailData.telephone}</Text>
-                        <Text style={styling.labelTXT}>{detailData.adresse}</Text>
-
-                    </View >
-                    {
-                        detailData.experiences != '' &&
+                {detail &&
+                    <View style={styling.innerView}>
                         <View style={styling.nameView} >
-                            <Text style={styling.headDRTXT}>Experiences and Training</Text>
-                            <Text style={styling.labelDRTXT}>2000 - 2010 - Surgeon</Text>
+                            <Text style={styling.DRTXT}>{detailData.prenom} {detailData.nom}</Text>
+                            <Text style={styling.labelTXT}>ACUPUNCTURIST</Text>
+                            <Text style={styling.labelTXT}>{detailData.telephone}</Text>
+                            <Text style={styling.labelTXT}>{detailData.adresse}</Text>
+
                         </View >
+                        {
+                            detailData.experiences != '' &&
+                            <View style={styling.nameView} >
+                                <Text style={styling.headDRTXT}>Experiences and Training</Text>
+                                <Text style={styling.labelDRTXT}>2000 - 2010 - Surgeon</Text>
+                            </View >
 
-                    }
+                        }
 
-                    <View style={styling.nameView}>
-                        <Text style={styling.headDRTXT}>Rates & Payment methods</Text>
-                        <View>
-                            <FlatList
-                                data={detailData.services}
-                                renderItem={({ item }) => {
-                                    return (
+                        <View style={styling.nameView}>
+                            <Text style={styling.headDRTXT}>Rates & Payment methods</Text>
+                            <View>
+                                <FlatList
+                                    data={detailData.services}
+                                    renderItem={({ item }) => {
+                                        return (
 
-                                        <View>
-                                            < Text style={styling.labelDRTXT} >
-                                                {item.libelle}	{item.prix} da</Text>
+                                            <View>
+                                                < Text style={styling.labelDRTXT} >
+                                                    {item.libelle}	{item.prix} da</Text>
 
-                                        </View>
+                                            </View>
 
 
-                                    )
-                                }
-                                }
-                            />
-                        </View>
-                    </View >
-                    <TouchableOpacity style={styling.OpacityLog} onPress={() => { setBook(true), setdetail(false), setBooking(true) }}>
-                        <Text style={styling.Opacitytxt}>Book</Text>
-                    </TouchableOpacity>
-                </View>
+                                        )
+                                    }
+                                    }
+                                />
+                            </View>
+                        </View >
+                        <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                            setBook(true), setdetail(false), setBooking(true)
+
+                        }}>
+                            <Text style={styling.Opacitytxt}>Book</Text>
+                        </TouchableOpacity>
+                    </View>
                 }
                 {booking && <View style={styling.innerView}>
-                    <ScrollView showsVerticalScrollIndicator={false}>
+                    <FlatList
+                        data={available}
+                        // numColumns={4}
+                        horizontal={false}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => {
+                            return (
+                                <TouchableOpacity style={
+                                    time == moment(item.date).format('hh:mm') ? styling.selecttimeOpacity :
+                                        styling.timeOpacity
+                                }
+                                    onPress={() => {
+                                        setTime(moment(item.date).format('hh:mm'))
+                                    }}
+                                >
+                                    {/*  */}
+                                    <Text style={time == moment(item.date).format('hh:mm') ? styling.selecttimeTxt : styling.timeTxt}>
+                                        {moment(item.date).format('hh:mm')}</Text>
+                                </TouchableOpacity>
+                            )
+                        }}
+                    />
+
+                    {/* <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styling.dayView}>
                             <Text style={styling.labelTXT}>Monday</Text>
                         </View>
@@ -411,7 +458,7 @@ const ListDoctor = ({ navigation, route }) => {
                                 }}
                             />
                         </View>
-                    </ScrollView>
+                    </ScrollView> */}
 
                     <TouchableOpacity style={styling.OpacityLog} onPress={() => { setConfirmation(true), setBook(true), setdetail(false), setBooking(false) }}>
                         <Text style={styling.Opacitytxt}>Confirm</Text>

@@ -160,221 +160,56 @@ const Home = (props) => {
                 "password": obj.Name
             })
         }).then((response) => response.json())
-            .then((responseJson) => {
+            .then(async (responseJson) => {
                 console.log(responseJson, 'res JSON');
                 if (responseJson.error == 'Invalid credentials.') {
 
                 }
                 else {
-
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "lundi",
-                                "heureOuvertureMatin": obj1.Monday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Monday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Monday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Monday.Afternoon.Start,
-                                "jourRepos": obj1.Monday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-
-
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "mardi",
-                                "heureOuvertureMatin": obj1.Tuesday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Tuesday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Tuesday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Tuesday.Afternoon.Start,
-                                "jourRepos": obj1.Monday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
-
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "mercredi",
-                                "heureOuvertureMatin": obj1.Wednesday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Wednesday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Wednesday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Wednesday.Afternoon.Start,
-                                "jourRepos": obj1.Wednesday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "jeudi",
-                                "heureOuvertureMatin": obj1.Thursday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Thursday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Thursday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Thursday.Afternoon.Start,
-                                "jourRepos": obj1.Thursday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "vendredi",
-                                "heureOuvertureMatin": obj1.Friday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Friday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Friday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Friday.Afternoon.Start,
-                                "jourRepos": obj1.Friday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "samedi",
-                                "heureOuvertureMatin": obj1.Saturday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Saturday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Saturday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Saturday.Afternoon.Start,
-                                "jourRepos": obj1.Saturday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
-                    {
-                        fetch('https://montabib.com/api/heure_ouvertures', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "jour": "dimanche",
-                                "heureOuvertureMatin": obj1.Sunday.Morning.Start,
-                                "heureFermetureApresMidi": obj1.Sunday.Afternoon.End,
-                                "medecin": uid,
-                                "heureFermetureMatin": obj1.Sunday.Morning.End,
-                                "heureOuvertureApresMidi": obj1.Sunday.Afternoon.Start,
-                                // "heureOuvertureMatin": "2021-03-13T" + obj1.Sunday.Morning.Start + ":00.253Z",
-                                // "heureFermetureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.End + ":00.253Z",
-                                // "medecin": uid,
-                                // "heureFermetureMatin": "2021-03-13T" + obj1.Sunday.Morning.End + ":00.253Z",
-                                // "heureOuvertureApresMidi": "2021-03-13T" + obj1.Sunday.Afternoon.Start + ":00.253Z",
-                                "jourRepos": obj1.Sunday.status
-                            })
-                        }).then((response) => {
-                            console.log(response)
-                            if (response.ok == true) {
-                                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-                            } else {
-                            }
-                        })
-                            .catch((error) => {
-                                console.log(error)
-                            });
-                    }
+                    await saveTimeDate('lundi', obj1.Monday, uid)
+                    await saveTimeDate('mardi', obj1.Tuesday, uid)
+                    await saveTimeDate('mercredi', obj1.Wednesday, uid)
+                    await saveTimeDate('jeudi', obj1.Thursday, uid)
+                    await saveTimeDate('vendredi', obj1.Friday, uid)
+                    await saveTimeDate('samedi', obj1.Saturday, uid)
+                    await saveTimeDate('dimanche', obj1.Sunday, uid)
                 }
             }).then(() => {
                 SaveConsultation()
             }).then(() => {
                 SaveServie()
-
-
             }).then(() => {
                 setIsVisble(false)
                 props.navigation.navigate('Tab')
             }).catch((error) => {
                 console.error(error);
+            });
+    }
+    async function saveTimeDate(day, Time, uid) {
+        fetch('https://montabib.com/api/heure_ouvertures', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "jour": day,
+                "heureOuvertureMatin": Time.Morning.Start,
+                "heureFermetureApresMidi": Time.Afternoon.End,
+                "medecin": uid,
+                "heureFermetureMatin": Time.Morning.End,
+                "heureOuvertureApresMidi": Time.Afternoon.Start,
+                "jourRepos": Time.status
+            })
+        }).then((response) => {
+            console.log(response)
+            if (response.ok == true) {
+                response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+            } else {
+            }
+        })
+            .catch((error) => {
+                console.log(error)
             });
     }
     const SaveServie = () => {

@@ -115,22 +115,25 @@ export const styling = StyleSheet.create({
         justifyContent: 'space-between',
     },
     timeOpacity: {
-        width: wp(20),
+        width: wp(50),
         alignItems: 'center',
         borderColor: '#3f4079',
         height: hp(4),
         borderWidth: 1,
         justifyContent: 'center',
-        marginRight: 10,
+        marginTop: hp(1),
+        marginBottom: hp(2),
         borderRadius: 10
     },
     selecttimeOpacity: {
-        width: wp(20),
+        width: wp(50),
         alignItems: 'center',
         backgroundColor: '#3f4079',
         height: hp(4),
+        borderWidth: 1,
         justifyContent: 'center',
-        marginRight: 10,
+        marginTop: hp(1),
+        marginBottom: hp(2),
         borderRadius: 10
     },
     selecttimeTxt: {
