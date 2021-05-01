@@ -114,24 +114,46 @@ export const styling = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    swiperContainer: {
+        height: hp(100),
+        width: wp(100),
+        backgroundColor: '#45347a',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center'
+    },
+    slide1: {
+        height: hp(90),
+        width: wp(80),
+        borderRadius: 10,
+        padding: 10,
+        alignContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
     timeOpacity: {
-        width: wp(50),
+        width: wp(70),
         alignItems: 'center',
         borderColor: '#3f4079',
         height: hp(4),
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
         borderWidth: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         marginTop: hp(1),
         marginBottom: hp(2),
         borderRadius: 10
     },
     selecttimeOpacity: {
-        width: wp(50),
+        width: wp(70),
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor: '#3f4079',
         height: hp(4),
         borderWidth: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         marginTop: hp(1),
         marginBottom: hp(2),
         borderRadius: 10
@@ -141,15 +163,54 @@ export const styling = StyleSheet.create({
         fontFamily: 'SFUIText',
         color: 'white'
     },
+    nextbutton: {
+        fontSize: hp(5),
+        fontFamily: 'SFUIText-Bold',
+        color: 'white'
+    },
+    timeView: {
+        backgroundColor: '#45347a',
+        width: wp(30),
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: hp(2),
+        borderRadius: wp(6),
+    },
     timeTxt: {
         fontSize: fontSize.button,
         fontFamily: 'SFUIText',
+        color: 'white'
+    },
+    unselecttimeTxt: {
+        fontSize: fontSize.button,
+        fontFamily: 'SFUIText',
         color: '#3f4079'
+    },
+    FlatListView: {
+        // backgroundColor: 'red',
+        height: hp(75),
+        marginVertical: hp(2),
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     OpacityLog: {
         marginTop: hp(5),
         height: hp('6%'),
         width: wp('80%'),
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: '#e74e84',
+        marginBottom: hp(3),
+        elevation: 4
+    },
+    OpacityLogconfirm: {
+        marginTop: hp(5),
+        height: hp('6%'),
+        width: wp('70%'),
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',

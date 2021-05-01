@@ -4,27 +4,43 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import Icon from 'react-native-vector-icons/AntDesign';
-import Awesome from 'react-native-vector-icons/FontAwesome'
 import { styling } from './styling';
 import moment from 'moment'
 const ListDoctor = ({ navigation, route }) => {
     const city = route.params.city
     const special = route.params.Special
-    const Monday = [
-        { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ];
-    const [book, setBook] = useState(false);
-    const [detail, setdetail] = useState(false);
+    const [status, setStatus] = useState('List')
     const [detailData, setDetailData] = useState('')
-    const [booking, setBooking] = useState(false);
-    const [Confirmation, setConfirmation] = useState(false);
     const [data, setData] = useState('')
-    const [available, setavaiableTime] = useState('')
     const [pages, setPage] = useState('1')
+    const [consult, setConsult] = useState([])
+
+    const today = moment().format('YYYY-MM-DD')
+    const [next, setNext] = useState([])
+    console.log(today,)
     useEffect(() => {
         getDoctor('1')
+        getdates()
     }, [])
+    function getdates() {
+        let list = []
+        list.push({ date: today })
+        list.push({ date: moment().add(1, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(2, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(3, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(4, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(5, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(6, 'day').format('YYYY-MM-DD') })
+        setNext(list)
+    }
+    console.log(next)
+    function motif(item) {
+        let list = []
+        item.motifs.forEach(element => {
+            list.push({ label: element.libelle, value: element.libelle })
+        });
+        setConsult(list)
+    }
 
     async function getDoctor(page) {
         // let temp = []
@@ -46,26 +62,30 @@ const ListDoctor = ({ navigation, route }) => {
     }
     async function getDoctorFilter(gen, page) {
         console.log(gen)
-        // let temp = []
-        fetch('https://montabib.com/api/searchDoctors/' + special + '/' + city + '/' + page + '?sexe=' + gen,
-            {
-                method: "GET",
-            }).then((res) => {
-                if (res.ok == true) {
-                    res.json().then((dat) => {
-                        setData(dat.medecins)
-                    }).catch((error) => { console.log(error) })
-                } else {
-                    console.log('err')
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+        if (gen != 'All') {
+            // let temp = []
+            fetch('https://montabib.com/api/searchDoctors/' + special + '/' + city + '/' + page + '?sexe=' + gen,
+                {
+                    method: "GET",
+                }).then((res) => {
+                    if (res.ok == true) {
+                        res.json().then((dat) => {
+                            setData(dat.medecins)
+                        }).catch((error) => { console.log(error) })
+                    } else {
+                        console.log('err')
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+        else {
+            getDoctor(pages)
+        }
     }
     async function getDoctorFilteravail(avl, page) {
-        // console.log(avl)
-        // let temp = []
+
         fetch('https://montabib.com/api/searchDoctors/' + special + '/' + city + '/' + page + '?sexe=' + gender + '&?disponibilite=' + avl,
             {
                 method: "GET",
@@ -83,28 +103,10 @@ const ListDoctor = ({ navigation, route }) => {
                 console.log(error)
             });
     }
-    async function availableTime() {
-        fetch('https://montabib.com/api/availabilitiesDoctors/28',
-            {
-                method: "GET",
-            }).then((res) => {
-                if (res.ok == true) {
-                    res.json().then((dat) => {
-                        console.log(dat.availabilities)
-                        setavaiableTime(dat.availabilities)
-                    }).catch((error) => { console.log(error) })
-                } else {
-                    console.log('err')
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-    }
+
 
     const [selectMon, setMonSelect] = useState(null);
     const [time, setTime] = useState('');
-    const [date, setdate] = useState('');
     const [gender, setGender] = useState('');
     const [avail, setAvail] = useState('')
     return (
@@ -118,7 +120,7 @@ const ListDoctor = ({ navigation, route }) => {
                     <Text style={styling.headTXT}>Doctors</Text>
                     <View style={{ width: wp(12) }} />
                 </View>
-                {!book && <View style={styling.innerView}>
+                {status == 'List' && <View style={styling.innerView}>
                     <View style={styling.drView}>
 
                         <View style={styling.headersView}>
@@ -126,6 +128,7 @@ const ListDoctor = ({ navigation, route }) => {
                                 items={[
                                     { label: 'Male', value: '1' },
                                     { label: 'Female', value: '0' },
+                                    { label: 'All', value: 'All' },
                                 ]}
                                 defaultValue={gender}
                                 placeholder='Select Gender'
@@ -140,14 +143,14 @@ const ListDoctor = ({ navigation, route }) => {
                                     setGender(val.value)
                                     setPage('1')
                                 }}
-
                             />
                         </View>
+
                         <View style={styling.headersView}>
                             <DropDownPicker
                                 items={[
                                     { label: 'Today', value: 'today' },
-                                    { label: 'Tomorrow', value: 'tomorrow' },
+                                    { label: 'All', value: 'All' },
 
                                 ]}
                                 defaultValue={avail}
@@ -173,10 +176,9 @@ const ListDoctor = ({ navigation, route }) => {
                             return (
                                 <View>
                                     <TouchableOpacity style={styling.nameView} onPress={() => {
-                                        setdetail(true)
                                         setDetailData(item)
-                                        setBook(true)
-                                        availableTime()
+                                        motif(item)
+                                        setStatus('detail')
                                     }}>
                                         <Text style={styling.DRTXT}>{item.prenom} {item.nom}</Text>
                                         <Text style={styling.labelTXT}>ACUPUNCTURIST</Text>
@@ -195,8 +197,7 @@ const ListDoctor = ({ navigation, route }) => {
                                         <TouchableOpacity style={[styling.loadMore, { marginRight: 2 }]} onPress={() => {
                                             let Temp = Number(pages) - 1
                                             setPage(Temp)
-                                            if (gender != '') {
-                                                console.log('hello')
+                                            if (gender) {
                                                 getDoctorFilter(gender, Temp)
                                             }
                                             else
@@ -210,9 +211,7 @@ const ListDoctor = ({ navigation, route }) => {
                                         <TouchableOpacity style={styling.loadMore} onPress={() => {
                                             let Temp = Number(pages) + 1
                                             setPage(Temp)
-                                            if (gender != '') {
-                                                console.log('hello')
-
+                                            if (gender) {
                                                 getDoctorFilter(gender, Temp)
                                             }
                                             else
@@ -232,7 +231,7 @@ const ListDoctor = ({ navigation, route }) => {
 
                 </View>
                 }
-                {detail &&
+                {status == 'detail' &&
                     <View style={styling.innerView}>
                         <View style={styling.nameView} >
                             <Text style={styling.DRTXT}>{detailData.prenom} {detailData.nom}</Text>
@@ -272,214 +271,12 @@ const ListDoctor = ({ navigation, route }) => {
                             </View>
                         </View >
                         <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                            setBook(true), setdetail(false), setBooking(true)
-
+                            navigation.navigate('SwiperTime', { next, detailData, consult })
                         }}>
-                            <Text style={styling.Opacitytxt}>Book</Text>
+                            <Text style={styling.Opacitytxt}>Next</Text>
                         </TouchableOpacity>
                     </View>
                 }
-                {booking && <View style={styling.innerView}>
-                    <FlatList
-                        data={available}
-                        // numColumns={4}
-                        horizontal={false}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => {
-                            return (
-                                <TouchableOpacity style={
-                                    time == moment(item.date).format('hh:mm') ? styling.selecttimeOpacity :
-                                        styling.timeOpacity
-                                }
-                                    onPress={() => {
-                                        setTime(moment(item.date).format('hh:mm'))
-                                    }}
-                                >
-                                    {/*  */}
-                                    <Text style={time == moment(item.date).format('hh:mm') ? styling.selecttimeTxt : styling.timeTxt}>
-                                        {moment(item.date).format('hh:mm')}</Text>
-                                </TouchableOpacity>
-                            )
-                        }}
-                    />
-
-                    {/* <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styling.dayView}>
-                            <Text style={styling.labelTXT}>Monday</Text>
-                        </View>
-                        <View style={styling.selecttimeView}>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={Monday}
-                                renderItem={(val, index) => {
-                                    return (
-                                        <TouchableOpacity style={val.index == selectMon ? styling.selecttimeOpacity : styling.timeOpacity}
-                                            onPress={() => {
-                                                setMonSelect(val.index)
-                                                setTime(val.item.Time)
-                                                setdate('Monday')
-                                            }}
-                                        >
-                                            <Text style={val.index == selectMon ? styling.selecttimeTxt : styling.timeTxt}>
-                                                {val.item.Time}</Text>
-                                        </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </ScrollView>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styling.dayView}>
-                            <Text style={styling.labelTXT}>Tuesday</Text>
-                        </View>
-                        <View style={styling.selecttimeView}>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={Monday}
-                                renderItem={(val, index) => {
-                                    return (
-                                        <TouchableOpacity style={styling.timeOpacity}
-                                        // onPress={() => {
-                                        //     setMonSelect(val.index)
-                                        //     setTime(val.item.Time)
-                                        //     setdate('Monday')
-                                        // }}
-                                        >
-                                            <Text style={styling.timeTxt}>
-                                                {val.item.Time}</Text>
-                                        </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </ScrollView>
-                    <ScrollView showsVerticalScrollIndicator={false} >
-                        <View style={styling.dayView}>
-                            <Text style={styling.labelTXT}>Wednesday</Text>
-                        </View>
-                        <View style={styling.selecttimeView}>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={Monday}
-                                renderItem={(val, index) => {
-                                    return (
-                                        <TouchableOpacity style={styling.timeOpacity}
-                                        // onPress={() => {
-                                        //     setMonSelect(val.index)
-                                        //     setTime(val.item.Time)
-                                        //     setdate('Monday')
-                                        // }}
-                                        >
-                                            <Text style={styling.timeTxt}>
-                                                {val.item.Time}</Text>
-                                        </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </ScrollView>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styling.dayView}>
-                            <Text style={styling.labelTXT}>Thursday</Text>
-                        </View>
-                        <View style={styling.selecttimeView}>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={Monday}
-                                renderItem={(val, index) => {
-                                    return (
-                                        <TouchableOpacity style={styling.timeOpacity}
-                                        // onPress={() => {
-                                        //     setMonSelect(val.index)
-                                        //     setTime(val.item.Time)
-                                        //     setdate('Monday')
-                                        // }}
-                                        >
-                                            <Text style={styling.timeTxt}>
-                                                {val.item.Time}</Text>
-                                        </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </ScrollView>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styling.dayView}>
-                            <Text style={styling.labelTXT}>Friday</Text>
-                        </View>
-                        <View style={styling.selecttimeView}>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={Monday}
-                                renderItem={(val, index) => {
-                                    return (
-                                        <TouchableOpacity style={styling.timeOpacity}
-                                        // onPress={() => {
-                                        //     setMonSelect(val.index)
-                                        //     setTime(val.item.Time)
-                                        //     setdate('Monday')
-                                        // }}
-                                        >
-                                            <Text style={styling.timeTxt}>
-                                                {val.item.Time}</Text>
-                                        </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </ScrollView>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styling.dayView}>
-                            <Text style={styling.labelTXT}>Saturday</Text>
-                        </View>
-                        <View style={styling.selecttimeView}>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={Monday}
-                                renderItem={(val, index) => {
-                                    return (
-                                        <TouchableOpacity style={styling.timeOpacity}
-                                        // onPress={() => {
-                                        //     setMonSelect(val.index)
-                                        //     setTime(val.item.Time)
-                                        //     setdate('Monday')
-                                        // }}
-                                        >
-                                            <Text style={styling.timeTxt}>
-                                                {val.item.Time}</Text>
-                                        </TouchableOpacity>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </ScrollView> */}
-
-                    <TouchableOpacity style={styling.OpacityLog} onPress={() => { setConfirmation(true), setBook(true), setdetail(false), setBooking(false) }}>
-                        <Text style={styling.Opacitytxt}>Confirm</Text>
-                    </TouchableOpacity>
-                </View>}
-
-                {Confirmation && <View style={styling.inner2View}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
-                        <Text style={styling.labelDRTXT}>Your consultation is confirmed </Text>
-                        <Awesome name='check-circle-o' color='green' size={30} />
-                    </View>
-
-                    <View style={styling.sucesssView}>
-                        <Text style={styling.sucessTxT}>We have sent you a confirmation email.</Text>
-                        <Text style={styling.sucessTxT}>  You will also receive a reminder text message the day before the consultation.</Text>
-                        <Text style={styling.sucessTxT}>   If you wish to cancel this consultation, please go to your personal space, Consultations tab.</Text>
-
-                        <Text style={styling.msgTxT}> The monTabib team thanks you!</Text>
-                    </View>
-
-                </View>}
 
 
 

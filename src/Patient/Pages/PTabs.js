@@ -13,6 +13,7 @@ import EditProfile from './EditProfile/EditProfile';
 
 const Stack = createStackNavigator();
 import HomeScreen from './HomeScreen/HomeScreen';
+import SwiperTime from './ListDoctor.js/SwiperTime';
 
 const Tab = createBottomTabNavigator();
 
@@ -62,7 +63,7 @@ export default function PTabs() {
                 <Stack.Screen name="Home" component={HomeScrn} />
                 <Stack.Screen name='EProfile' component={EditProfile} />
                 <Stack.Screen name='ListDoctor' component={ListDoctor} />
-
+                <Stack.Screen name='SwiperTime' component={SwiperTime} />
             </Stack.Navigator>
         </NavigationContainer>
     )

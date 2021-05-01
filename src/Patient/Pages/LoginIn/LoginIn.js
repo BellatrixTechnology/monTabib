@@ -41,8 +41,6 @@ const LoginIn = (props) => {
             })
         }).then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson, 'res JSON');
-                console.log(responseJson.error)
                 if (responseJson.error == 'Invalid credentials.') {
                     setError(true)
                     setFiedl('Invalid credentials')
@@ -50,8 +48,8 @@ const LoginIn = (props) => {
                 }
                 else {
                     setLoading(false)
+                    AsyncStorage.setItem('patientid', responseJson.patientid);
                     props.navigation.navigate('PTabs')
-                    // setLoading(false)
                 }
             })
             .catch((error) => {

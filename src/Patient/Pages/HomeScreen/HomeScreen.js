@@ -43,7 +43,7 @@ const HomeScreen = (props) => {
                         <DropDownPicker
                             items={[
                                 { label: 'Paris', value: 'Paris' },
-                                { label: 'Djelfa', value: 'Djelfa' },
+                                { label: 'France', value: 'France' },
                             ]}
                             defaultValue={City}
                             placeholder='City'
@@ -59,7 +59,7 @@ const HomeScreen = (props) => {
                 </View>
 
                 <TouchableOpacity
-                    disabled={City == '' && Special == '' ? true : false}
+                    disabled={(City != '' && Special != '') ? false : true}
                     style={styling.OpacityLog} onPress={() => props.navigation.navigate('ListDoctor', { city: City, Special: Special })}  >
                     <Text style={styling.Opacitytxt}>Search</Text>
                 </TouchableOpacity>
