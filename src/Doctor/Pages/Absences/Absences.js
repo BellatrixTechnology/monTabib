@@ -5,7 +5,7 @@ import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import Dialog from "react-native-dialog";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { FlatList } from 'react-native';
 import moment from 'moment';
 
@@ -129,7 +129,7 @@ const Absences = ({ props }) => {
                         method: 'GET'
 
                     }).then((res) => {
-                        console.log( res)
+                        console.log(res)
                         if (res.ok == true) {
                             res.json().then((data) => { console.log('kk', data), setAbsense(data['hydra:member']) }).catch((error) => { console.log(error) })
                         } else {

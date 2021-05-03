@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Text } from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { styling } from './styling'
 const Subscription = () => {
     const [diamondselect, setdSelect] = useState('');

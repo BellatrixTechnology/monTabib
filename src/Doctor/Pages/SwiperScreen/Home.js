@@ -5,7 +5,7 @@ import OpenningHour from './Openninghour';
 import Register from './Register';
 import Services from './Services';
 import Subscription from './Subscription';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import firebase from '../../../db/config';
 import AlertModal from '../../Components/AlertModal/index';
 

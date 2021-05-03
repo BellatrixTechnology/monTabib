@@ -6,7 +6,7 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { styling } from './styling';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const SignUp = (props) => {
     const [namefocus, setnamefocus] = useState(false);

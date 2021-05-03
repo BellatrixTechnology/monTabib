@@ -7,7 +7,7 @@ import { ISModal, ReserveSucesss } from '../../AlertModal/index';
 
 import { styling } from './styling';
 
-
+import AsyncStorage from '@react-native-community/async-storage';
 const SwiperTime = (navigation) => {
     console.log(navigation.navigation)
     const [id, setid] = useState(0);
@@ -26,9 +26,24 @@ const SwiperTime = (navigation) => {
     const [selectedService, setSelectService] = useState('')
     const [time, setTime] = useState('')
     const [selectDate, setSelectDate] = useState('')
+    const [data, setUserData] = useState('')
+    const [token, setToken] = useState('')
     useEffect(() => {
         getTime()
+        getUser()
     }, [])
+    async function getUser() {
+        try {
+            let user = await AsyncStorage.getItem('PatData');
+            let parsed1 = JSON.parse(user);
+            setUserData(parsed1);
+            let tok = await AsyncStorage.getItem('token');
+            setToken(tok)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
     async function getTime() {
 
         {
@@ -169,41 +184,60 @@ const SwiperTime = (navigation) => {
                     {moment(item.date).format('hh:mm')}</Text>
             </TouchableOpacity>
         )
-
     }
-    function addConsult() {
-        console.log(selectDate)
-        // console.log('res', responseJson)
-        // fetch('https://montabib.com/api/consultations', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
 
-        //         "medecin": "/api/medecins/122",
-        //         "patient": firstName,
-        //         "dateConsultation": "2021-03-31T10:30:00.000Z",
-        //         "motif": service,
-        //         "compteRendu": ""
-
-
-        //     })
-        // }).then((response) => {
-        //     console.log(response)
-        //     if (response.ok == true) {
-        //         response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
-        //     } else {
-        //         ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-        //     }
-        // })
-        //     .catch((error) => {
-        //         console.log(error)
-        //         ToastAndroid.show(error, ToastAndroid.SHORT);
-        //     });
-
+    function addConsult(parsed) {
+        fetch('https://montabib.com/loginApp', {
+            method: "POST",
+            headers: initHeader(),
+            body: JSON.stringify(
+                {
+                    "username": data.username,
+                    "password": data.password
+                }
+            ),
+        }).then((responce) => responce.json()).then((res) => {
+            let temp = res.patientid
+            addConsultion(temp)
+        });
     }
+    function initHeader() {
+        let auth = {
+            'Content-Type': "application/json",
+        };
+        return auth;
+    }
+    async function addConsultion(temp) {
+        console.log("/api/motifs/" + selectedService)
+        let dateSelect = moment(selectDate).format('YYYY-MM-DD') + 'T' + moment(selectDate).format('HH:MM:SS') + ".000Z"
+        fetch('https://montabib.com/api/consultations', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "medecin": "/api/medecins/" + navigation.route.params.detailData.id,
+                "patient": "/api/patients/" + temp,
+                "dateConsultation": dateSelect,
+                "motif": "/api/motifs/" + selectedService,
+                "compteRendu": ""
+            })
+        }).then((res) => {
+            console.log(res, '++++++')
+            if (res.ok == true) {
+                res.json().then((data) => { console.log(data, "+=======") }).catch((error) => { console.log(error) })
+            } else {
+                ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+            }
+        })
+            .catch((error) => {
+                console.log(error)
+                ToastAndroid.show(error, ToastAndroid.SHORT);
+            });
+    }
+
+
     // console.log(day1, day2, day3, day4, day5, day6, day7)
     return (
         <SafeAreaView style={styling.safeContainer}>
@@ -383,6 +417,8 @@ const SwiperTime = (navigation) => {
                     onPress={() => {
                         setIsVisible(false)
                         setReserveSucesss(true)
+                        addConsult()
+
                     }}
                     value={selectedService}
                     onChangeItem={(val) => {
@@ -396,11 +432,10 @@ const SwiperTime = (navigation) => {
                 />
                 <ReserveSucesss
                     isVisible={Reserve}
-                    onBackdropPress={false}
+                    onBackdropPress={Reserve}
                     onPress={() => {
-                        // navigation.navigation.pop()
-                        // navigation.navigation.pop()
-                        addConsult()
+                        navigation.navigation.pop()
+                        navigation.navigation.pop()
                     }}
                 />
             </View >

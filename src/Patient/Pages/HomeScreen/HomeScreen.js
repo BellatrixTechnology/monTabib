@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import DropDownPicker from 'react-native-dropdown-picker';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import { styling } from './styling';
@@ -9,7 +10,13 @@ import { styling } from './styling';
 const HomeScreen = (props) => {
     console.log(props)
     const [Gender, setGender] = useState('');
-
+    // useEffect(() => {
+    //     get()
+    // }, [])
+    // async function get() {
+    //     let Login = await AsyncStorage.getItem('token');
+    //     console.log(Login)
+    // }
     const [Special, setSpecial] = useState('');
     const [City, setCity] = useState('')
     return (

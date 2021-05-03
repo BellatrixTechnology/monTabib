@@ -6,7 +6,7 @@ import Icons from 'react-native-vector-icons/Entypo';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 import { styling } from './styling';
@@ -119,7 +119,7 @@ const addPatient = (props) => {
                             "medecin": "/api/medecins/122",
                             "patient": firstName,
                             "dateConsultation": "2021-03-31T10:30:00.000Z",
-                            "motif": service,
+                            "motif": "/api/motifs/1184",
                             "compteRendu": ""
 
 

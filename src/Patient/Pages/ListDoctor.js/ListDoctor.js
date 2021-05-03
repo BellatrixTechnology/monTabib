@@ -37,7 +37,8 @@ const ListDoctor = ({ navigation, route }) => {
     function motif(item) {
         let list = []
         item.motifs.forEach(element => {
-            list.push({ label: element.libelle, value: element.libelle })
+            console.log(element)
+            list.push({ label: element.libelle, value: element.id })
         });
         setConsult(list)
     }

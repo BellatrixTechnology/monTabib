@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StatusBar, TouchableWithoutFeedback, Keyboard, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { Input } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { styling } from './styling';
 import { ScrollView } from 'react-native';

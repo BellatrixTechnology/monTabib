@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableWithoutFeedback, TouchableOpacity, Keyboard, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import { Text } from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { hp, wp } from '../../../Global/Styles/Scalling';

@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput, StatusBar, A
 import { Text, Input, colors } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icons from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styling } from './styling';
 const LoginIn = (props) => {
@@ -48,7 +48,7 @@ const LoginIn = (props) => {
                 }
                 else {
                     setLoading(false)
-                    AsyncStorage.setItem('patientid', responseJson.patientid);
+                    AsyncStorage.setItem('token', JSON.stringify(responseJson.patientid))
                     props.navigation.navigate('PTabs')
                 }
             })

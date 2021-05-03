@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StatusBar, SafeAreaView, Switch } from 'react-native';
 import { Text } from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Picker } from '@react-native-picker/picker';
 import { styling } from './styling';
 import { hp, wp } from '../../../Global/Styles/Scalling';

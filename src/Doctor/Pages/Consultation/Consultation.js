@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import { styling } from './styling';
 import Dialog from "react-native-dialog";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 
 const Consultation = ({ props }) => {

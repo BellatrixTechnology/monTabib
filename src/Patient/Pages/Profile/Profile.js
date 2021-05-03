@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from 'react-na
 import { Avatar } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { styling } from './styling';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
