@@ -28,6 +28,7 @@ const SwiperTime = (navigation) => {
     const [selectDate, setSelectDate] = useState('')
     const [data, setUserData] = useState('')
     const [token, setToken] = useState('')
+    const [TIMEDate, setTIMEDate] = useState('')
     useEffect(() => {
         getTime()
         getUser()
@@ -177,6 +178,7 @@ const SwiperTime = (navigation) => {
                 onPress={() => {
                     setTime(moment(item.date).format('hh:mm'))
                     setSelectDate(moment(item.date).format('llll'))
+                    setTIMEDate(item.date)
                 }}
             >
                 {/*  */}
@@ -208,8 +210,8 @@ const SwiperTime = (navigation) => {
         return auth;
     }
     async function addConsultion(temp) {
-        console.log("/api/motifs/" + selectedService)
-        let dateSelect = moment(selectDate).format('YYYY-MM-DD') + 'T' + moment(selectDate).format('HH:MM:SS') + ".000Z"
+        let dateSelect = moment(TIMEDate).format();
+
         fetch('https://montabib.com/api/consultations', {
             method: 'POST',
             headers: {
@@ -235,6 +237,8 @@ const SwiperTime = (navigation) => {
                 console.log(error)
                 ToastAndroid.show(error, ToastAndroid.SHORT);
             });
+        console.log("/api/motifs/" + selectedService, TIMEDate, dateSelect)
+
     }
 
 
