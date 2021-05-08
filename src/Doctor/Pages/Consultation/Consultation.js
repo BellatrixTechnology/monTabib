@@ -18,7 +18,6 @@ const Consultation = ({ props }) => {
 
     useEffect(() => {
         getUser()
-
         const unsubscribe = props.navigation.addListener('focus', () => {
             getUser()
         });
@@ -29,8 +28,9 @@ const Consultation = ({ props }) => {
     async function getUser() {
         try {
             let user = await AsyncStorage.getItem('UserData');
+            let token = await AsyncStorage.getItem('token');
+            console.log(token)
             let parsed1 = JSON.parse(user);
-            console.log('sdfsd', parsed1)
             get(parsed1)
 
         }
@@ -38,31 +38,32 @@ const Consultation = ({ props }) => {
             console.log(error)
         }
     }
+    function initHeader() {
+        let auth = {
+            'Content-Type': "application/json",
+        };
+        return auth;
+    }
     const get = (parsed1) => {
+        console.log(parsed1)
         fetch('https://www.montabib.com/loginApp', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            headers: initHeader(),
             body: JSON.stringify({
                 "username": parsed1.username,
                 "password": parsed1.password
             })
         }).then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson, 'res JSON');
-                console.log('123asfsdf', responseJson.error)
+                console.log(responseJson, '++++')
                 if (responseJson.error == 'Invalid credentials.') {
                 }
                 else {
                     fetch('https://montabib.com/api/consultations', {
-                        method: 'GET'
-
+                        method: 'GET',
                     }).then((res) => {
-                        console.log(res)
                         if (res.ok == true) {
-                            res.json().then((data) => { console.log('kk', data), setobj2(data['hydra:member']) }).catch((error) => { console.log(error) })
+                            res.json().then((data) => { console.log(data['hydra:member']), setobj2(data['hydra:member']) }).catch((error) => { console.log(error) })
                         } else {
                             ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
                         }
@@ -71,12 +72,43 @@ const Consultation = ({ props }) => {
                             console.log(error)
                             ToastAndroid.show(error, ToastAndroid.SHORT);
                         });
-
                 }
             })
             .catch((error) => {
-                console.error('asdasd', error);
+                console.error(error);
             });
+    }
+
+    function _renderItem({ item }) {
+        let A = item.dateConsultation
+        console.log(moment.utc(A).format('hh:mm'), '===', item.dateConsultation)
+        return (
+            <View>
+                <View style={styling.detailView}>
+                    <Text style={styling.labelTXT}>{item.patient.nom} {item.patient.prenom}</Text>
+                    <Text style={styling.labelTXT}>{item.dateConsultation}</Text>
+                </View>
+                <View style={styling.opacityButton} >
+                    <TouchableOpacity style={styling.prescriptOpacity}
+                        onPress={() => {
+                            props.navigation.navigate('Prescribe')
+                        }}
+                    >
+                        <Text style={styling.opacityTXT}>Enter the Prescription</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styling.removeOpacity}
+                        onPress={() => {
+                            setName('')
+                            setdate('')
+                            setphone('')
+                            setData(false)
+                        }}
+                    >
+                        <Text style={styling.removeTXT} >Remove</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
     }
 
 
@@ -106,37 +138,9 @@ const Consultation = ({ props }) => {
                         </View>
                         <FlatList
                             data={obj2}
-                            renderItem={({ item }) => {
-                                return (
-
-                                    <View style={styling.detailView}>
-                                        <Text style={styling.labelTXT}>Chloe</Text>
-
-                                        <Text style={styling.labelTXT}>{moment(item.dateConsultation).format("YYYY-MM-DD")}</Text>
-                                    </View>
-                                )
-                            }
-                            }
+                            renderItem={_renderItem}
                         />
-                        <View style={styling.opacityButton} >
-                            <TouchableOpacity style={styling.prescriptOpacity}
-                                onPress={() => {
-                                    props.navigation.navigate('Prescribe')
-                                }}
-                            >
-                                <Text style={styling.opacityTXT}>Enter the Prescription</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styling.removeOpacity}
-                                onPress={() => {
-                                    setName('')
-                                    setdate('')
-                                    setphone('')
-                                    setData(false)
-                                }}
-                            >
-                                <Text style={styling.removeTXT} >Remove</Text>
-                            </TouchableOpacity>
-                        </View>
+
 
                     </View> :
                     console.log('waiting')

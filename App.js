@@ -27,6 +27,7 @@ import ListDoctor from './src/Patient/Pages/ListDoctor.js/ListDoctor';
 import Services from './src/Doctor/Pages/Services/Services';
 import Experience from './src/Doctor/Pages/Experience/Experience';
 import Opennings from './src/Doctor/Pages/Opennings/Opennings';
+import DoctorSwiperTime from './src/Doctor/Pages/Consultation/DoctorSwiperTime';
 
 console.disableYellowBox = true;
 
@@ -36,13 +37,8 @@ const AuthStack = () => (
 
   <Navigator headerMode='none'>
     <Screen name='Main' component={Main} />
-
-    {/* <Screen name='HomeScreen' component={HomeScreen} /> */}
-    {/* <Screen name='ListDoctor' component={ListDoctor} /> */}
     <Screen name="Tab" component={Tabs} />
-
     <Screen name="Consultation" component={Consultation} />
-
     <Screen name='LoginScreen' component={LoginScreen} />
     <Screen name="Home" component={Home} />
 
@@ -78,6 +74,7 @@ const AuthStack = () => (
     <Screen name='Services' component={Services} />
     <Screen name='Experience' component={Experience} />
     <Screen name='Opennings' component={Opennings} />
+    <Screen name='DoctorSwiperTime' component={DoctorSwiperTime} />
   </Navigator>
 );
 

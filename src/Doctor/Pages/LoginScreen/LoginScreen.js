@@ -36,12 +36,16 @@ const LoginScreen = (props) => {
         }).then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson, 'res JSON');
-                console.log(responseJson.error)
+                console.log(responseJson.medecinid)
                 if (responseJson.error == 'Invalid credentials.') {
                     seterrorPassword(true)
                 }
                 else {
                     seterrorPassword(false)
+
+                    AsyncStorage.setItem('token', JSON.stringify(responseJson.medecinid)
+                    );
+
                     props.navigation.navigate('Tab')
                 }
             })

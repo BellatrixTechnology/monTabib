@@ -7,6 +7,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'moment'
 
 
 import { styling } from './styling';
@@ -23,30 +24,7 @@ const addPatient = (props) => {
         { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
         { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
     ];
-    const Tuesday = [
-        { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '12:30' }, { Time: '13:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ];
-    const Wed = [
-        { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ];
-    const Thursday = [
-        { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ]
-    const Friday = [
-        { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ]
-    const Saturday = [
-        { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ]
-    const Sunday = [
-        { Time: '09:30' }, { Time: '10:30' }, { Time: '11:00' }, { Time: '11:30' }, { Time: '12:00' }, { Time: '05:30' },
-        { Time: '06:00' }, { Time: '06:30' }, { Time: '07:00' }, { Time: '07:30' }
-    ]
+
 
     const [selectMon, setMonSelect] = useState(null);
     const [selectTues, setTuesSelect] = useState(null);
@@ -57,69 +35,97 @@ const addPatient = (props) => {
     const [selectSun, setSunSelect] = useState(null);
 
     const [firstName, SetFName] = useState('');
+    const [name, setName] = useState('');
     const [secondName, SetSName] = useState('');
     const [DOB, SetDOB] = useState('');
     const [service, setService] = useState('');
+    const [serviceLabel, setServiceLAbel] = useState('')
     const [time, setTime] = useState('');
     const [date, setdate] = useState('');
-
+    const [consult, setConsult] = useState([])
     const [markers, setMarkers] = useState([])
     const [userData, setUserData] = useState('')
-    // const [absence, setAbsense] = useState([])
-    const temp = "hydra:member"
+    const today = moment().format('YYYY-MM-DD')
+    const [next, setNext] = useState([])
     useEffect(() => {
-        getUser()
-
         const unsubscribe = props.navigation.addListener('focus', () => {
             getUser()
+            getdates()
         });
         return () => {
             unsubscribe;
         };
     }, [])
+    function getdates() {
+        let list = []
+        list.push({ date: today })
+        list.push({ date: moment().add(1, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(2, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(3, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(4, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(5, 'day').format('YYYY-MM-DD') })
+        list.push({ date: moment().add(6, 'day').format('YYYY-MM-DD') })
+        setNext(list)
+    }
     async function getUser() {
         try {
             let user = await AsyncStorage.getItem('UserData');
+            let token = await AsyncStorage.getItem('token');
             let parsed1 = JSON.parse(user);
             setUserData(parsed1);
-            console.log('sdfsd', parsed1)
-
+            getUserRecord(token)
         }
         catch (error) {
             console.log(error)
         }
     }
+    async function getUserRecord(token) {
+        fetch('https://montabib.com/api/medecins/' + token, {
+            method: 'GET',
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                motif(responseJson.motifs)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+    function motif(item) {
+        let list = []
+        item.forEach(element => {
+            console.log(element)
+            list.push({ label: element.libelle, value: element.id })
+        });
+        setConsult(list)
+    }
+    function initHeader() {
+        let auth = {
+            'Content-Type': "application/json",
+        };
+        return auth;
+    }
     async function SaveRecord() {
+        console.log(firstName)
         fetch('https://www.montabib.com/loginApp', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            headers: initHeader(),
             body: JSON.stringify({
                 "username": userData.username,
                 "password": userData.password
             })
         }).then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson, 'res JSON');
-                console.log(responseJson.error)
                 if (responseJson.error == 'Invalid credentials.') {
                 }
                 else {
-                    console.log('res', responseJson)
                     fetch('https://montabib.com/api/consultations', {
                         method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
+                        headers: initHeader(),
                         body: JSON.stringify({
-
                             "medecin": "/api/medecins/122",
-                            "patient": firstName,
+                            "patient": "/api/patients/31",
                             "dateConsultation": "2021-03-31T10:30:00.000Z",
-                            "motif": "/api/motifs/1184",
+                            "motif": "/api/motifs/1200",
                             "compteRendu": ""
 
 
@@ -139,7 +145,7 @@ const addPatient = (props) => {
                 }
             })
             .catch((error) => {
-                console.error('asdasd', error);
+                console.error(error);
             });
 
     }
@@ -192,9 +198,7 @@ const addPatient = (props) => {
 
                         <View style={styling.dropdownView}>
                             <DropDownPicker
-                                items={[
-                                    { label: 'Consultation', value: 'Consultation' },
-                                    { label: 'Therapy', value: 'Therapy' },]}
+                                items={consult}
                                 defaultValue={service}
                                 placeholder='Service Type'
                                 labelStyle={styling.dropdownLabel}
@@ -226,49 +230,51 @@ const addPatient = (props) => {
                     {!check &&
                         <View style={styling.patientDropView}>
                             <View style={styling.dropdownView}>
-                                <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
-                                    <Picker
-                                        style={{ height: hp(10), width: wp(70) }}
-                                        onValueChange={(itemValue, itemIndex) => {
-                                            SetFName(itemValue)
-                                            console.log(itemValue)
-                                        }
-                                        }
-                                        selectedValue={firstName}
-                                    >
-                                        <Picker.item label='Name' value='name' />
-                                        <Picker.item label='Chloe' value='/api/patients/1' />
-                                        {/* {markers.map(item => {
-                                            return <Picker.Item label={item} value={item} />
-                                        })} */}
-                                    </Picker>
-                                </View>
+                                <DropDownPicker
+                                    items={[
+                                        { label: 'Alex', value: '/api/patients/31' },
+                                        { label: 'Daniyal', value: '/api/patients/31' }
+                                    ]}
+                                    defaultValue={firstName}
+                                    placeholder='Patient Name'
+                                    labelStyle={styling.dropdownLabel}
+                                    style={styling.dropDown}
+                                    containerStyle={styling.containerStyle}
+                                    dropDownStyle={styling.dropdownStyle}
+                                    showArrow={true}
+                                    onChangeItem={(val) => {
+                                        SetFName(val.value)
+                                        setName(val.label)
+                                    }}
+
+                                />
+
 
                             </View>
                             <View style={styling.dropdownView}>
-                                <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}>
-                                    <Picker
-                                        style={{ height: hp(10), width: wp(70) }}
-                                        onValueChange={(itemValue, itemIndex) => {
-                                            setService(itemValue)
-                                            console.log((itemValue));
-                                        }
-                                        }
-                                        selectedValue={service}
-                                    >
-                                        <Picker.item label='Service Type' value='Servie' />
-                                        <Picker.item label='CheckUp' value='/api/motifs/1184' />
-                                        <Picker.item label='Therapy' value='Therapy' />
+                                {/* <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}> */}
+                                <DropDownPicker
+                                    items={consult}
+                                    defaultValue={service}
+                                    placeholder='Service Type'
+                                    labelStyle={styling.dropdownLabel}
+                                    style={styling.dropDown}
+                                    containerStyle={styling.containerStyle}
+                                    dropDownStyle={styling.dropdownStyle}
+                                    showArrow={true}
+                                    onChangeItem={(service) => {
+                                        setService(service.value)
+                                        setServiceLAbel(service.label)
+                                    }}
 
-
-                                    </Picker>
-                                </View>
+                                />
                             </View>
 
                             <View style={styling.opacityView}>
                                 <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                    setMain(false)
-                                    setTimeView(true)
+                                    // setMain(false)
+                                    // setTimeView(true)
+                                    props.navigation.navigate('DoctorSwiperTime', { Name: name, ServiceLabel: serviceLabel, service: service, nameValue: firstName, Next: next })
                                 }}          >
                                     <Text style={styling.Opacitytxt}>NEXT</Text>
                                 </TouchableOpacity>

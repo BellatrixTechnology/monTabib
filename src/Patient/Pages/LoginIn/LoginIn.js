@@ -47,6 +47,7 @@ const LoginIn = (props) => {
                     setLoading(false)
                 }
                 else {
+                    console.log(responseJson)
                     setLoading(false)
                     AsyncStorage.setItem('token', JSON.stringify(responseJson.patientid))
                     props.navigation.navigate('PTabs')

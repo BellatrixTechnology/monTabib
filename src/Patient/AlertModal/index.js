@@ -5,6 +5,8 @@ import styles from './styles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Awesome from 'react-native-vector-icons/FontAwesome'
 import { styling } from '../Pages/ListDoctor.js/styling';
+import moment from 'moment';
+import { wp } from '../../Global/Styles/Scalling';
 
 const ISModal = ({ isVisible, itemData, onPress, onBackdropPress, onChangeItem, value, Date, DoctorName, type, address }) => {
     const [gender, setGender] = useState('');
@@ -74,4 +76,42 @@ const ReserveSucesss = ({ isVisible, onBackdropPress, onPress }) => {
         </View>
     </Modal>)
 };
-export { ISModal, ReserveSucesss };
+const ConfirmAlert = ({ isVisible, onBackdropPress, onPress, Name, Motif, date }) => {
+
+    return (<Modal isVisible={isVisible}
+        onBackdropPress={onBackdropPress}
+        backdropOpacity={0.4}
+
+    >
+        <View style={styles.loginModalContainer}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 20 }}>
+                <Text style={styling.labelDRTXT}>Consultation is confirmed </Text>
+                <Awesome name='check-circle-o' color='green' size={30} />
+            </View>
+
+            <View style={styling.sucesssView}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: wp(50) }}>
+                    <Text style={styling.sucessTxT}>Patient Name:</Text>
+                    <Text style={styling.sucessTxT1}>{Name}</Text>
+                </View>
+
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: wp(50) }}>
+                    <Text style={styling.sucessTxT}>Reason Of Consultation:</Text>
+                    <Text style={styling.sucessTxT1}>{Motif}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: wp(50) }}>
+                    <Text style={styling.sucessTxT}>Date:</Text>
+                    <Text style={styling.sucessTxT1}>{date}</Text>
+                </View>
+                <Text style={styling.msgTxT}> The monTabib team thanks you!</Text>
+            </View>
+
+            <TouchableOpacity style={styles.OpacityLog} onPress={onPress}
+            >
+                <Text style={styles.Opacitytxt}>Go To Home Page</Text>
+            </TouchableOpacity>
+        </View>
+    </Modal>)
+};
+export { ISModal, ReserveSucesss, ConfirmAlert };

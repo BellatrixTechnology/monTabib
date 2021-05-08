@@ -15,7 +15,7 @@ export const styling = StyleSheet.create({
     },
     headView: {
         height: hp(6),
-        
+
     },
     headerView: {
         height: hp('10%'),
@@ -46,8 +46,9 @@ export const styling = StyleSheet.create({
 
     patientView: {
         marginTop: 10,
-        height: hp('24%'),
+        height: hp('40%'),
         padding: 10,
+        // backgroundColor: 'red'
     },
     patientTXT: {
         fontSize: fontSize.button,
@@ -83,7 +84,7 @@ export const styling = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 10
+        elevation: 3
     },
     removeOpacity: {
         width: wp('35%'),
@@ -92,7 +93,7 @@ export const styling = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 10
+        elevation: 3
 
     },
     opacityTXT: {

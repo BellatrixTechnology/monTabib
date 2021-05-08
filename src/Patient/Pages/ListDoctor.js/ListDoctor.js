@@ -33,7 +33,6 @@ const ListDoctor = ({ navigation, route }) => {
         list.push({ date: moment().add(6, 'day').format('YYYY-MM-DD') })
         setNext(list)
     }
-    console.log(next)
     function motif(item) {
         let list = []
         item.motifs.forEach(element => {

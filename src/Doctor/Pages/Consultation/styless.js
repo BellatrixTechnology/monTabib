@@ -1,7 +1,7 @@
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet } from 'react-native';
 import { fontSize } from '../../../Constant/Constant';
-export const styling = StyleSheet.create({
+export const styles = StyleSheet.create({
     safeContainer: {
         flex: 1
     },
@@ -231,13 +231,7 @@ export const styling = StyleSheet.create({
         padding: 10
     },
     sucessTxT: {
-        fontFamily: 'SFUIText-Medium',
-        fontSize: fontSize.line,
-        textAlign: 'center',
-        lineHeight: 30
-    },
-    sucessTxT: {
-        fontFamily: 'SFUIText-Bold',
+        fontFamily: 'SFUIText',
         fontSize: fontSize.line,
         textAlign: 'center',
         lineHeight: 30
