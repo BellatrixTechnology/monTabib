@@ -55,24 +55,21 @@ const Consultation = ({ props }) => {
             })
         }).then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson, '++++')
-                if (responseJson.error == 'Invalid credentials.') {
-                }
-                else {
-                    fetch('https://montabib.com/api/consultations', {
-                        method: 'GET',
-                    }).then((res) => {
-                        if (res.ok == true) {
-                            res.json().then((data) => { console.log(data['hydra:member']), setobj2(data['hydra:member']) }).catch((error) => { console.log(error) })
-                        } else {
-                            ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
-                        }
-                    })
-                        .catch((error) => {
-                            console.log(error)
-                            ToastAndroid.show(error, ToastAndroid.SHORT);
-                        });
-                }
+
+                fetch('https://montabib.com/api/consultations', {
+                    method: 'GET',
+                }).then((res) => {
+                    if (res.ok == true) {
+                        res.json().then((data) => { console.log(data['hydra:member']), setobj2(data['hydra:member']) }).catch((error) => { console.log(error, 'gello') })
+                    } else {
+                        ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                    }
+                })
+                    .catch((error) => {
+                        console.log(error, '[[[')
+                        ToastAndroid.show(error, ToastAndroid.SHORT);
+                    });
+
             })
             .catch((error) => {
                 console.error(error);
@@ -81,12 +78,11 @@ const Consultation = ({ props }) => {
 
     function _renderItem({ item }) {
         let A = item.dateConsultation
-        console.log(moment.utc(A).format('hh:mm'), '===', item.dateConsultation)
         return (
             <View>
                 <View style={styling.detailView}>
                     <Text style={styling.labelTXT}>{item.patient.nom} {item.patient.prenom}</Text>
-                    <Text style={styling.labelTXT}>{item.dateConsultation}</Text>
+                    <Text style={styling.labelTXT}>{moment(item.dateConsultation).utcOffset(+2).format('dddd, MMMM DD, h:mm a')}</Text>
                 </View>
                 <View style={styling.opacityButton} >
                     <TouchableOpacity style={styling.prescriptOpacity}
@@ -137,6 +133,7 @@ const Consultation = ({ props }) => {
 
                         </View>
                         <FlatList
+                            showsVerticalScrollIndicator={false}
                             data={obj2}
                             renderItem={_renderItem}
                         />

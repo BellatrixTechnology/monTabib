@@ -46,13 +46,13 @@ export const styling = StyleSheet.create({
 
     patientView: {
         marginTop: 10,
-        height: hp('40%'),
+        // height: hp('40%'),
         padding: 10,
         // backgroundColor: 'red'
     },
     patientTXT: {
         fontSize: fontSize.button,
-        fontFamily: 'SFUIText-bold',
+        fontFamily: 'SFUIText-Bold',
         fontWeight: 'bold'
 
     },
@@ -65,10 +65,18 @@ export const styling = StyleSheet.create({
     },
     headTXT: {
         fontSize: fontSize.label,
-        fontWeight: 'bold'
+        // fontWeight: 'bold',
+        fontFamily: 'SFUIText-Bold'
+
     },
+    headTXT1: {
+        fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Bold'
+    },
+
     labelTXT: {
         fontSize: fontSize.label,
+        fontFamily: 'SFUIText-Medium'
 
     },
     opacityButton: {
