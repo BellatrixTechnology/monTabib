@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StatusBar, SafeAreaView, Switch } from 'react-native';
 import { Text } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -45,7 +45,11 @@ const OpenningHour = () => {
     const [friday, setFriday] = useState(true);
     const [sat, setSat] = useState(true);
     const [sun, setSun] = useState(true);
-
+    // useEffect(() => {
+    //     Timepick.forEach(item => {
+    //         console.log(item)
+    //     })
+    // }, [])
     const SaveData = () => {
 
         let data = {
@@ -166,36 +170,44 @@ const OpenningHour = () => {
                                 }}
                                 value={mon}
                             />
-                        </View>
 
+                        </View>
+                        {/* <Picker>
+                            <Picker.Item label="Start" value="Start Time" />
+                            {
+                                Timepick.map(val => {
+                                    return <Picker.Item label={val} value={val} />
+                                })}
+
+                        </Picker> */}
                         {mon &&
                             <View style={styling.mainTimePickerView}>
                                 <View style={styling.dayheadingView}>
                                     <Text>Morning</Text>
 
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningMonday(itemValue)
                                         }}
-                                        selectedValue={startMorningMonday}
+                                    // selectedValue={startMorningMonday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningMonday} value={startMorningMonday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
-                                        onValueChange={(itemValue, itemIndex) => {
+                                        style={{ width: wp(30), height: hp(5), }}
+                                        onValueChange={(itemValue) => {
                                             setendMorningMonday(itemValue)
                                         }}
-                                        selectedValue={endMorningMonday}
+                                    // selectedValue={endMorningMonday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningMonday} value={endMorningMonday} />
+
                                         {Timepick.map(val => {
                                             if (val > startMorningMonday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -206,27 +218,27 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonMonday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonMonday}
+                                    // selectedValue={startAfternoonMonday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonMonday} value={startAfternoonMonday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
+                                            console.log(itemValue)
                                             setendAfternoonMonday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonMonday}
+                                    // selectedValue={endAfternoonMonday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonMonday} value={endAfternoonMonday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonMonday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -273,28 +285,27 @@ const OpenningHour = () => {
                                     <Text>Morning</Text>
 
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningTuesday(itemValue)
                                         }}
-                                        selectedValue={startMorningTuesday}
+                                    // selectedValue={startMorningTuesday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningTuesday} value={startMorningTuesday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
+                                        style={{ width: wp(30), height: hp(5), }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendMorningTuesday(itemValue)
                                         }}
-                                        selectedValue={endMorningTuesday}
+                                    // selectedValue={endMorningTuesday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningTuesday} value={endMorningTuesday} />
                                         {Timepick.map(val => {
                                             if (val > startMorningTuesday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -305,27 +316,27 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonTuesday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonTuesday}
+                                    // selectedValue={startAfternoonTuesday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonTuesday} value={startAfternoonTuesday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendAfternoonTuesday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonTuesday}
+                                    // selectedValue={endAfternoonTuesday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonTuesday} value={endAfternoonTuesday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonTuesday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -371,28 +382,28 @@ const OpenningHour = () => {
                                     <Text>Morning</Text>
 
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningWednesday(itemValue)
                                         }}
-                                        selectedValue={startMorningWednesday}
+                                    // selectedValue={startMorningWednesday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningWednesday} value={startMorningWednesday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
+                                        style={{ width: wp(30), height: hp(5), }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendMorningWednesday(itemValue)
                                         }}
-                                        selectedValue={endMorningWednesday}
+                                    // selectedValue={endMorningWednesday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningWednesday} value={endMorningWednesday} />
                                         {Timepick.map(val => {
                                             if (val > startMorningWednesday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -403,27 +414,27 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonWednesday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonWednesday}
+                                    // selectedValue={startAfternoonWednesday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonWednesday} value={startAfternoonWednesday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendAfternoonWednesday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonWednesday}
+                                    // selectedValue={endAfternoonWednesday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonWednesday} value={endAfternoonWednesday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonWednesday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -470,28 +481,28 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Morning</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningThursday(itemValue)
                                         }}
-                                        selectedValue={startMorningThursday}
+                                    //     selectedValue={startMorningThursday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningThursday} value={startMorningThursday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
+                                        style={{ width: wp(30), height: hp(5), }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendMorningThursday(itemValue)
                                         }}
-                                        selectedValue={endMorningThursday}
+                                    // selectedValue={endMorningThursday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningThursday} value={endMorningThursday} />
                                         {Timepick.map(val => {
                                             if (val > startMorningThursday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -502,27 +513,27 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonThursday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonThursday}
+                                    // selectedValue={startAfternoonThursday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonThursday} value={startAfternoonThursday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendAfternoonThursday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonThursday}
+                                    // selectedValue={endAfternoonThursday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonThursday} value={endAfternoonThursday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonThursday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -569,28 +580,28 @@ const OpenningHour = () => {
                                     <Text>Morning</Text>
 
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningFriday(itemValue)
                                         }}
-                                        selectedValue={startMorningFriday}
+                                    // selectedValue={startMorningFriday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningFriday} value={startMorningFriday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
+                                        style={{ width: wp(30), height: hp(5), }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendMorningFriday(itemValue)
                                         }}
-                                        selectedValue={endMorningFriday}
+                                    // selectedValue={endMorningFriday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningFriday} value={endMorningFriday} />
                                         {Timepick.map(val => {
                                             if (val > startMorningFriday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -601,27 +612,27 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonFriday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonFriday}
+                                    // selectedValue={startAfternoonFriday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonFriday} value={startAfternoonFriday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendAfternoonFriday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonFriday}
+                                    // selectedValue={endAfternoonFriday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonFriday} value={endAfternoonFriday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonFriday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -667,28 +678,28 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Morning</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningSaturday(itemValue)
                                         }}
-                                        selectedValue={startMorningSaturday}
+                                    // selectedValue={startMorningSaturday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningSaturday} value={startMorningSaturday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
+                                        style={{ width: wp(30), height: hp(5), }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendMorningSaturday(itemValue)
                                         }}
-                                        selectedValue={endMorningSaturday}
+                                    // selectedValue={endMorningSaturday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningSaturday} value={endMorningSaturday} />
                                         {Timepick.map(val => {
                                             if (val > startMorningSaturday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -699,27 +710,27 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonSaturday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonSaturday}
+                                    // selectedValue={startAfternoonSaturday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonSaturday} value={startAfternoonSaturday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendAfternoonSaturday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonSaturday}
+                                    // selectedValue={endAfternoonSaturday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonSaturday} value={endAfternoonSaturday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonSaturday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -765,28 +776,28 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Morning</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartMorningSunday(itemValue)
                                         }}
-                                        selectedValue={startMorningSunday}
+                                    // selectedValue={startMorningSunday}
 
                                     >
-                                        <Picker.Item label="Start" value="Start Time" />
+                                        <Picker.Item label={startMorningSunday} value={startMorningSunday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5), }}
+                                        style={{ width: wp(30), height: hp(5), }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendMorningSunday(itemValue)
                                         }}
-                                        selectedValue={endMorningSunday}
+                                    // selectedValue={endMorningSunday}
                                     >
-                                        <Picker.Item label="End" value="End Time" />
+                                        <Picker.Item label={endMorningSunday} value={endMorningSunday} />
                                         {Timepick.map(val => {
                                             if (val > startMorningSunday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -797,27 +808,28 @@ const OpenningHour = () => {
                                 <View style={styling.dayheadingView}>
                                     <Text>Afternoon</Text>
                                     <Picker
-                                        placeholder="Start"
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        //  eholder="Start"
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue) => {
                                             setstartAfternoonSunday(itemValue)
                                         }}
-                                        selectedValue={startAfternoonSunday}
+                                    // selectedValue={startAfternoonSunday}
                                     >
-                                        <Picker.Item label="Start at" value="Start Time" />
+                                        <Picker.Item label={startAfternoonSunday} value={startAfternoonSunday} />
                                         {
                                             Timepick.map(val => {
                                                 return <Picker.Item label={val} value={val} />
                                             })}
                                     </Picker>
                                     <Picker
-                                        style={{ width: wp(25), height: hp(5) }}
+                                        style={{ width: wp(30), height: hp(5) }}
                                         onValueChange={(itemValue, itemIndex) => {
                                             setendAfternoonSunday(itemValue)
                                         }}
-                                        selectedValue={endAfternoonSunday}
+
+                                    // selectedValue={endAfternoonSunday}
                                     >
-                                        <Picker.Item label="End Time" value="End Time" />
+                                        <Picker.Item label={endAfternoonSunday} value={endAfternoonSunday} />
                                         {Timepick.map(val => {
                                             if (val > startAfternoonSunday) {
                                                 return <Picker.Item label={val} value={val} />
@@ -831,6 +843,7 @@ const OpenningHour = () => {
                     </View>
 
                     {endAfternoonSunday != '' ? SaveData() : SaveData()}
+                    {/* </View> */}
                 </ScrollView>
             </View>
         </SafeAreaView >

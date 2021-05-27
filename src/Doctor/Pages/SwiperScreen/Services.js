@@ -6,6 +6,7 @@ import { styling } from './styling';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { hp, wp } from '../../../Global/Styles/Scalling';
 import { cos } from 'react-native-reanimated';
+import { ToastAndroid } from 'react-native';
 
 const Services = () => {
     const [Consult, setConsult] = useState([]);
@@ -17,44 +18,85 @@ const Services = () => {
     const [serPrice, setserPrice] = useState('');
     const [ser, setSer] = useState([{ Service: "", Price: "" }]);
     const addconsult = () => {
-        setConsult([...Consult, { Consult: conTemp, Duration: conDura }])
-        setconDua('')
-        setconTemp('')
-        console.log(Consult)
+        if (conTemp != '' && conDura != '') {
+            setConsult([...Consult, { Consult: conTemp, Duration: conDura }])
+            setconDua('')
+            setconTemp('')
+            setCons([...cons, { Consult: "", Duration: "" }])
+        }
+        else {
+            ToastAndroid.show('Empty Field', 5000)
+        }
     }
     const addServie = () => {
-        setService([...Service, { Service: serTemp, Price: serPrice }])
-        setserTemp('')
-        setserPrice('')
-        console.log(Service)
+        if (serTemp != '' && serPrice != '') {
+            setService([...Service, { Service: serTemp, Price: serPrice }])
+            setserTemp('')
+            setserPrice('')
+            setSer([...ser, { Service: "", Price: "" }]);
+
+        }
+        else {
+            ToastAndroid.show('Empty Field', 5000)
+        }
     }
 
     const SaveData = () => {
+        console.log(Consult, Service, 'sdfd')
+        if (Consult.length != 0 && Service.length != 0) {
+            let data = {
+                Consult: Consult,
+                Service: Service,
+            }
+            AsyncStorage.setItem('userservice', JSON.stringify(data));
 
-        let data = {
-            Consult: Consult,
-            Service: Service,
         }
-        AsyncStorage.setItem('userservice', JSON.stringify(data));
+        else {
+            ToastAndroid.show('No record', 5000)
 
+        }
     }
     const addInputConst = () => {
-        setCons([...cons, { Consult: "", Duration: "" }]);
+        if (Consult.length != 0) {
+            setCons([...cons, { Consult: "", Duration: "" }]);
+        }
+        else {
+            ToastAndroid.show('Enter Record First', 5000)
+
+        }
 
     }
     const removeInputConst = (i) => {
-        const list = [...cons];
-        list.splice(i, 1);
-        setCons(list);
+        if (cons.length > 1) {
+
+            const list = [...cons];
+            list.splice(i, 1);
+            setCons(list);
+            const temp = [...Consult]
+            temp.splice(i, 1)
+            setConsult(temp)
+        }
     }
     const addInputSer = () => {
-        setSer([...ser, { Service: "", Price: "" }]);
+        if (Service.length != 0) {
 
+            setSer([...ser, { Service: "", Price: "" }]);
+        }
+        else {
+            ToastAndroid.show('Enter Record First', 5000)
+
+        }
     }
     const removeInputSer = (i) => {
-        const list = [...ser];
-        list.splice(i, 1);
-        setSer(list);
+        if (ser.length > 1) {
+            const list = [...ser];
+            list.splice(i, 1);
+            setSer(list);
+            const temp = [...Service]
+            temp.splice(i, 1)
+            setService(temp)
+        }
+
     }
     return (
         <SafeAreaView style={styling.safeContainer}>
@@ -96,7 +138,7 @@ const Services = () => {
                                             <View style={styling.addButton}>
                                                 <TouchableOpacity><Text style={{ color: 'blue' }} onPress={() => addconsult()}>Add Consultation</Text></TouchableOpacity>
                                                 <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputConst(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
-                                                <TouchableOpacity onPress={() => { addInputConst() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
+                                                {/* <TouchableOpacity onPress={() => { addInputConst() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity> */}
                                             </View> : console.log('da')}
                                     </View>
                                 )
@@ -132,7 +174,7 @@ const Services = () => {
                                             <View style={styling.addButton}>
                                                 <TouchableOpacity><Text style={{ color: 'blue' }} onPress={() => addServie()}>Add Services</Text></TouchableOpacity>
                                                 <TouchableOpacity style={{ height: hp('4'), alignItems: 'center' }} onPress={() => { removeInputSer(i) }}><Icon name='delete' size={20} color='red' /></TouchableOpacity>
-                                                <TouchableOpacity onPress={() => { addInputSer() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity>
+                                                {/* <TouchableOpacity onPress={() => { addInputSer() }}><Icon name='plus' size={20} color='red' /></TouchableOpacity> */}
                                             </View> : console.log('wait')}
                                     </View>
                                 )

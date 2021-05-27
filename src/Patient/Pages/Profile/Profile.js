@@ -34,8 +34,8 @@ const Profile = (props) => {
             console.log(error)
         }
     }
-    function getData(parsed) {
-        fetch('https://montabib.com/loginApp', {
+    async function getData(parsed) {
+        await fetch('https://montabib.com/loginApp', {
             method: "POST",
             headers: initHeader(),
             body: JSON.stringify(
@@ -51,7 +51,7 @@ const Profile = (props) => {
     }
 
     async function fetchrecord(temp) {
-        fetch('https://montabib.com/api/patients/' + temp,
+        await fetch('https://montabib.com/api/patients/' + temp,
             {
                 method: "GET",
             }).then((res) => res.json()).then((data) => {

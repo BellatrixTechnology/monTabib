@@ -19,9 +19,12 @@ const LoginIn = (props) => {
     function checkdata() {
         setLoading(true)
         if (reg.test(email) == true && password != '') {
+            setFiedl('')
             login()
         }
-        else { setError(true), setLoading(false), setFiedl('Invalid credentials') }
+        else {
+            setError(true), setLoading(false), setFiedl('Invalid credentials')
+        }
     }
     function login() {
         let obj = {
@@ -49,6 +52,8 @@ const LoginIn = (props) => {
                 else {
                     console.log(responseJson)
                     setLoading(false)
+                    setFiedl('')
+                    setError(false)
                     AsyncStorage.setItem('token', JSON.stringify(responseJson.patientid))
                     props.navigation.navigate('PTabs')
                 }

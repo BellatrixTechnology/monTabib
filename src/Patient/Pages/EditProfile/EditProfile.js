@@ -108,7 +108,7 @@ const EditProfile = (props) => {
                     ToastAndroid.SHORT,
                     ToastAndroid.BOTTOM
                 )
-                props.navigation.navigate('Home')
+                // props.navigation.navigate('Home')
             }).catch((err) => { console.log(err) })
         });
     }

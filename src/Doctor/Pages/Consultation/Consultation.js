@@ -56,13 +56,13 @@ const Consultation = ({ props }) => {
         }).then((response) => response.json())
             .then((responseJson) => {
 
-                fetch('https://montabib.com/api/consultations', {
+                fetch('https://montabib.com/api/consultations/' + responseJson.medecinid, {
                     method: 'GET',
                 }).then((res) => {
                     if (res.ok == true) {
                         res.json().then((data) => { console.log(data['hydra:member']), setobj2(data['hydra:member']) }).catch((error) => { console.log(error, 'gello') })
                     } else {
-                        ToastAndroid.show("Error! Check your details ", ToastAndroid.SHORT);
+                        ToastAndroid.show("No Record", ToastAndroid.SHORT);
                     }
                 })
                     .catch((error) => {

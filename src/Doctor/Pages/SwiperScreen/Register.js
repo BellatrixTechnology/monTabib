@@ -17,7 +17,15 @@ const Register = () => {
     const [Email, setEmail] = useState('');
     const [UI, setUI] = useState('');
     const [Special, setSpecial] = useState('');
-
+    const [errorName, seterrorName] = useState('');
+    const [errorSurname, seterrorSurName] = useState('');
+    const [errorGender, seterrorGender] = useState('');
+    const [errorAddress, seterrorAddress] = useState('');
+    const [errorTelephone, seterrorTelephone] = useState('');
+    const [errorEmail, seterrorEmail] = useState('');
+    const [errorUI, seterrorUI] = useState('');
+    const [errorSpecial, seterrorSpecial] = useState('');
+    let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const SaveData = () => {
         let obj = {
             Name: Name,
@@ -54,7 +62,9 @@ const Register = () => {
                                 value={Name}
                                 onChangeText={(name) => {
                                     setName(name)
+
                                 }}
+                                errorMessage={(Name.length < 4 && Name.length != '') && 'Name must be 4 character long'}
                             />
                             <Input
                                 label='Sur Name'
@@ -63,6 +73,7 @@ const Register = () => {
                                 onChangeText={(Sname) => {
                                     setSurName(Sname)
                                 }}
+                                errorMessage={(Surname.length < 4 && Surname.length != '') && 'SurName must be 4 character long'}
                             />
                         </View>
 
@@ -113,6 +124,8 @@ const Register = () => {
                                     onChangeText={(address) => {
                                         setAddress(address)
                                     }}
+                                    errorMessage={(Address.length < 4 && Address.length != '') && 'Address must be 4 character long & must be from France'}
+
                                 />
                                 <Input
                                     label='Telephone'
@@ -123,24 +136,33 @@ const Register = () => {
                                     onChangeText={(Tphone) => {
                                         setTelephone(Tphone)
                                     }}
+                                    errorMessage={(Telephone.length < 10 && Telephone.length != '') && 'Phone must be 10 Digits'}
+
                                 />
                                 <Input
                                     label='Email'
                                     placeholder='Email'
                                     autoCapitalize='none'
                                     value={Email}
+                                    keyboardType='email-address'
                                     onChangeText={(email) => {
                                         setEmail(email)
                                     }}
+                                    errorMessage={(!reg.test(Email) && Email != '') && 'Invalid Email format'}
+
                                 />
+
                                 <Input
                                     label='Unique Identifier (RPPS)'
                                     placeholder='Unique Identifier (RPPS)'
                                     keyboardType='phone-pad'
                                     value={UI}
+                                    maxLength={10}
                                     onChangeText={(ui) => {
                                         setUI(ui)
                                     }}
+                                    errorMessage={(UI.length < 5 && UI.length != '') && 'UI must be  6 digit or greater '}
+
                                 />
 
 

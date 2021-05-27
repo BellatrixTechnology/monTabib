@@ -8,15 +8,17 @@ import Subscription from './Subscription';
 import AsyncStorage from '@react-native-community/async-storage';
 import firebase from '../../../db/config';
 import AlertModal from '../../Components/AlertModal/index';
+// import Dialog from "react-native-dialog";
 
 import { styling } from './styling';
+import { wp } from '../../../Global/Styles/Scalling';
 
 
 const Home = (props) => {
     const [isVisible, setIsVisble] = useState(false)
-    const [obj, setobj] = useState({});
-    const [obj1, setobj1] = useState({});
-    const [obj2, setobj2] = useState([]);
+    const [obj, setobj] = useState('');
+    const [obj1, setobj1] = useState('');
+    const [obj2, setobj2] = useState('');
     const [medicineId, setMedicineId] = useState('');
     const [mondayId, setMondayId] = useState('');
     const [tuesdayId, setTuesdayId] = useState('');
@@ -26,6 +28,7 @@ const Home = (props) => {
     const [satId, setsatId] = useState('');
     const [sunId, setsunId] = useState('');
 
+    // const [DialogisVisible, setDialogisVisible] = useState(false)
     const [id, setid] = useState(0);
     const swipe = (a) => {
         setid(a)
@@ -68,43 +71,61 @@ const Home = (props) => {
 
 
     const upload = () => {
-        let objs = {
-            username: obj.Email,
-            password: obj.Name
-        }
-        AsyncStorage.setItem('UserData', JSON.stringify(objs));
-        fetch('https://www.montabib.com/api/users', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                // 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "username": obj.Email,
-                "password": obj.Name,
-                "rank": true
-            })
-        }).then((res) => {
-            console.log('register', res);
-            if (res.ok == true) {
-                res.json().then((data) => {
-                    saveDATA(data.id)
-                    console.log(data)
-                    setIsVisble(true)
+        setIsVisble(true)
+        // setDialogisVisible(true)
+        if (obj && obj1 && obj2) {
+            if (obj.Email) {
+                let objs = {
+                    username: obj.Email,
+                    password: obj.Name
+                }
+                AsyncStorage.setItem('UserData', JSON.stringify(objs));
+                fetch('https://www.montabib.com/api/users', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        // 'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "username": obj.Email,
+                        "password": obj.Name,
+                        "rank": true
+                    })
+                }).then((res) => {
+                    console.log('register', res);
+                    if (res.ok == true) {
+                        res.json().then((data) => {
+                            saveDATA(data.id)
+                            console.log(data)
+                            setIsVisble(true)
 
-                })
-            } else {
-                console.log('ad')
+                        })
+                    } else {
+
+                        ToastAndroid.show('Check Given Detais', 6000)
+                        setIsVisble(false)
+                    }
+                }).catch((error) => {
+                    ToastAndroid.show('Try Again', 6000)
+                    setIsVisble(false)
+                });
             }
-        }).catch((error) => {
-            console.error(error);
-        });
+            else {
+                ToastAndroid.show('Email and Password is Empty', 6000)
+                setIsVisble(false)
+            }
+        }
+        else {
+            ToastAndroid.show('Please check detail! Empty Fields', 6000)
+            setIsVisble(false)
+
+        }
 
     }
     const saveDATA = (userId) => {
-        console.log(obj)
-        console.log(userId)
+        // console.log(obj)
+        // console.log(userId)
         console.log("/api/users/" + userId)
         fetch('https://www.montabib.com/api/medecins', {
             method: 'POST',
@@ -140,10 +161,13 @@ const Home = (props) => {
                     setMedicineId(ress.headers.map.location)
                 });
             } else {
+                ToastAndroid.show('Check Given Detais', 6000)
+                setIsVisble(false)
             }
         })
             .catch((error) => {
-                console.log(error)
+                ToastAndroid.show('Try Again Later', 6000)
+                setIsVisble(false)
             });
     }
     const SaveTime = (uid) => {
@@ -180,9 +204,13 @@ const Home = (props) => {
                 SaveServie()
             }).then(() => {
                 setIsVisble(false)
+                AsyncStorage.removeItem('userservice');
+                AsyncStorage.removeItem('user');
+                AsyncStorage.removeItem('useropenning');
                 props.navigation.navigate('Tab')
             }).catch((error) => {
-                console.error(error);
+                ToastAndroid.show('Try Again Later', 6000)
+                setIsVisble(false)
             });
     }
     async function saveTimeDate(day, Time, uid) {
@@ -206,10 +234,12 @@ const Home = (props) => {
             if (response.ok == true) {
                 response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
             } else {
+                ToastAndroid.show('invalid details', 6000)
+                setIsVisble(false)
             }
         })
             .catch((error) => {
-                console.log(error)
+                setIsVisble(false)
             });
     }
     const SaveServie = () => {
@@ -230,12 +260,18 @@ const Home = (props) => {
             }).then((response) => {
                 if (response.ok == true) {
                     console.log(response)
-                    response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
+                    response.json().then((data) => {
+                        console.log(data)
+                    }).catch((error) => { console.log(error) })
+                    ToastAndroid('Use Name as your current Password', 8000)
+
                 } else {
+                    ToastAndroid.show('Check Detail', 6000)
+                    setIsVisble(false)
                 }
             })
                 .catch((error) => {
-                    console.log(error)
+                    setIsVisble(false)
                 });
         })
 
@@ -260,10 +296,13 @@ const Home = (props) => {
                     console.log(response)
                     response.json().then((data) => { console.log(data) }).catch((error) => { console.log(error) })
                 } else {
+                    ToastAndroid.show('Check Details', 6000)
+                    setIsVisble(false)
                 }
             })
                 .catch((error) => {
-                    console.log(error)
+                    ToastAndroid.show('Check Details', 6000)
+                    setIsVisble(false)
                 });
         })
     }
@@ -345,6 +384,7 @@ const Home = (props) => {
                             </TouchableOpacity >
                             <TouchableOpacity style={styling.nextButton} onPress={() => {
                                 upload()
+
                             }} >
                                 <Text style={styling.nextbuttonText}>Done</Text>
                             </TouchableOpacity >
@@ -353,7 +393,24 @@ const Home = (props) => {
 
                     </View>
                 </Swiper>
+                {/* <Dialog.Container visible={DialogisVisible}>
+                    <Dialog.Title>Password</Dialog.Title>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Dialog.Input
+                            placeholder={'Password'}
+                            secureTextEntry
+                            value={password}
+                            onChangeText={(val) => {
+                               setPassword(val)
+                            }}
+                            style={{ borderWidth: 0.3, width: wp(80) }}
+                        />
+                    </View>
 
+                    <Dialog.Button label="Confirm" onPress={() => {
+                        setDialogisVisible(false)
+                    }} />
+                </Dialog.Container> */}
                 <AlertModal
                     isVisible={isVisible}
                 />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator, TextInput, StatusBar, SafeAreaView } from 'react-native';
 import { Text, Input, colors } from 'react-native-elements';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styling } from './styling';
+import { ToastAndroid } from 'react-native';
 const LoginScreen = (props) => {
     const [focuspass, setpassfocus] = useState(false);
     const [emailfocus, setemailfocus] = useState(false);
@@ -14,7 +15,19 @@ const LoginScreen = (props) => {
     const [password, setPassword] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorPassword, seterrorPassword] = useState(false);
+    const [isLoading, setisLoading] = useState(false)
+    function check() {
+        if (email != '' && password != '') {
+            setisLoading(true)
+            loginUser()
 
+        }
+        else {
+            ToastAndroid.show('Empty Fields')
+            setisLoading(false)
+
+        }
+    }
     const loginUser = () => {
 
         let obj = {
@@ -39,13 +52,12 @@ const LoginScreen = (props) => {
                 console.log(responseJson.medecinid)
                 if (responseJson.error == 'Invalid credentials.') {
                     seterrorPassword(true)
+                    setisLoading(false)
                 }
                 else {
                     seterrorPassword(false)
-
-                    AsyncStorage.setItem('token', JSON.stringify(responseJson.medecinid)
-                    );
-
+                    setisLoading(false)
+                    AsyncStorage.setItem('token', JSON.stringify(responseJson.medecinid))
                     props.navigation.navigate('Tab')
                 }
             })
@@ -92,16 +104,21 @@ const LoginScreen = (props) => {
                 </View>
                 <View style={styling.OpacityView}>
                     <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                        // props.navigation.navigate('Tab')
-                        loginUser()
+                        setisLoading(true)
+                        check()
                     }}>
-                        <Text style={styling.Opacitytxt}>LOGIN</Text>
+                        {
+                            !isLoading ?
+                                <Text style={styling.Opacitytxt}>LOGIN</Text>
+                                : <ActivityIndicator size='large' color="white" />
+                        }
                     </TouchableOpacity>
                     <View style={styling.createv}>
                         <Text style={styling.labeltag}>Don't have account? </Text>
                         <TouchableOpacity style={styling.Opacitycreate} onPress={() => { props.navigation.navigate('Home') }}>
 
                             <Text style={styling.forgetlabel}>Register Now</Text>
+
                         </TouchableOpacity>
 
                     </View>

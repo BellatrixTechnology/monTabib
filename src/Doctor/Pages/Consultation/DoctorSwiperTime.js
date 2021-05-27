@@ -9,7 +9,7 @@ import { styles } from './styless';
 
 import AsyncStorage from '@react-native-community/async-storage';
 const DoctorSwiperTime = (navigation) => {
-    console.log(navigation.route.params.service)
+    console.log(navigation, 'saas')
     const [id, setid] = useState(0);
     const Name = navigation.route.params.Name
     const nameLabel = navigation.route.params.nameValue
@@ -34,31 +34,39 @@ const DoctorSwiperTime = (navigation) => {
     const [isLoading, setLoading] = useState(false)
     const [Token, setToken] = useState('')
     useEffect(() => {
-        // getTime()
-        getUser()
+        const unsubscribe = navigation.navigation.addListener('focus', () => {
+            getUser()
+        });
+        return () => {
+            unsubscribe;
+        };
+
     }, [])
     async function getUser() {
         try {
             let user = await AsyncStorage.getItem('UserData');
             let token = await AsyncStorage.getItem('token');
             let parsed1 = JSON.parse(user);
+
+            getTime(token)
             setUserData(parsed1);
             setToken(token)
-            getTime(token)
         }
         catch (error) {
             console.log(error)
         }
     }
     async function getTime(token) {
-
+        console.log(token, 'asdasdasdasdasdasdasdlasd.as,dmasldmasdl')
         {
             fetch('https://montabib.com/api/availabilitiesDoctors/' + token + '?dateDebut=' + date[0].date,
                 {
                     method: "GET",
                 }).then((res) => {
+                    console.log('jll', res)
                     if (res.ok == true) {
                         res.json().then((dat) => {
+                            console.log(dat, 'saasdas')
                             setDay1(dat.availabilities)
                         }).catch((error) => { console.log(error) })
                     } else {
@@ -217,7 +225,7 @@ const DoctorSwiperTime = (navigation) => {
     async function addConsultion() {
         const motifValue = navigation.route.params.service
         let dateSelect = moment(TIMEDate).format();
-        console.log(consult, Token, nameLabel, date, motifValue)
+        // console.log(consult, Token, nameLabel, date, motifValue)
         fetch('https://montabib.com/api/consultations', {
             method: 'POST',
             headers: initHeader(),
@@ -229,10 +237,10 @@ const DoctorSwiperTime = (navigation) => {
                 "compteRendu": ""
             })
         }).then((res) => {
-            console.log(res, '++++++')
+            // console.log(res, '++++++')
             if (res.ok == true) {
                 res.json().then((data) => {
-                    console.log(data, "+!!!!!=======")
+                    // console.log(data, "+!!!!!=======")
                     setReserveSucesss(true)
                 }).catch((error) => { console.log(error) })
             } else {
@@ -243,12 +251,12 @@ const DoctorSwiperTime = (navigation) => {
                 console.log(error)
                 ToastAndroid.show(error, ToastAndroid.SHORT);
             });
-        console.log("/api/motifs/" + navigation.route.params.service, TIMEDate, dateSelect)
+        // console.log("/api/motifs/" + navigation.route.params.service, TIMEDate, dateSelect)
 
     }
 
 
-    // console.log(day1, day2, day3, day4, day5, day6, day7)
+    console.log(moment(date[0].date).format('dddd'), moment(date[1].date).format('dddd'), moment(date[2].date).format('dddd'), moment(date[3].date).format('dddd'), moment(date[4].date).format('dddd'), moment(date[5].date).format('dddd'), moment(date[6].date).format('dddd'))
     return (
         <SafeAreaView style={styles.safeContainer}>
             <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#45347a" translucent={false} />
@@ -264,7 +272,6 @@ const DoctorSwiperTime = (navigation) => {
                     <View style={styles.slide1}>
                         <View style={styles.timeView}>
                             <Text style={styles.timeTxt}>{moment(date[0].date).format('dddd')}</Text>
-
                         </View>
                         {day1 != '' ?
                             <View style={styles.FlatListView}>

@@ -45,12 +45,11 @@ const addPatient = (props) => {
     const [consult, setConsult] = useState([])
     const [markers, setMarkers] = useState([])
     const [userData, setUserData] = useState('')
-    const today = moment().format('YYYY-MM-DD')
+    const today = new Date()
     const [next, setNext] = useState([])
     useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', () => {
             getUser()
-            getdates()
         });
         return () => {
             unsubscribe;
@@ -58,7 +57,7 @@ const addPatient = (props) => {
     }, [])
     function getdates() {
         let list = []
-        list.push({ date: today })
+        list.push({ date: moment(today).format('YYYY-MM-DD') })
         list.push({ date: moment().add(1, 'day').format('YYYY-MM-DD') })
         list.push({ date: moment().add(2, 'day').format('YYYY-MM-DD') })
         list.push({ date: moment().add(3, 'day').format('YYYY-MM-DD') })
@@ -72,19 +71,22 @@ const addPatient = (props) => {
             let user = await AsyncStorage.getItem('UserData');
             let token = await AsyncStorage.getItem('token');
             let parsed1 = JSON.parse(user);
-            setUserData(parsed1);
             getUserRecord(token)
+            setUserData(parsed1);
+
+            getdates()
+
         }
         catch (error) {
             console.log(error)
         }
     }
     async function getUserRecord(token) {
-        fetch('https://montabib.com/api/medecins/' + token, {
+        await fetch('https://montabib.com/api/medecins/' + token, {
             method: 'GET',
         }).then((response) => response.json())
-            .then((responseJson) => {
-                motif(responseJson.motifs)
+            .then(async (responseJson) => {
+                await motif(responseJson.motifs)
             })
             .catch((error) => {
                 console.error(error);
