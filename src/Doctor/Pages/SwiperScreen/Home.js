@@ -72,7 +72,6 @@ const Home = (props) => {
 
     const upload = () => {
         setIsVisble(true)
-        // setDialogisVisible(true)
         if (obj && obj1 && obj2) {
             if (obj.Email) {
                 let objs = {
@@ -85,11 +84,10 @@ const Home = (props) => {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        // 'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         "username": obj.Email,
-                        "password": obj.Name,
+                        "password": obj.password,
                         "rank": true
                     })
                 }).then((res) => {
@@ -181,7 +179,7 @@ const Home = (props) => {
             },
             body: JSON.stringify({
                 "username": obj.Email,
-                "password": obj.Name
+                "password": obj.password
             })
         }).then((response) => response.json())
             .then(async (responseJson) => {
@@ -314,7 +312,7 @@ const Home = (props) => {
                 <Swiper showsButtons={false} showsPagination={false} loop={false} index={id}>
 
                     <View style={styling.slide1}>
-                        <ScrollView>
+                        <ScrollView showsVerticalScrollIndicator={false} >
 
                             <Register />
                             <View style={styling.nextButtonView}>

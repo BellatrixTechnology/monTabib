@@ -17,6 +17,7 @@ const Register = () => {
     const [Email, setEmail] = useState('');
     const [UI, setUI] = useState('');
     const [Special, setSpecial] = useState('');
+    const [pass, setPassword] = useState('')
     const [errorName, seterrorName] = useState('');
     const [errorSurname, seterrorSurName] = useState('');
     const [errorGender, seterrorGender] = useState('');
@@ -35,7 +36,8 @@ const Register = () => {
             Telephone: Telephone,
             Email: Email,
             UI: UI,
-            Specialist: Special
+            Specialist: Special,
+            password: pass
         }
         AsyncStorage.setItem('user', JSON.stringify(obj));
 
@@ -77,7 +79,7 @@ const Register = () => {
                             />
                         </View>
 
-                        <View style={styling.dropdownsView}>
+                        <View style={[styling.dropdownsView, { flexDirection: 'row', justifyContent: 'space-between' }]}>
                             <DropDownPicker
                                 items={[
                                     { label: 'Male', value: '1' },
@@ -94,8 +96,6 @@ const Register = () => {
                                 }}
 
                             />
-                        </View>
-                        <View style={styling.dropdownsView}>
                             <DropDownPicker
                                 items={[
                                     { label: 'Acupuncture', value: '1' },
@@ -113,6 +113,9 @@ const Register = () => {
 
                             />
                         </View>
+                        {/* <View style={styling.dropdownsView}>
+                        
+                        </View> */}
                         <KeyboardAvoidingView
                             behavior='height'
                         >
@@ -153,6 +156,18 @@ const Register = () => {
                                 />
 
                                 <Input
+                                    label='Password'
+                                    placeholder='Password'
+                                    value={pass}
+                                    secureTextEntry={true}
+                                    maxLength={10}
+                                    onChangeText={(p) => {
+                                        setPassword(p)
+                                    }}
+                                    errorMessage={(pass.length < 6 && pass.length != '') && 'Passowrd must be  6 digit or greater '}
+
+                                />
+                                <Input
                                     label='Unique Identifier (RPPS)'
                                     placeholder='Unique Identifier (RPPS)'
                                     keyboardType='phone-pad'
@@ -161,14 +176,13 @@ const Register = () => {
                                     onChangeText={(ui) => {
                                         setUI(ui)
                                     }}
-                                    errorMessage={(UI.length < 5 && UI.length != '') && 'UI must be  6 digit or greater '}
+                                    errorMessage={(UI.length < 6 && UI.length != '') && 'UI must be  6 digit or greater '}
 
                                 />
 
-
                             </View>
                         </KeyboardAvoidingView>
-                        {Name != '' && Surname != '' && Email != '' && Gender != '' && Address != '' && UI != '' && Special != '' && Telephone != '' ? SaveData() : console.log('empty')}
+                        {Name != '' && Surname != '' && Email != '' && Gender != '' && Address != '' && UI != '' && Special != '' && Telephone != '' && pass != '' ? SaveData() : console.log('empty')}
                         {/* </ScrollView> */}
 
                     </View>

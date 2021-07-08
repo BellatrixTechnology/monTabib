@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native';
 import { Avatar } from 'react-native-elements';
@@ -58,6 +59,14 @@ const ProfileScreen = ({ props }) => {
                         <Icon name="right" color='black' size={25} style={styling.arrowButton} />
 
                     </View>
+                    <TouchableOpacity style={styling.buttonView} onPress={() => {
+                        AsyncStorage.removeItem('token')
+                        props.navigation.goBack()
+                    }}>
+                        <Text style={styling.buttonTXT}>Logout</Text>
+                        <Icon name="right" color='black' size={25} style={styling.arrowButton} />
+
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView >

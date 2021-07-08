@@ -20,6 +20,7 @@
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-autocomplete-input": "^5.0.1",
     "react-native-calendar-picker": "^7.0.9",
     "react-native-dialog": "^6.1.2",
     "react-native-dropdown-picker": "^3.8.0",

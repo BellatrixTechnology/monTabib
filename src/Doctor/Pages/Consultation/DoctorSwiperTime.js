@@ -9,14 +9,12 @@ import { styles } from './styless';
 
 import AsyncStorage from '@react-native-community/async-storage';
 const DoctorSwiperTime = (navigation) => {
-    console.log(navigation, 'saas')
     const [id, setid] = useState(0);
     const Name = navigation.route.params.Name
     const nameLabel = navigation.route.params.nameValue
     const consultLabel = navigation.route.params.ServiceLabel
     const consult = navigation.route.params.service
     const date = navigation.route.params.Next
-    console.log(date, '---', navigation.route.params.Next)
     const [day1, setDay1] = useState([])
     const [day2, setDay2] = useState([])
     const [day3, setDay3] = useState([])
@@ -63,10 +61,10 @@ const DoctorSwiperTime = (navigation) => {
                 {
                     method: "GET",
                 }).then((res) => {
-                    console.log('jll', res)
                     if (res.ok == true) {
                         res.json().then((dat) => {
-                            console.log(dat, 'saasdas')
+                            console.log(dat);
+
                             setDay1(dat.availabilities)
                         }).catch((error) => { console.log(error) })
                     } else {
@@ -256,7 +254,6 @@ const DoctorSwiperTime = (navigation) => {
     }
 
 
-    console.log(moment(date[0].date).format('dddd'), moment(date[1].date).format('dddd'), moment(date[2].date).format('dddd'), moment(date[3].date).format('dddd'), moment(date[4].date).format('dddd'), moment(date[5].date).format('dddd'), moment(date[6].date).format('dddd'))
     return (
         <SafeAreaView style={styles.safeContainer}>
             <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#45347a" translucent={false} />

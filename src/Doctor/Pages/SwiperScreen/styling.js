@@ -14,6 +14,14 @@ export const styling = StyleSheet.create({
         width: wp(90),
         height: hp(85)
     },
+    autocompleteContainer: {
+        flex: 1,
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        zIndex: 1
+    },
     slide1: {
         padding: 10,
         flex: 1,
@@ -59,11 +67,12 @@ export const styling = StyleSheet.create({
         alignItems: 'center'
     },
     dropdownsView: {
+        width: wp(90),
         height: hp(5),
         alignItems: 'center',
         alignSelf: 'center',
         marginBottom: 5,
-        marginTop: hp(2)
+        marginTop: hp(2),
     },
     PickerdownsView: {
         height: hp(5),
@@ -84,16 +93,16 @@ export const styling = StyleSheet.create({
         alignItems: 'center'
     },
     dropDown: {
-        width: wp(90),
+        width: wp(42),
     },
     dropdownLabel: {
         color: 'grey'
     },
     dropdownStyle: {
-        width: wp(90),
+        width: wp(42),
     },
     dropdowncontainerStyle: {
-        width: wp(90),
+        width: wp(42),
     },
     innerFieldView: {
         marginTop: 10

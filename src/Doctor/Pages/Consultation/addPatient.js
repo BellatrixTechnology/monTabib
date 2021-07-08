@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, View, TouchableOpacity, ToastAndroid, ScrollView, SafeAreaView } from 'react-native';
+import { FlatList, View, TouchableOpacity, ToastAndroid, ScrollView, SafeAreaView, ActivityIndicator } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -45,6 +45,8 @@ const addPatient = (props) => {
     const [consult, setConsult] = useState([])
     const [markers, setMarkers] = useState([])
     const [userData, setUserData] = useState('')
+    const [loading, setLoadings] = useState(true)
+
     const today = new Date()
     const [next, setNext] = useState([])
     useEffect(() => {
@@ -75,7 +77,6 @@ const addPatient = (props) => {
             setUserData(parsed1);
 
             getdates()
-
         }
         catch (error) {
             console.log(error)
@@ -87,6 +88,8 @@ const addPatient = (props) => {
         }).then((response) => response.json())
             .then(async (responseJson) => {
                 await motif(responseJson.motifs)
+                setLoadings(false)
+
             })
             .catch((error) => {
                 console.error(error);
@@ -158,365 +161,367 @@ const addPatient = (props) => {
 
 
             <View style={styling.mainAddView}>
-                <View style={styling.headView}>
-                    <TouchableOpacity>
-                        <Icons name='circle-with-cross' size={30} color='white' onPress={() => { props.navigation.goBack() }} />
-                    </TouchableOpacity>
-                </View>
-                {main && <View style={styling.addPatientView}>
-                    <View style={styling.checkView}>
-                        <Text style={styling.removeTXT}>If patient not registered check it!</Text>
-                        <Icon.Button name='checkcircle' backgroundColor='white' color={!check ? 'black' : 'green'} onPress={() => {
-                            if (!check) {
-                                setCheck(true)
+                {loading ? <ActivityIndicator color='white' size='small' /> :
+                    <>
+                        <View style={styling.headView}>
+                            <TouchableOpacity>
+                                <Icons name='circle-with-cross' size={30} color='white' onPress={() => { props.navigation.goBack() }} />
+                            </TouchableOpacity>
+                        </View>
+                        {main && <View style={styling.addPatientView}>
+                            <View style={styling.checkView}>
+                                <Text style={styling.removeTXT}>If patient not registered check it!</Text>
+                                <Icon.Button name='checkcircle' backgroundColor='white' color={!check ? 'black' : 'green'} onPress={() => {
+                                    if (!check) {
+                                        setCheck(true)
+                                    }
+                                    else setCheck(false)
+                                }}></Icon.Button>
+                            </View>
+
+                            {check && <View style={styling.patientDataView}>
+                                <Text style={styling.headTXT}>Patient Detail</Text>
+                                <Input
+                                    placeholder='First Name'
+                                    value={firstName}
+                                    onChangeText={(val) => {
+                                        SetFName(val)
+                                    }}
+                                />
+                                <Input
+                                    placeholder='Second Name'
+                                    value={secondName}
+                                    onChangeText={(val) => {
+                                        SetSName(val)
+                                    }}
+                                />
+                                <Input
+                                    placeholder='Date Of Birth'
+                                    value={DOB}
+                                    onChangeText={(val) => {
+                                        SetDOB(val)
+                                    }}
+                                />
+
+                                <View style={styling.dropdownView}>
+                                    <DropDownPicker
+                                        items={consult}
+                                        defaultValue={service}
+                                        placeholder='Service Type'
+                                        labelStyle={styling.dropdownLabel}
+                                        style={styling.dropDown}
+                                        containerStyle={styling.containerStyle}
+                                        dropDownStyle={styling.dropdownStyle}
+                                        showArrow={true}
+                                        onChangeItem={(service) => {
+                                            setService(service.value)
+                                        }}
+
+                                    />
+                                </View>
+
+                                <View style={styling.opacityView}>
+                                    <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                        setCheck(false)
+                                        let newMarkers = [...markers];
+                                        newMarkers.push(
+                                            firstName
+                                        )
+                                        setMarkers(newMarkers)
+                                    }}          >
+                                        <Text style={styling.Opacitytxt}>SAVE</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>}
+
+                            {!check &&
+                                <View style={styling.patientDropView}>
+                                    <View style={styling.dropdownView}>
+                                        <DropDownPicker
+                                            items={[
+                                                { label: 'Alex', value: '/api/patients/31' },
+                                                { label: 'Daniyal', value: '/api/patients/31' }
+                                            ]}
+                                            defaultValue={firstName}
+                                            placeholder='Patient Name'
+                                            labelStyle={styling.dropdownLabel}
+                                            style={styling.dropDown}
+                                            containerStyle={styling.containerStyle}
+                                            dropDownStyle={styling.dropdownStyle}
+                                            showArrow={true}
+                                            onChangeItem={(val) => {
+                                                SetFName(val.value)
+                                                setName(val.label)
+                                            }}
+
+                                        />
+
+
+                                    </View>
+                                    <View style={styling.dropdownView}>
+                                        {/* <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}> */}
+                                        <DropDownPicker
+                                            items={consult}
+                                            defaultValue={service}
+                                            placeholder='Service Type'
+                                            labelStyle={styling.dropdownLabel}
+                                            style={styling.dropDown}
+                                            containerStyle={styling.containerStyle}
+                                            dropDownStyle={styling.dropdownStyle}
+                                            showArrow={true}
+                                            onChangeItem={(service) => {
+                                                setService(service.value)
+                                                setServiceLAbel(service.label)
+                                            }}
+
+                                        />
+                                    </View>
+
+                                    <View style={styling.opacityView}>
+                                        <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                            // setMain(false)
+                                            // setTimeView(true)
+                                            props.navigation.navigate('DoctorSwiperTime', { Name: name, ServiceLabel: serviceLabel, service: service, nameValue: firstName, Next: next })
+                                        }}          >
+                                            <Text style={styling.Opacitytxt}>NEXT</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+
+                                </View>
                             }
-                            else setCheck(false)
-                        }}></Icon.Button>
-                    </View>
 
-                    {check && <View style={styling.patientDataView}>
-                        <Text style={styling.headTXT}>Patient Detail</Text>
-                        <Input
-                            placeholder='First Name'
-                            value={firstName}
-                            onChangeText={(val) => {
-                                SetFName(val)
-                            }}
-                        />
-                        <Input
-                            placeholder='Second Name'
-                            value={secondName}
-                            onChangeText={(val) => {
-                                SetSName(val)
-                            }}
-                        />
-                        <Input
-                            placeholder='Date Of Birth'
-                            value={DOB}
-                            onChangeText={(val) => {
-                                SetDOB(val)
-                            }}
-                        />
+                        </View>}
 
-                        <View style={styling.dropdownView}>
-                            <DropDownPicker
-                                items={consult}
-                                defaultValue={service}
-                                placeholder='Service Type'
-                                labelStyle={styling.dropdownLabel}
-                                style={styling.dropDown}
-                                containerStyle={styling.containerStyle}
-                                dropDownStyle={styling.dropdownStyle}
-                                showArrow={true}
-                                onChangeItem={(service) => {
-                                    setService(service.value)
-                                }}
+                        {timeView && <View style={styling.addPatientView}>
+                            <View style={styling.timeView}>
+                                <View style={styling.headerView}>
+                                    <Text style={styling.headTXT}>Select Time</Text>
+                                </View>
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Monday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectMon ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setMonSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Monday')
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectMon ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
 
-                            />
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Tuesday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectTues ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setTuesSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Tuesday')
+                                                            console.log(time)
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectTues ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
+
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Wednesday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectWed ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setWedSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Wednesday')
+
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectWed ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
+
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Thursday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectThur ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setThurSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Thursday')
+
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectThur ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
+
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Friday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectFri ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setFriSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Friday')
+
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectFri ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Saturday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectSat ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setSatSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Saturday')
+
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectSat ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
+
+                                    <View style={styling.dayView}>
+                                        <Text style={styling.headTXT}>Sunday</Text>
+                                    </View>
+                                    <View style={styling.selecttimeView}>
+                                        <FlatList
+                                            horizontal={true}
+                                            showsHorizontalScrollIndicator={false}
+                                            data={Monday}
+                                            renderItem={(val, index) => {
+                                                return (
+                                                    <TouchableOpacity style={val.index == selectSun ? styling.selecttimeOpacity : styling.timeOpacity}
+                                                        onPress={() => {
+                                                            setSunSelect(val.index)
+                                                            setTime(val.item.Time)
+                                                            setdate('Sunday')
+
+                                                        }}
+                                                    >
+                                                        <Text style={val.index == selectSun ? styling.selecttimeTxt : styling.timeTxt}>
+                                                            {val.item.Time}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={styling.opacityView}>
+                                        <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                            setMain(false)
+                                            setTimeView(false)
+                                            setDetail(true)
+                                        }}          >
+                                            <Text style={styling.Opacitytxt}>NEXT</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </ScrollView>
+                            </View>
+
+
+
+                        </View>}
+
+                        {detail && <View style={styling.addPatientView}>
+                            <View style={styling.detailsView} >
+                                <View style={styling.headerView}>
+                                    <Text style={styling.headTXT}>Patient Detail</Text>
+                                </View>
+                                <View style={styling.innerDetail}>
+                                    <Text style={styling.headTXT}>Name:  Chloe</Text>
+                                    {/* <Text style={styling.headTXT}>Second Name:  none</Text> */}
+                                    {/* <Text style={styling.headTXT}>Date of Birth:  {DOB}</Text> */}
+                                    <Text style={styling.headTXT}>Service:  CheckUp</Text>
+                                    <Text style={styling.headTXT}>Date & Time:  {time} - {date}</Text>
+
+                                </View>
+                                <View style={styling.opacityPView}>
+                                    <TouchableOpacity style={styling.OpacityLog} onPress={() => {
+                                        // uploaded();
+                                        // props.navigation.goBack()
+                                        SaveRecord()
+
+                                    }}>
+                                        <Text style={styling.Opacitytxt}>Proceed</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                            </View>
                         </View>
-
-                        <View style={styling.opacityView}>
-                            <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                setCheck(false)
-                                let newMarkers = [...markers];
-                                newMarkers.push(
-                                    firstName
-                                )
-                                setMarkers(newMarkers)
-                            }}          >
-                                <Text style={styling.Opacitytxt}>SAVE</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>}
-
-                    {!check &&
-                        <View style={styling.patientDropView}>
-                            <View style={styling.dropdownView}>
-                                <DropDownPicker
-                                    items={[
-                                        { label: 'Alex', value: '/api/patients/31' },
-                                        { label: 'Daniyal', value: '/api/patients/31' }
-                                    ]}
-                                    defaultValue={firstName}
-                                    placeholder='Patient Name'
-                                    labelStyle={styling.dropdownLabel}
-                                    style={styling.dropDown}
-                                    containerStyle={styling.containerStyle}
-                                    dropDownStyle={styling.dropdownStyle}
-                                    showArrow={true}
-                                    onChangeItem={(val) => {
-                                        SetFName(val.value)
-                                        setName(val.label)
-                                    }}
-
-                                />
-
-
-                            </View>
-                            <View style={styling.dropdownView}>
-                                {/* <View style={{ height: hp(8), width: wp(70), borderWidth: 0.5, borderRadius: 10 }}> */}
-                                <DropDownPicker
-                                    items={consult}
-                                    defaultValue={service}
-                                    placeholder='Service Type'
-                                    labelStyle={styling.dropdownLabel}
-                                    style={styling.dropDown}
-                                    containerStyle={styling.containerStyle}
-                                    dropDownStyle={styling.dropdownStyle}
-                                    showArrow={true}
-                                    onChangeItem={(service) => {
-                                        setService(service.value)
-                                        setServiceLAbel(service.label)
-                                    }}
-
-                                />
-                            </View>
-
-                            <View style={styling.opacityView}>
-                                <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                    // setMain(false)
-                                    // setTimeView(true)
-                                    props.navigation.navigate('DoctorSwiperTime', { Name: name, ServiceLabel: serviceLabel, service: service, nameValue: firstName, Next: next })
-                                }}          >
-                                    <Text style={styling.Opacitytxt}>NEXT</Text>
-                                </TouchableOpacity>
-                            </View>
-
-
-                        </View>
-                    }
-
-                </View>}
-
-                {timeView && <View style={styling.addPatientView}>
-                    <View style={styling.timeView}>
-                        <View style={styling.headerView}>
-                            <Text style={styling.headTXT}>Select Time</Text>
-                        </View>
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Monday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectMon ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setMonSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Monday')
-                                                }}
-                                            >
-                                                <Text style={val.index == selectMon ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Tuesday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectTues ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setTuesSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Tuesday')
-                                                    console.log(time)
-                                                }}
-                                            >
-                                                <Text style={val.index == selectTues ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Wednesday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectWed ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setWedSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Wednesday')
-
-                                                }}
-                                            >
-                                                <Text style={val.index == selectWed ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Thursday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectThur ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setThurSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Thursday')
-
-                                                }}
-                                            >
-                                                <Text style={val.index == selectThur ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Friday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectFri ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setFriSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Friday')
-
-                                                }}
-                                            >
-                                                <Text style={val.index == selectFri ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Saturday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectSat ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setSatSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Saturday')
-
-                                                }}
-                                            >
-                                                <Text style={val.index == selectSat ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-
-                            <View style={styling.dayView}>
-                                <Text style={styling.headTXT}>Sunday</Text>
-                            </View>
-                            <View style={styling.selecttimeView}>
-                                <FlatList
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                    data={Monday}
-                                    renderItem={(val, index) => {
-                                        return (
-                                            <TouchableOpacity style={val.index == selectSun ? styling.selecttimeOpacity : styling.timeOpacity}
-                                                onPress={() => {
-                                                    setSunSelect(val.index)
-                                                    setTime(val.item.Time)
-                                                    setdate('Sunday')
-
-                                                }}
-                                            >
-                                                <Text style={val.index == selectSun ? styling.selecttimeTxt : styling.timeTxt}>
-                                                    {val.item.Time}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }}
-                                />
-                            </View>
-                            <View style={styling.opacityView}>
-                                <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                    setMain(false)
-                                    setTimeView(false)
-                                    setDetail(true)
-                                }}          >
-                                    <Text style={styling.Opacitytxt}>NEXT</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ScrollView>
-                    </View>
-
-
-
-                </View>}
-
-                {detail && <View style={styling.addPatientView}>
-                    <View style={styling.detailsView} >
-                        <View style={styling.headerView}>
-                            <Text style={styling.headTXT}>Patient Detail</Text>
-                        </View>
-                        <View style={styling.innerDetail}>
-                            <Text style={styling.headTXT}>Name:  Chloe</Text>
-                            {/* <Text style={styling.headTXT}>Second Name:  none</Text> */}
-                            {/* <Text style={styling.headTXT}>Date of Birth:  {DOB}</Text> */}
-                            <Text style={styling.headTXT}>Service:  CheckUp</Text>
-                            <Text style={styling.headTXT}>Date & Time:  {time} - {date}</Text>
-
-                        </View>
-                        <View style={styling.opacityPView}>
-                            <TouchableOpacity style={styling.OpacityLog} onPress={() => {
-                                // uploaded();
-                                // props.navigation.goBack()
-                                SaveRecord()
-
-                            }}>
-                                <Text style={styling.Opacitytxt}>Proceed</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-                </View>
-                }
-
+                        }
+                    </>}
             </View>
         </SafeAreaView >
     )
